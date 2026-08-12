@@ -6,12 +6,17 @@ const approvedIds = new Set([
   "pass-soseki-ind-02",
   "pass-soseki-ind-03",
   "pass-soseki-gara-01",
+  "pass-soseki-gara-02",
   "pass-soseki-kokoro-01",
+  "pass-soseki-kokoro-02",
+  "pass-soseki-kokoro-03",
   "pass-akutagawa-shuju-01",
   "pass-akutagawa-shuju-02",
   "pass-akutagawa-shuju-03",
   "pass-akutagawa-ahou-01",
+  "pass-akutagawa-ahou-02",
   "pass-akutagawa-hagu-01",
+  "pass-akutagawa-hagu-02",
   "pass-dazai-tsugaru-01",
   "pass-dazai-tsugaru-02",
   "pass-dazai-fugaku-01",
@@ -39,8 +44,8 @@ function buildReview(passageId: string): PassageReview {
     reviewer: approved ? "archive-curator" : undefined,
     reviewedAt: approved ? "2026-08-12" : undefined,
     notes: approved
-      ? "青空文庫本文と照合済み。verified ≠ authorial を確認。"
-      : "placeholder。原文照合後に承認する。",
+      ? "青空文庫本文と照合済み。verified ≠ approved を分離して確認。"
+      : "未承認。原文照合と curator review が必要。",
   };
 }
 

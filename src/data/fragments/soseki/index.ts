@@ -59,12 +59,14 @@ export const sosekiFragments: ThoughtFragment[] = [
     sourceId: "src-soseki-garasudo",
     passageId: "pass-soseki-gara-02",
     normalizedMeaning:
-      "老いと病は、社会的役割の縮退と自己観察の深化を同時に連れてくる、という読書上の仮説（placeholder）。",
-    themes: ["aging", "self", "loneliness", "fatigue", "death"],
-    interpretationType: "critical-inference",
+      "自伝的記述では、母の記憶がいくら辿っても老いた姿としてしか呼び起せない、と記されている。老いと記憶の非対称が、観察者自身の年齢とともに前景化する。",
+    themes: ["aging", "self", "loneliness", "family", "observation"],
+    interpretationType: "biographical-context",
     authorialDistance: "near",
     lifeStage: "late life",
-    confidence: "low",
+    confidence: "medium",
+    interpretiveNotes:
+      "NEAR AUTHORIAL。自伝的記述を客観的事実の証明として扱わない。",
   },
   {
     id: "frag-soseki-kokoro-01",
@@ -87,12 +89,13 @@ export const sosekiFragments: ThoughtFragment[] = [
     sourceId: "src-soseki-kokoro",
     passageId: "pass-soseki-kokoro-02",
     normalizedMeaning:
-      "信頼と罪責は親密関係の内部で増幅し、他者との距離を修復不能にする——という構図が作品に現れる（placeholder）。",
+      "『こころ』には、罪責と他者との関係をめぐる視点が現れる。登場人物「先生」は、恋を罪悪と呼ぶ。作者本人の一般思想への直結はしない。",
     themes: ["intimacy", "shame", "loneliness", "love", "fear"],
     interpretationType: "narrative-perspective",
     authorialDistance: "indirect",
-    confidence: "low",
-    interpretiveNotes: "登場人物「先生」の視点。作者本人の断定ではない。",
+    confidence: "medium",
+    interpretiveNotes:
+      "WORK VOICE。fictional_character。漱石は〜と考えていた、と書かない。",
   },
   {
     id: "frag-soseki-kokoro-03",
@@ -100,11 +103,12 @@ export const sosekiFragments: ThoughtFragment[] = [
     sourceId: "src-soseki-kokoro",
     passageId: "pass-soseki-kokoro-03",
     normalizedMeaning:
-      "金銭や社会的地位は、近代的関係の中で信頼と罪悪感を媒介する要素として描かれうる（placeholder）。",
-    themes: ["money", "modernization", "society", "intimacy", "happiness"],
-    interpretationType: "work-level-theme",
+      "作品内では、財産の始末が人間関係の面倒を生む、という助言が登場人物の口から語られる。金銭は近代的関係の緊張を媒介する要素として描かれる。",
+    themes: ["money", "modernization", "society", "intimacy", "obligation"],
+    interpretationType: "narrative-perspective",
     authorialDistance: "indirect",
-    confidence: "low",
+    confidence: "medium",
+    interpretiveNotes: "WORK VOICE。作者の経済思想の要約ではない。",
   },
   {
     id: "frag-soseki-kokoro-04",
@@ -117,6 +121,6 @@ export const sosekiFragments: ThoughtFragment[] = [
     interpretationType: "work-level-theme",
     authorialDistance: "indirect",
     confidence: "low",
-    interpretiveNotes: "作者の死と接続しない。",
+    interpretiveNotes: "作者の死と接続しない。WORK VOICE の延長解釈。",
   },
 ];

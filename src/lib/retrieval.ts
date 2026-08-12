@@ -1,9 +1,12 @@
 import { getFragmentsByPersonId } from "@/data/fragments";
 import { getPassageById } from "@/data/passages";
 import { getPassageReview } from "@/data/reviews/passages";
+import { getFragmentReview } from "@/data/reviews/fragments";
 import { authorialDistanceBonus } from "@/lib/archive-distance";
 import { isApprovedDirectEvidence } from "@/lib/evidence";
+import { detectOverclaimRisk } from "@/lib/overclaim";
 import type { QuestionAnalysis } from "@/types/question-analysis";
+import type { ScoreBreakdown } from "@/types/retrieval-audit";
 import type {
   FragmentConfidence,
   ThemeTag,
@@ -69,67 +72,138 @@ function confidenceBonus(confidence: FragmentConfidence): number {
   }
 }
 
-function scoreFragment(
+export function matchedThemesFor(
+  fragment: ThoughtFragment,
+  analysis: QuestionAnalysis,
+): ThemeTag[] {
+  const themeSet = new Set(analysis.relevantThemes);
+  return fragment.themes.filter((theme) => themeSet.has(theme));
+}
+
+export function scoreFragmentBreakdown(
   fragment: ThoughtFragment,
   analysis: QuestionAnalysis,
   personId: string,
-): number {
+): ScoreBreakdown {
   const themeSet = new Set(analysis.relevantThemes);
-  let score = 0;
+  let themeRelevance = 0;
 
   for (const theme of fragment.themes) {
     if (themeSet.has(theme)) {
-      score += 3;
+      themeRelevance += 3;
       if (PRIORITY_THEMES.includes(theme)) {
-        score += theme === "creativity" || theme === "death" ? 3.5 : 2;
+        themeRelevance += theme === "creativity" || theme === "death" ? 3.5 : 2;
       }
     }
   }
 
+  let lensRelevance = 0;
   const lensBonus = PERSON_LENS_BONUS[personId] ?? [];
   for (const theme of fragment.themes) {
     if (lensBonus.includes(theme) && themeSet.has(theme)) {
-      score += 1.5;
+      lensRelevance += 1.5;
     } else if (lensBonus.includes(theme)) {
-      score += 0.35;
+      lensRelevance += 0.35;
     }
   }
 
-  score += authorialDistanceBonus(fragment.authorialDistance);
-  score += confidenceBonus(fragment.confidence);
+  const authorial = authorialDistanceBonus(fragment.authorialDistance);
+  const confidence = confidenceBonus(fragment.confidence);
 
   const passage = getPassageById(fragment.passageId);
   const review = passage ? getPassageReview(passage.id) : undefined;
+  let evidenceBonus = 0;
   if (passage && isApprovedDirectEvidence(passage, review)) {
-    score += 2.5; // prefer curated verified evidence without excluding others
+    evidenceBonus += 2.5;
   } else if (passage?.verificationStatus === "verified") {
-    score += 1;
+    evidenceBonus += 1;
   }
 
-  // Keep strong thematic hits even when indirect (novels).
   const themeHits = fragment.themes.filter((theme) => themeSet.has(theme)).length;
+  let diversityAdjustment = 0;
   if (fragment.authorialDistance === "indirect" && themeHits >= 2) {
-    score += 1.25;
+    diversityAdjustment += 1.25;
   }
 
-  return score;
+  const total =
+    themeRelevance +
+    lensRelevance +
+    authorial +
+    confidence +
+    evidenceBonus +
+    diversityAdjustment;
+
+  return {
+    themeRelevance,
+    lensRelevance,
+    authorialDistance: authorial,
+    confidence,
+    evidenceBonus,
+    diversityAdjustment,
+    total,
+  };
+}
+
+export function isRetrievableFragment(fragment: ThoughtFragment): {
+  ok: boolean;
+  reasons: string[];
+} {
+  const reasons: string[] = [];
+  const passage = getPassageById(fragment.passageId);
+  const review = passage ? getPassageReview(passage.id) : undefined;
+  const fragReview = getFragmentReview(fragment.id);
+  const auto = detectOverclaimRisk(fragment, passage);
+  // Prefer the higher risk between curator review and live detector.
+  const riskRank = { low: 0, medium: 1, high: 2 } as const;
+  const reviewed = fragReview?.overclaimRisk ?? "low";
+  const risk =
+    riskRank[auto.risk] >= riskRank[reviewed] ? auto.risk : reviewed;
+
+  if (!passage) {
+    reasons.push("missing passage");
+    return { ok: false, reasons };
+  }
+  if (review?.reviewStatus === "rejected") {
+    reasons.push("rejected review");
+    return { ok: false, reasons };
+  }
+  if (risk === "high") {
+    reasons.push("high overclaim risk");
+    return { ok: false, reasons };
+  }
+
+  return { ok: true, reasons };
+}
+
+export function isPrimaryEvidenceEligible(fragment: ThoughtFragment): boolean {
+  const passage = getPassageById(fragment.passageId);
+  const review = passage ? getPassageReview(passage.id) : undefined;
+  if (!passage || !review) return false;
+  if (review.reviewStatus === "needs-review") return false;
+  if (review.reviewStatus === "rejected") return false;
+  if (passage.verificationStatus === "placeholder") return false;
+  return true;
 }
 
 /**
  * Deterministic mock retriever.
  * Scoring: theme relevance + person lens + authorialDistance + confidence.
  * Diversity: prefer 2–3 distinct sources per person.
+ * Gate: rejected / high-overclaim never enter; needs-review cannot be primary.
  */
 export class MockPerspectiveRetriever implements PerspectiveRetriever {
   async retrieve(
     personId: string,
     analysis: QuestionAnalysis,
   ): Promise<ThoughtFragment[]> {
-    const pool = getFragmentsByPersonId(personId);
+    const pool = getFragmentsByPersonId(personId).filter(
+      (fragment) => isRetrievableFragment(fragment).ok,
+    );
     const ranked = pool
       .map((fragment) => ({
         fragment,
-        score: scoreFragment(fragment, analysis, personId),
+        score: scoreFragmentBreakdown(fragment, analysis, personId).total,
+        primary: isPrimaryEvidenceEligible(fragment),
       }))
       .sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
@@ -140,9 +214,10 @@ export class MockPerspectiveRetriever implements PerspectiveRetriever {
     const usedThemes = new Set<ThemeTag>();
     const usedSources = new Set<string>();
 
-    // Pass 1: distinct sources, up to 3.
+    // Pass 1: distinct sources, primary-eligible only, up to 3.
     for (const item of ranked) {
       if (selected.length >= 3) break;
+      if (!item.primary) continue;
       if (usedSources.has(item.fragment.sourceId)) continue;
 
       const novelTheme = item.fragment.themes.some((t) => !usedThemes.has(t));
@@ -157,6 +232,7 @@ export class MockPerspectiveRetriever implements PerspectiveRetriever {
     for (const item of ranked) {
       if (selected.length >= 5) break;
       if (selected.some((f) => f.id === item.fragment.id)) continue;
+      if (!item.primary) continue;
 
       const sourceUsed = usedSources.has(item.fragment.sourceId);
       if (sourceUsed && usedSources.size < 3) continue;
@@ -166,6 +242,7 @@ export class MockPerspectiveRetriever implements PerspectiveRetriever {
       usedSources.add(item.fragment.sourceId);
     }
 
+    // Pass 3: only if under-filled, allow non-primary (needs-review) as secondary.
     if (selected.length < 2) {
       for (const item of ranked) {
         if (selected.some((f) => f.id === item.fragment.id)) continue;

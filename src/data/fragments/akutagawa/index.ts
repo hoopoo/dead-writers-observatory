@@ -58,11 +58,13 @@ export const akutagawaFragments: ThoughtFragment[] = [
     sourceId: "src-akutagawa-ahou",
     passageId: "pass-akutagawa-ahou-02",
     normalizedMeaning:
-      "近代的生活のテンポは、神経の疲労と不安を日常の条件として抱え込みうる（placeholder）。",
-    themes: ["modernization", "anxiety", "fatigue", "society", "work"],
+      "自伝的断章では、書棚に並ぶ西洋の名が「世紀末それ自身」として眺められる。近代の精神風景が、蔵書の視線を通して前景化する。",
+    themes: ["modernization", "anxiety", "fatigue", "society", "observation"],
     interpretationType: "biographical-context",
     authorialDistance: "near",
-    confidence: "low",
+    confidence: "medium",
+    interpretiveNotes:
+      "NEAR AUTHORIAL。時代診断の客観的真実としては扱わない。",
   },
   {
     id: "frag-akutagawa-hagu-01",
@@ -84,11 +86,13 @@ export const akutagawaFragments: ThoughtFragment[] = [
     sourceId: "src-akutagawa-haguruma",
     passageId: "pass-akutagawa-hagu-02",
     normalizedMeaning:
-      "老いと死への恐怖が、意識の先取りとして描かれることがある（placeholder）。",
-    themes: ["aging", "death", "anxiety", "fear", "observation"],
+      "語り手は、良心ではなく神経だけを持つ、と自ら記した言葉を回想する。不安と自己観察が、倫理的自己像の欠落として現れる——作品内の視点。",
+    themes: ["fatigue", "anxiety", "observation", "self", "shame"],
     interpretationType: "narrative-perspective",
     authorialDistance: "indirect",
-    confidence: "low",
+    confidence: "medium",
+    interpretiveNotes:
+      "WORK VOICE。自殺説明や医療判断の代替に使わない。",
   },
   {
     id: "frag-akutagawa-shuju-04",

@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "eval:fixtures": "tsx scripts/eval-fixtures.ts",
-    "review:archive": "tsx scripts/review-archive.ts"
+    "review:archive": "tsx scripts/review-archive.ts",
+    "eval:rag-readiness": "tsx scripts/eval-rag-readiness.ts",
+    "eval:curator-gates": "tsx scripts/eval-curator-gates.ts"
   },
   "dependencies": {
     "next": "^15.5.2",
