@@ -216,8 +216,24 @@ Evidence decides whether those claims survive.
 ```
 
 Default generation mode: `deterministic-claims`.
-LLM claim / prose generators are not connected yet.
-`/observe` user prose is unchanged by default.
+LLM Claim Proposal is experiment-only (`/curator/claim-experiments`).
+It does **not** replace the deterministic generator and does **not** feed `/observe` skeletons yet.
+`llm-prose` remains unimplemented.
+
+```bash
+# CLAIM_LLM_PROVIDER=openai
+# OPENAI_CLAIM_MODEL=gpt-4o-mini
+# LLM_CLAIM_PROMPT_VERSION=v1
+npm run eval:llm-claims
+npx tsx scripts/persist-llm-claim-human-evals.ts
+npm run eval:llm-claim-human
+```
+
+```
+LLM proposes.
+Evidence decides.
+Human judges whether the proposal is worth keeping.
+```
 
 ## Claim Human Evaluation
 

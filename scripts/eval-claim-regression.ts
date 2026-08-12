@@ -194,6 +194,107 @@ async function main() {
   assert(packet.tensions.length >= 0, "tensions field present");
   console.log("7. contradiction preservation field: PASS");
 
+  // LLM proposal gates (offline — no provider required)
+  const { proposalToPerspectiveClaim, validateProposalSchema } = await import(
+    "../src/lib/claims/llm/convert"
+  );
+  const { dedupeProposals, assessNoveltyAgainst } = await import(
+    "../src/lib/claims/llm/novelty"
+  );
+
+  const badIdProposal = {
+    temporaryId: "t-bad",
+    claimType: "modern-transfer" as const,
+    text: "資料の観点を現在の職業変化へ接続できる。",
+    evidenceIds: ["not-in-packet"],
+    proposedSupport: "supported" as const,
+    proposedAuthorialAttribution: "none" as const,
+    proposedInterpretationDistance: "high" as const,
+    proposedHistoricalTransfer: "explicit" as const,
+    rationale: "test",
+  };
+  assert(
+    validateProposalSchema(badIdProposal, packet).includes("evidence-id-invalid"),
+    "invalid evidence ID blocked at schema",
+  );
+  const badClaim = proposalToPerspectiveClaim({
+    proposal: badIdProposal,
+    packet,
+    providerName: "test",
+    modelName: "test",
+    promptVersion: "v1",
+  });
+  const badVal = defaultClaimValidator.validate(
+    { ...badClaim, generatorOrigin: "llm" },
+    packet,
+  );
+  assert(!badVal.allowed, "packet-outside evidence cannot enter");
+  console.log("8. packet outside / invalid evidence ID blocked: PASS");
+
+  const rqWriter = {
+    id: "rq-writer",
+    personId: "person-soseki",
+    claimType: "returned-question" as const,
+    text: "漱石はあなたに問うでしょう。何を恐れていますか。",
+    evidenceIds: packet.evidence.slice(0, 1).map((e) => e.id),
+    supportStatus: "unclear" as const,
+    authorialAttribution: "none" as const,
+    interpretationDistance: "high" as const,
+    historicalTransfer: "explicit" as const,
+    confidence: "medium" as const,
+    allowedInFinalPerspective: true,
+    validationIssues: [],
+    generatorOrigin: "llm" as const,
+  };
+  const rqVal = defaultClaimValidator.validate(rqWriter, packet);
+  assert(
+    rqVal.issues.includes("authorial-overreach") || !rqVal.allowed,
+    "returned question has no writer attribution voice",
+  );
+  console.log("9. returned question writer voice blocked: PASS");
+
+  const flat = {
+    id: "flat-contradiction",
+    personId: packet.personId,
+    claimType: "cross-evidence-synthesis" as const,
+    text: "資料を読むと矛盾は解消され、本質は一つにまとまる。",
+    evidenceIds: packet.evidence.slice(0, 2).map((e) => e.id),
+    supportStatus: "unclear" as const,
+    authorialAttribution: "mixed" as const,
+    interpretationDistance: "medium" as const,
+    historicalTransfer: "none" as const,
+    confidence: "medium" as const,
+    allowedInFinalPerspective: true,
+    validationIssues: [],
+    generatorOrigin: "llm" as const,
+  };
+  const flatVal = defaultClaimValidator.validate(flat, packet);
+  assert(
+    flatVal.issues.includes("contradiction-flattened") || !flatVal.allowed,
+    "contradictions must not be flattened",
+  );
+  console.log("10. contradiction flattening blocked: PASS");
+
+  const dups = dedupeProposals([
+    validated[0],
+    { ...validated[0], id: "dup-2", text: validated[0].text },
+    validated[1] ?? validated[0],
+  ]);
+  assert(dups.length < 3, "duplicate proposals reduced");
+  const novelty = assessNoveltyAgainst(
+    { ...validated[0], id: "novel-test", text: validated[0].text },
+    validated,
+  );
+  assert(
+    novelty.novelty === "duplicate" || novelty.novelty === "similar",
+    "novelty detector sees near-duplicates",
+  );
+  assert(
+    validated.every((c) => (c.generatorOrigin ?? "deterministic") === "deterministic"),
+    "deterministic claims unchanged origin",
+  );
+  console.log("11. duplicate reduction + deterministic origin: PASS");
+
   // Restore default DB env for fixture sweep
   delete process.env.CURATOR_REVIEW_DB_PATH;
   closeReviewDb();

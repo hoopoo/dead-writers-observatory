@@ -32,8 +32,12 @@ export function getGenerationMode(): GenerationMode {
 export function createClaimGenerator(
   mode: GenerationMode = getGenerationMode(),
 ): PerspectiveClaimGenerator {
-  // LLM modes are not wired yet — always deterministic for now.
-  void mode;
+  // Public /observe and skeleton stay on deterministic claims.
+  // llm-claims is experiment-only via /curator/claim-experiments + eval scripts.
+  // llm-prose remains unimplemented.
+  if (mode === "llm-claims" || mode === "llm-prose") {
+    return defaultClaimGenerator;
+  }
   return defaultClaimGenerator;
 }
 
@@ -99,3 +103,8 @@ export {
 } from "@/lib/claims/approved";
 export { samplePriorityClaims } from "@/lib/claims/sampling";
 export { summarizeClaimHumanEvaluations } from "@/lib/claims/human-summary";
+export { runLlmClaimExperimentCase } from "@/lib/claims/llm/experiment";
+export {
+  createClaimLLMProvider,
+  ClaimLLMProviderUnavailableError,
+} from "@/lib/claims/llm/provider";

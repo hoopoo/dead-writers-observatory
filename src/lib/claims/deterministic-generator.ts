@@ -84,6 +84,7 @@ function baseClaim(
     supportStatus: "unclear",
     allowedInFinalPerspective: false,
     validationIssues: [],
+    generatorOrigin: partial.generatorOrigin ?? "deterministic",
   };
 }
 

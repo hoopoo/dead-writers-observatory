@@ -52,6 +52,9 @@ function assignSupport(
   for (const id of claim.evidenceIds) {
     if (!evidenceById(packet, id)) {
       issues.push("missing-evidence");
+      if (claim.generatorOrigin === "llm") {
+        issues.push("evidence-id-invalid");
+      }
       return "unsupported";
     }
   }
@@ -93,7 +96,12 @@ function decideAllowed(
     issues.includes("modern-concept-attributed-to-writer") ||
     issues.includes("authorial-overreach") ||
     issues.includes("unsupported-certainty") ||
-    issues.includes("historical-overreach")
+    issues.includes("historical-overreach") ||
+    issues.includes("external-knowledge-injection") ||
+    issues.includes("writer-stereotype-injection") ||
+    issues.includes("evidence-id-invalid") ||
+    issues.includes("proposal-schema-invalid") ||
+    issues.includes("contradiction-flattened")
   ) {
     return false;
   }
@@ -191,6 +199,22 @@ export class DefaultClaimValidator implements ClaimValidator {
       claim.authorialAttribution !== "none"
     ) {
       issues.push("authorial-overreach");
+    }
+
+    // Returned question must not speak as the writer addressing the user
+    if (
+      claim.claimType === "returned-question" &&
+      writerNamePatterns(claim.personId).some((p) => p.test(claim.text))
+    ) {
+      issues.push("authorial-overreach");
+    }
+
+    // Contradiction flattening: synthesis that asserts a single resolved essence
+    if (
+      claim.claimType === "cross-evidence-synthesis" &&
+      /本質は一つ|矛盾は解消|真意は/.test(claim.text)
+    ) {
+      issues.push("contradiction-flattened");
     }
 
     const uniqueIssues = Array.from(new Set(issues));

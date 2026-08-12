@@ -24,6 +24,8 @@
     "eval:claim-regression": "tsx scripts/eval-claim-regression.ts",
     "eval:claim-human": "tsx scripts/eval-claim-human.ts",
     "eval:perspective-skeleton": "tsx scripts/eval-perspective-skeleton.ts",
+    "eval:llm-claims": "tsx scripts/eval-llm-claims.ts",
+    "eval:llm-claim-human": "tsx scripts/eval-llm-claim-human.ts",
     "snapshot:claims": "tsx scripts/snapshot-claims.ts"
   },
   "dependencies": {

@@ -50,7 +50,19 @@ export type ClaimValidationIssue =
   | "modern-concept-attributed-to-writer"
   | "unsupported-certainty"
   | "insufficient-source-diversity"
-  | "contradiction-flattened";
+  | "contradiction-flattened"
+  | "external-knowledge-injection"
+  | "writer-stereotype-injection"
+  | "evidence-id-invalid"
+  | "proposal-schema-invalid";
+
+export type ClaimGeneratorOrigin = "deterministic" | "llm";
+
+export type ClaimExperimentStatus =
+  | "proposal"
+  | "validated"
+  | "human-approved"
+  | "rejected";
 
 export interface EvidencePacketItem {
   /** Stable id used by claim evidenceIds (usually fragmentId). */
@@ -119,6 +131,12 @@ export interface PerspectiveClaim {
   allowedInFinalPerspective: boolean;
   validationIssues: ClaimValidationIssue[];
   links?: ClaimEvidenceLink[];
+  /** Default deterministic when omitted (legacy claims). */
+  generatorOrigin?: ClaimGeneratorOrigin;
+  generatorProvider?: string;
+  generatorModel?: string;
+  promptVersion?: string;
+  experimentStatus?: ClaimExperimentStatus;
 }
 
 export interface ClaimValidationResult {

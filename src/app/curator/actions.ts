@@ -196,6 +196,7 @@ export async function saveClaimHumanEvaluationAction(
       DEFAULT_REVIEW_ACTOR,
     );
     revalidatePath("/curator/claims");
+    revalidatePath("/curator/claim-experiments");
     revalidatePath("/curator");
     return { ok: true, evaluation };
   } catch (error) {

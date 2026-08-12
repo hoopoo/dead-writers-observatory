@@ -1335,9 +1335,25 @@ main {
   color: var(--ink-soft);
 }
 
+.compare-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 960px) {
+  .compare-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .claim-card-grid {
   display: grid;
   gap: 1.25rem;
+}
+
+.warn {
+  color: #8a3b2b;
+  font-size: 0.92rem;
 }
 
 .claim-card {
