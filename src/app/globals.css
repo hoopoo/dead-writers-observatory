@@ -440,6 +440,16 @@ main {
   background: var(--direct-bg);
 }
 
+.provenance-reference {
+  color: #3a4f3f;
+  background: #e9f0ea;
+}
+
+.provenance-archive {
+  color: #4a3d2c;
+  background: #f2ebe2;
+}
+
 .provenance-interpretation {
   color: var(--interp);
   background: var(--interp-bg);
@@ -448,6 +458,136 @@ main {
 .provenance-inference {
   color: var(--infer);
   background: var(--infer-bg);
+}
+
+.evidence-card {
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.55);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.evidence-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.evidence-card__title {
+  margin: 0;
+  font-weight: 500;
+}
+
+.evidence-card__meta,
+.evidence-card__biblio {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.evidence-card__meaning {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.evidence-dl {
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.evidence-dl div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.evidence-dl dt {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.evidence-dl dd {
+  margin: 0;
+}
+
+.distance-pill {
+  display: inline-flex;
+  margin-right: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid currentColor;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.distance-direct {
+  color: var(--direct);
+}
+
+.distance-near {
+  color: var(--interp);
+}
+
+.distance-indirect {
+  color: var(--infer);
+}
+
+.distance-unknown {
+  color: var(--ink-soft);
+}
+
+.distance-ja {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.archival-distance__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.archival-distance__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.9rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.historical-distance h3 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0 0 0.65rem;
+}
+
+.hd-grid {
+  display: grid;
+  gap: 1.4rem;
+}
+
+@media (min-width: 900px) {
+  .hd-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.hd-subhead {
+  margin: 0.9rem 0 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
 .provenance-defs {

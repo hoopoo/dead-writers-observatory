@@ -1,14 +1,7 @@
 import type { QuestionAnalysis } from "@/types/question-analysis";
 import type { WriterPerspective } from "@/types/perspective";
 import type { ThreeVoicesAnalysis } from "@/types/comparison";
-
-const MODERN_BLIND_SPOTS = [
-  "AI・アルゴリズム・SNSの報酬設計を、彼らが直接経験していない",
-  "現代の雇用制度、非正規労働、スタートアップ経済の細部を知りえない",
-  "現代医療・精神医療・カウンセリング制度を専門知として語れない",
-  "現代の家族制度・ジェンダー規範・法制度をそのまま適用できない",
-  "現代の金融・社会保障・キャリア市場の事実判断を代替できない",
-];
+import { analyzeHistoricalDistance } from "@/lib/historical-distance";
 
 function buildSharedConcerns(
   analysis: QuestionAnalysis,
@@ -47,7 +40,6 @@ function buildSharedConcerns(
     );
   }
 
-  // Ensure we acknowledge all three voices were produced.
   if (perspectives.length === 3) {
     concerns.push(
       "いずれも「本人の回答」ではなく、残された言葉と現在の問いの再接続として提示されている",
@@ -61,7 +53,6 @@ function buildReturnedQuestion(analysis: QuestionAnalysis): string {
   const themes = analysis.relevantThemes;
   const raw = analysis.rawQuestion;
 
-  // Priority follows the surface situation, not mere theme frequency.
   if (themes.includes("death") || /死/.test(raw)) {
     return "問われているのは死そのものでしょうか。それとも、いまの生き方に根拠を持てない感覚でしょうか。必要なら、文学の外の支援にもつながってください。";
   }
@@ -106,6 +97,8 @@ export function comparePerspectives(
     perspectives.map((p) => [p.personId, p]),
   );
 
+  const historicalDistance = analyzeHistoricalDistance(analysis);
+
   const differentFocuses = [
     {
       personName: byId["person-soseki"]?.personName ?? "夏目漱石",
@@ -127,26 +120,12 @@ export function comparePerspectives(
     "三人の交点は自己像の動揺だが、そこから外へ出るか（社会）、内へ入るか（意識）、関係へ向かうか（親密さ）が分岐する",
   ];
 
-  const blindSpots = [...MODERN_BLIND_SPOTS];
-  if (analysis.relevantThemes.includes("modernization")) {
-    blindSpots.unshift(
-      "AIやSNSを、彼らの近代化批判や神経描写へ安易に重ねて現代の事実判断に使うことはできない",
-    );
-  }
-  if (
-    analysis.safetyFlags.includes("death_theme") ||
-    analysis.safetyFlags.includes("self_harm_adjacent")
-  ) {
-    blindSpots.unshift(
-      "死や生の主題について、彼らは現代の危機介入・医療・支援制度の専門家ではない",
-    );
-  }
-
   return {
     sharedConcerns: buildSharedConcerns(analysis, perspectives),
     differentFocuses,
     tensionsBetweenVoices,
-    blindSpots: blindSpots.slice(0, 5),
+    blindSpots: historicalDistance.historicallySpecificUnknowns,
+    historicalDistance,
     returnedQuestion: buildReturnedQuestion(analysis),
     provenanceMap: {
       sharedConcerns: "AI INFERENCE",

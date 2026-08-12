@@ -39,10 +39,19 @@ npm run eval:fixtures
 Question
   → QuestionAnalysis
   → PerspectiveRetriever (per person)
-  → ThoughtFragment[]
-  → WriterPerspective
-  → ThreeVoicesAnalysis
+  → ThoughtFragment[]  (via SourcePassage)
+  → WriterPerspective + Evidence + Archival Distance
+  → ThreeVoicesAnalysis + Historical Distance
   → UI (provenance-labeled)
 ```
+
+Provenance chain:
+
+```
+Source → SourcePassage → ThoughtFragment → WriterPerspective
+```
+
+`DIRECT SOURCE` は `verificationStatus === "verified"` の passage のみ。
+placeholder は `SOURCE REFERENCE` / `ARCHIVE INTERPRETATION`。
 
 RAG 接続時は `src/lib/retrieval.ts` の `PerspectiveRetriever` 実装を差し替える。

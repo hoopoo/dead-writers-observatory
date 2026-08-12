@@ -1,6 +1,11 @@
 import { getFragmentsByPersonId } from "@/data/fragments";
+import { authorialDistanceBonus } from "@/lib/archive-distance";
 import type { QuestionAnalysis } from "@/types/question-analysis";
-import type { ThoughtFragment, ThemeTag } from "@/types/thought-fragment";
+import type {
+  FragmentConfidence,
+  ThemeTag,
+  ThoughtFragment,
+} from "@/types/thought-fragment";
 
 export interface PerspectiveRetriever {
   retrieve(
@@ -50,6 +55,17 @@ const PRIORITY_THEMES: ThemeTag[] = [
   "aging",
 ];
 
+function confidenceBonus(confidence: FragmentConfidence): number {
+  switch (confidence) {
+    case "high":
+      return 1;
+    case "medium":
+      return 0.5;
+    case "low":
+      return 0;
+  }
+}
+
 function scoreFragment(
   fragment: ThoughtFragment,
   analysis: QuestionAnalysis,
@@ -76,13 +92,22 @@ function scoreFragment(
     }
   }
 
-  score += fragment.confidence;
+  score += authorialDistanceBonus(fragment.authorialDistance);
+  score += confidenceBonus(fragment.confidence);
+
+  // Keep strong thematic hits even when indirect (novels).
+  const themeHits = fragment.themes.filter((theme) => themeSet.has(theme)).length;
+  if (fragment.authorialDistance === "indirect" && themeHits >= 2) {
+    score += 1.25;
+  }
+
   return score;
 }
 
 /**
  * Deterministic mock retriever.
- * Interface is designed for future swap to embeddings / pgvector / Pinecone.
+ * Scoring: theme relevance + person lens + authorialDistance + confidence.
+ * Diversity: prefer 2–3 distinct sources per person.
  */
 export class MockPerspectiveRetriever implements PerspectiveRetriever {
   async retrieve(
@@ -104,20 +129,30 @@ export class MockPerspectiveRetriever implements PerspectiveRetriever {
     const usedThemes = new Set<ThemeTag>();
     const usedSources = new Set<string>();
 
+    // Pass 1: distinct sources, up to 3.
     for (const item of ranked) {
-      if (selected.length >= 5) break;
+      if (selected.length >= 3) break;
+      if (usedSources.has(item.fragment.sourceId)) continue;
 
       const novelTheme = item.fragment.themes.some((t) => !usedThemes.has(t));
-      const novelSource = !usedSources.has(item.fragment.sourceId);
-
-      // Prefer distinct sources; allow same-source only if pool is exhausted later.
-      if (!novelSource && selected.length > 0) continue;
-
       if (selected.length < 2 || novelTheme || item.score >= 4) {
         selected.push(item.fragment);
         item.fragment.themes.forEach((t) => usedThemes.add(t));
         usedSources.add(item.fragment.sourceId);
       }
+    }
+
+    // Pass 2: fill remaining slots (max 5), still preferring unused sources.
+    for (const item of ranked) {
+      if (selected.length >= 5) break;
+      if (selected.some((f) => f.id === item.fragment.id)) continue;
+
+      const sourceUsed = usedSources.has(item.fragment.sourceId);
+      if (sourceUsed && usedSources.size < 3) continue;
+
+      selected.push(item.fragment);
+      item.fragment.themes.forEach((t) => usedThemes.add(t));
+      usedSources.add(item.fragment.sourceId);
     }
 
     if (selected.length < 2) {

@@ -15,14 +15,9 @@ export type CopyrightStatus =
   | "unknown"
   | "placeholder";
 
-export type PublicDomainStatus =
-  | "yes"
-  | "no"
-  | "jurisdiction_dependent"
-  | "unknown"
-  | "placeholder";
+export type PublicDomainStatus = "public-domain" | "copyrighted" | "unknown";
 
-export type Reliability = "high" | "medium" | "low" | "placeholder";
+export type Reliability = "primary" | "secondary" | "tertiary";
 
 export interface Source {
   id: string;
@@ -31,14 +26,13 @@ export interface Source {
   titleEn?: string;
   sourceType: SourceType;
   publicationDate?: string;
+  originalPublicationYear?: number;
   edition?: string;
   publisher?: string;
   sourceUrl?: string;
   bibliographicReference: string;
   copyrightStatus: CopyrightStatus;
   publicDomainStatus: PublicDomainStatus;
-  rawText?: string;
-  excerpt?: string;
   reliability: Reliability;
   notes?: string;
 }

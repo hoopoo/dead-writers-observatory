@@ -1,7 +1,12 @@
 import type { PrimaryLens } from "./person";
-import type { ThoughtFragment } from "./thought-fragment";
+import type {
+  ArchivalDistanceSummary,
+  PerspectiveEvidence,
+} from "./evidence";
 import type { ProvenanceLabel } from "./provenance";
+import type { ThoughtFragment } from "./thought-fragment";
 
+/** @deprecated Prefer PerspectiveEvidence; kept for transitional UI. */
 export interface SourceFragmentView {
   fragment: ThoughtFragment;
   sourceTitle: string;
@@ -19,6 +24,8 @@ export interface WriterPerspective {
   whereHeLooks: string;
   archiveBasedPerspective: string;
   sourceFragments: SourceFragmentView[];
+  evidence: PerspectiveEvidence[];
+  archivalDistance: ArchivalDistanceSummary;
   interpretation: string;
   provenanceMap: {
     perspective: ProvenanceLabel;

@@ -1,6 +1,6 @@
 import type { WriterPerspective } from "@/types/perspective";
 import { ProvenanceBadge } from "./ProvenanceBadge";
-import { SourceFragment } from "./SourceFragment";
+import { SourceEvidenceCard } from "./SourceEvidenceCard";
 
 export function WriterPerspectiveCard({
   perspective,
@@ -28,11 +28,23 @@ export function WriterPerspectiveCard({
         <p>{perspective.archiveBasedPerspective}</p>
       </div>
 
+      <div className="voice-block archival-distance">
+        <h4>How close is this to the author?</h4>
+        <p className="archival-distance__label">Archival distance</p>
+        <p>{perspective.archivalDistance.summaryText}</p>
+        <ul className="archival-distance__counts">
+          <li>DIRECT: {perspective.archivalDistance.directCount}</li>
+          <li>NEAR: {perspective.archivalDistance.nearCount}</li>
+          <li>INDIRECT: {perspective.archivalDistance.indirectCount}</li>
+          <li>UNKNOWN: {perspective.archivalDistance.unknownCount}</li>
+        </ul>
+      </div>
+
       <div className="voice-block">
-        <h4>Source fragments</h4>
+        <h4>Source evidence</h4>
         <div className="source-list">
-          {perspective.sourceFragments.map((item) => (
-            <SourceFragment key={item.fragment.id} item={item} />
+          {perspective.evidence.map((item) => (
+            <SourceEvidenceCard key={item.fragmentId} evidence={item} />
           ))}
         </div>
       </div>

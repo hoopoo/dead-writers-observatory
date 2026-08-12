@@ -22,16 +22,28 @@ export type ThemeTag =
   | "fatigue"
   | "performance";
 
+export type InterpretationType =
+  | "direct-author-statement"
+  | "work-level-theme"
+  | "narrative-perspective"
+  | "biographical-context"
+  | "critical-inference";
+
+export type AuthorialDistance = "direct" | "near" | "indirect" | "unknown";
+
+export type FragmentConfidence = "high" | "medium" | "low";
+
 export interface ThoughtFragment {
   id: string;
   personId: string;
   sourceId: string;
-  /** Optional short paraphrase placeholder — never a fabricated direct quote. */
-  excerpt?: string;
+  passageId: string;
   normalizedMeaning: string;
   themes: ThemeTag[];
-  lifeStage?: string;
+  interpretationType: InterpretationType;
+  authorialDistance: AuthorialDistance;
   historicalContext?: string;
-  confidence: number;
+  lifeStage?: string;
+  confidence: FragmentConfidence;
   interpretiveNotes?: string;
 }

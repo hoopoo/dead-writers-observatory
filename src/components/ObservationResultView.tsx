@@ -2,7 +2,7 @@ import type { ObservationResult } from "@/types/observation";
 import { WriterPerspectiveCard } from "./WriterPerspectiveCard";
 import { IntersectionPanel } from "./IntersectionPanel";
 import { DisagreementPanel } from "./DisagreementPanel";
-import { BlindSpotPanel } from "./BlindSpotPanel";
+import { HistoricalDistancePanel } from "./HistoricalDistancePanel";
 import { ReturnedQuestion } from "./ReturnedQuestion";
 import { ProvenancePanel } from "./ProvenancePanel";
 import { ProvenanceBadge } from "./ProvenanceBadge";
@@ -60,7 +60,7 @@ export function ObservationResultView({
 
       <IntersectionPanel comparison={result.comparison} />
       <DisagreementPanel comparison={result.comparison} />
-      <BlindSpotPanel comparison={result.comparison} />
+      <HistoricalDistancePanel comparison={result.comparison} />
       <ReturnedQuestion comparison={result.comparison} />
       <ProvenancePanel result={result} />
     </div>

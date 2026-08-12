@@ -9,6 +9,10 @@ export function provenanceClassName(label: ProvenanceLabel): string {
   switch (label) {
     case "DIRECT SOURCE":
       return "provenance-direct";
+    case "SOURCE REFERENCE":
+      return "provenance-reference";
+    case "ARCHIVE INTERPRETATION":
+      return "provenance-archive";
     case "INTERPRETATION":
       return "provenance-interpretation";
     case "AI INFERENCE":
@@ -44,15 +48,22 @@ export function collectProvenanceItems(
       label: perspective.provenanceMap.interpretation,
       detail: "ThoughtFragment の意味解釈と接続理由。",
     });
+    items.push({
+      section: `${perspective.personName} — Archival distance`,
+      label: "ARCHIVE INTERPRETATION",
+      detail: perspective.archivalDistance.summaryText,
+    });
 
-    for (const fragment of perspective.sourceFragments) {
+    for (const evidence of perspective.evidence) {
       items.push({
-        section: `${perspective.personName} — ${fragment.sourceTitle}`,
-        label: fragment.provenance,
-        detail: fragment.fragment.normalizedMeaning,
+        section: `${perspective.personName} — ${evidence.sourceTitle} (${evidence.authorialDistance})`,
+        label: evidence.provenance,
+        detail: `${evidence.roleLabelJa} / ${evidence.voiceLabelJa} / ${evidence.normalizedMeaning}`,
       });
     }
   }
+
+  const hd = result.comparison.historicalDistance;
 
   items.push(
     {
@@ -66,9 +77,19 @@ export function collectProvenanceItems(
       detail: "観測軸の差分。",
     },
     {
-      section: "WHAT NONE OF THEM CAN KNOW",
-      label: result.comparison.provenanceMap.blindSpots,
-      detail: "歴史的人物の認識限界の明示。",
+      section: "WHAT THEY CAN HELP US SEE",
+      label: hd.provenanceMap.timelessHumanThemes,
+      detail: hd.timelessHumanThemes.join(" / "),
+    },
+    {
+      section: "WHAT THEY COULD NOT HAVE KNOWN",
+      label: hd.provenanceMap.historicallySpecificUnknowns,
+      detail: hd.historicallySpecificUnknowns.join(" / "),
+    },
+    {
+      section: "WHERE INTERPRETATION BEGINS",
+      label: hd.provenanceMap.interpretationBeginsNote,
+      detail: hd.interpretationBeginsNote,
     },
     {
       section: "A QUESTION RETURNED TO YOU",
