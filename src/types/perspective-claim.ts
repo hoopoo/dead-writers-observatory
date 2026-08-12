@@ -159,16 +159,107 @@ export interface ClaimQualitySummary {
 }
 
 export interface ClaimHumanEvaluation {
+  id: string;
   claimId: string;
-  verdict:
+  fixtureId: string;
+  personId: string;
+  evidenceVerdict:
     | "supported"
     | "too-strong"
     | "too-weak"
     | "misattributed"
+    | "unclear";
+  usefulnessVerdict:
     | "useful"
+    | "obvious"
     | "not-useful"
+    | "surprising-but-defensible"
+    | "unclear";
+  strengthVerdict:
+    | "appropriate"
+    | "too-cautious"
+    | "too-certain"
+    | "unclear";
+  reasonTags?: ClaimHumanReasonTag[];
+  notes?: string;
+  reviewer: import("@/types/review").ReviewActor;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type ClaimHumanReasonTag =
+  | "well-grounded"
+  | "evidence-too-thin"
+  | "authorial-overreach"
+  | "work-voice-risk"
+  | "historical-overreach"
+  | "modern-transfer-clear"
+  | "too-generic"
+  | "too-obvious"
+  | "opens-new-angle"
+  | "useful-tension"
+  | "good-cross-source-synthesis"
+  | "weak-cross-source-synthesis"
+  | "too-cautious"
+  | "too-certain"
+  | "repetitive"
+  | "historically-interesting"
+  | "other";
+
+export interface ClaimHumanEvaluationInput {
+  claimId: string;
+  fixtureId: string;
+  personId: string;
+  evidenceVerdict: ClaimHumanEvaluation["evidenceVerdict"];
+  usefulnessVerdict: ClaimHumanEvaluation["usefulnessVerdict"];
+  strengthVerdict: ClaimHumanEvaluation["strengthVerdict"];
+  reasonTags?: ClaimHumanReasonTag[];
+  notes?: string;
+}
+
+export interface PerspectiveExperienceEvaluation {
+  fixtureId: string;
+  personId: string;
+  verdict:
+    | "useful"
+    | "interesting"
+    | "flat"
+    | "repetitive"
+    | "too-cautious"
+    | "too-abstract"
     | "unclear";
   notes?: string;
+}
+
+export type PerspectiveAvailability =
+  | "available"
+  | "limited"
+  | "insufficient";
+
+export interface ApprovedClaimSet {
+  personId: string;
+  archiveObservations: PerspectiveClaim[];
+  writerPerspectives: PerspectiveClaim[];
+  syntheses: PerspectiveClaim[];
+  modernTransfers: PerspectiveClaim[];
+  returnedQuestions: PerspectiveClaim[];
+}
+
+export interface EvidenceBoundedPerspectiveSkeleton {
+  personId: string;
+  personName: string;
+  question: string;
+  availability: PerspectiveAvailability;
+  sections: {
+    archiveObservation: string[];
+    acrossSources: string[];
+    connectionToQuestion: string[];
+    returnedQuestion: string[];
+  };
+  claimIds: string[];
+  evidenceIds: string[];
+  claims: PerspectiveClaim[];
+  humanReviewed: boolean;
 }
 
 export interface ClaimCaseResult {

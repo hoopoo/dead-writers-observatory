@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { getPassageById } from "@/data/passages";
 import { evaluatePassageApproveGate } from "@/lib/review/approve-gate";
 import { upsertRetrievalHumanEvaluation } from "@/lib/retrieval-human-eval";
+import { upsertClaimHumanEvaluation } from "@/lib/claims/human-eval";
 import { sqliteReviewRepository } from "@/lib/review/sqlite-repository";
 import { canTransitionReviewStatus } from "@/lib/review/transitions";
 import {
@@ -19,6 +20,10 @@ import type {
   RetrievalHumanEvaluation,
   RetrievalHumanEvaluationInput,
 } from "@/types/embedding";
+import type {
+  ClaimHumanEvaluation,
+  ClaimHumanEvaluationInput,
+} from "@/types/perspective-claim";
 
 export async function loginCurator(token: string, nextPath: string) {
   if (!isCuratorEnabled()) {
@@ -143,6 +148,54 @@ export async function saveRetrievalHumanEvaluationAction(
       DEFAULT_REVIEW_ACTOR,
     );
     revalidatePath("/curator/retrieval");
+    revalidatePath("/curator");
+    return { ok: true, evaluation };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Save failed",
+    };
+  }
+}
+
+export async function saveClaimHumanEvaluationAction(
+  input: ClaimHumanEvaluationInput,
+): Promise<
+  | { ok: true; evaluation: ClaimHumanEvaluation }
+  | { ok: false; error: string }
+> {
+  if (!isCuratorEnabled()) {
+    return { ok: false, error: "Curator is disabled" };
+  }
+  const evidenceOk = [
+    "supported",
+    "too-strong",
+    "too-weak",
+    "misattributed",
+    "unclear",
+  ].includes(input.evidenceVerdict);
+  const usefulnessOk = [
+    "useful",
+    "obvious",
+    "not-useful",
+    "surprising-but-defensible",
+    "unclear",
+  ].includes(input.usefulnessVerdict);
+  const strengthOk = [
+    "appropriate",
+    "too-cautious",
+    "too-certain",
+    "unclear",
+  ].includes(input.strengthVerdict);
+  if (!evidenceOk || !usefulnessOk || !strengthOk) {
+    return { ok: false, error: "Invalid verdict values" };
+  }
+  try {
+    const evaluation = upsertClaimHumanEvaluation(
+      input,
+      DEFAULT_REVIEW_ACTOR,
+    );
+    revalidatePath("/curator/claims");
     revalidatePath("/curator");
     return { ok: true, evaluation };
   } catch (error) {

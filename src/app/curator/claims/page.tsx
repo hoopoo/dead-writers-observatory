@@ -1,12 +1,33 @@
 import Link from "next/link";
 import { people } from "@/data/people";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
+import { ClaimHumanReviewForm } from "@/components/curator/ClaimHumanReviewForm";
 import { generateClaimsForQuestion } from "@/lib/claims";
+import {
+  getClaimHumanEvaluation,
+  listClaimHumanEvaluations,
+} from "@/lib/claims/human-eval";
+import {
+  PRIORITY_CLAIM_FIXTURES,
+  isHumanApprovedClaim,
+} from "@/lib/claims/approved";
+import { samplePriorityClaims } from "@/lib/claims/sampling";
+import {
+  machineHumanDisagreement,
+  summarizeClaimHumanEvaluations,
+} from "@/lib/claims/human-summary";
 
 type Filter =
   | "all"
-  | "supported"
+  | "priority"
+  | "unreviewed"
+  | "disagreement"
   | "partial"
+  | "modern-transfer"
+  | "work-level"
+  | "cross-evidence-synthesis"
+  | "returned-question"
+  | "supported"
   | "blocked"
   | "authorial-risk"
   | "historical-risk";
@@ -23,49 +44,99 @@ export default async function CuratorClaimsPage({
   const params = await searchParams;
   const fixtureId = params.fixture ?? "q4";
   const personId = params.person ?? "person-soseki";
-  const filter = (params.filter as Filter) ?? "all";
+  const filter = (params.filter as Filter) ?? "priority";
 
   const fixture =
     FIXTURE_QUESTIONS.find((item) => item.id === fixtureId) ??
     FIXTURE_QUESTIONS[0];
   const person = people.find((p) => p.id === personId) ?? people[0];
+  const isPriorityFixture = (PRIORITY_CLAIM_FIXTURES as readonly string[]).includes(
+    fixture.id,
+  );
 
   const result = await generateClaimsForQuestion({
     question: fixture.question,
     personId: person.id,
+    fixtureId: fixture.id,
     retrievalMode: "deterministic",
   });
 
   const validationsById = new Map(
     result.validations.map((v) => [v.claimId, v]),
   );
-
-  const filtered = result.claims.filter((claim) => {
-    const validation = validationsById.get(claim.id);
-    if (filter === "supported") return claim.supportStatus === "supported";
-    if (filter === "partial") {
-      return claim.supportStatus === "partially-supported";
-    }
-    if (filter === "blocked") return !claim.allowedInFinalPerspective;
-    if (filter === "authorial-risk") {
-      return validation?.attributionRisk === "high";
-    }
-    if (filter === "historical-risk") {
-      return validation?.historicalTransferRisk === "high";
-    }
-    return true;
+  const allEvals = listClaimHumanEvaluations();
+  const claimsById = new Map(result.claims.map((c) => [c.id, c]));
+  const summary = summarizeClaimHumanEvaluations({
+    evaluations: allEvals,
+    claimsById: new Map(
+      // summary across all evals needs claim types — attach from current page when available
+      allEvals.map((evaluation) => {
+        const claim = claimsById.get(evaluation.claimId);
+        return [evaluation.claimId, claim ?? ({ claimType: "unknown" } as never)];
+      }),
+    ),
   });
+
+  const prioritySample = samplePriorityClaims(result.claims);
+  const priorityIds = new Set(prioritySample.map((c) => c.id));
+
+  let filtered = result.claims;
+  if (filter === "priority") filtered = prioritySample;
+  else if (filter === "unreviewed") {
+    filtered = result.claims.filter(
+      (claim) => !getClaimHumanEvaluation({ claimId: claim.id }),
+    );
+  } else if (filter === "disagreement") {
+    filtered = result.claims.filter((claim) => {
+      const evaluation = getClaimHumanEvaluation({ claimId: claim.id });
+      return evaluation
+        ? Boolean(machineHumanDisagreement({ claim, evaluation }))
+        : false;
+    });
+  } else if (filter === "partial") {
+    filtered = result.claims.filter(
+      (c) => c.supportStatus === "partially-supported",
+    );
+  } else if (filter === "modern-transfer") {
+    filtered = result.claims.filter((c) => c.claimType === "modern-transfer");
+  } else if (filter === "work-level") {
+    filtered = result.claims.filter(
+      (c) => c.authorialAttribution === "work-level",
+    );
+  } else if (filter === "cross-evidence-synthesis") {
+    filtered = result.claims.filter(
+      (c) => c.claimType === "cross-evidence-synthesis",
+    );
+  } else if (filter === "returned-question") {
+    filtered = result.claims.filter((c) => c.claimType === "returned-question");
+  } else if (filter === "supported") {
+    filtered = result.claims.filter((c) => c.supportStatus === "supported");
+  } else if (filter === "blocked") {
+    filtered = result.claims.filter((c) => !c.allowedInFinalPerspective);
+  } else if (filter === "authorial-risk") {
+    filtered = result.claims.filter(
+      (c) => validationsById.get(c.id)?.attributionRisk === "high",
+    );
+  } else if (filter === "historical-risk") {
+    filtered = result.claims.filter(
+      (c) => validationsById.get(c.id)?.historicalTransferRisk === "high",
+    );
+  }
+
+  const approvedCount = result.claims.filter((claim) =>
+    isHumanApprovedClaim(claim, getClaimHumanEvaluation({ claimId: claim.id })),
+  ).length;
 
   const base = `/curator/claims?fixture=${fixture.id}&person=${person.id}`;
 
   return (
     <div className="curator-page">
       <section className="panel">
-        <p className="eyebrow">CLAIM LAYER</p>
-        <h2>Evidence first. Claims second. Prose later.</h2>
+        <p className="eyebrow">CLAIM LAYER + HUMAN REVIEW</p>
+        <h2>Safe is not enough. A claim must also be useful.</h2>
         <p className="panel__lede">
-          Generator proposes. Evidence decides. Blocked claims stay visible for
-          debug — they never enter final perspective candidates.
+          Machine metrics and human judgment stay separate. Correct but obvious
+          is not enough. Interesting but unsupported is not acceptable.
         </p>
 
         <div className="retrieval-controls">
@@ -79,6 +150,11 @@ export default async function CuratorClaimsPage({
                     className={item.id === fixture.id ? "is-active" : undefined}
                   >
                     {String(index + 1).padStart(2, "0")}
+                    {(PRIORITY_CLAIM_FIXTURES as readonly string[]).includes(
+                      item.id,
+                    )
+                      ? "*"
+                      : ""}
                   </Link>
                 </li>
               ))}
@@ -100,16 +176,19 @@ export default async function CuratorClaimsPage({
             </ul>
           </div>
           <div>
-            <p className="eyebrow">FILTER</p>
+            <p className="eyebrow">CLAIM REVIEW QUEUE</p>
             <ul className="fixture-tabs">
               {(
                 [
-                  "all",
-                  "supported",
+                  "priority",
+                  "unreviewed",
+                  "disagreement",
                   "partial",
-                  "blocked",
-                  "authorial-risk",
-                  "historical-risk",
+                  "modern-transfer",
+                  "work-level",
+                  "cross-evidence-synthesis",
+                  "returned-question",
+                  "all",
                 ] as Filter[]
               ).map((item) => (
                 <li key={item}>
@@ -128,16 +207,51 @@ export default async function CuratorClaimsPage({
         <p className="question-panel__text" style={{ fontSize: "1.35rem" }}>
           {fixture.question}
         </p>
+        {isPriorityFixture ? (
+          <p className="baseline-compare__warn">PRIORITY HUMAN CLAIM REVIEW</p>
+        ) : null}
+      </section>
+
+      <section className="panel">
+        <p className="eyebrow">HUMAN CLAIM REVIEW PROGRESS</p>
+        <dl className="diff-meta">
+          <div>
+            <dt>REVIEWED (ALL)</dt>
+            <dd>{summary.reviewed}</dd>
+          </div>
+          <div>
+            <dt>GROUNDING</dt>
+            <dd>{summary.groundingRate.toFixed(0)}%</dd>
+          </div>
+          <div>
+            <dt>USEFULNESS</dt>
+            <dd>{summary.usefulnessRate.toFixed(0)}%</dd>
+          </div>
+          <div>
+            <dt>SURPRISING</dt>
+            <dd>{summary.surprisingRate.toFixed(0)}%</dd>
+          </div>
+          <div>
+            <dt>TOO STRONG</dt>
+            <dd>{summary.overstatementRate.toFixed(0)}%</dd>
+          </div>
+          <div>
+            <dt>MISATTRIBUTED</dt>
+            <dd>{summary.misattributionRate.toFixed(0)}%</dd>
+          </div>
+          <div>
+            <dt>APPROVED HERE</dt>
+            <dd>{approvedCount}</dd>
+          </div>
+          <div>
+            <dt>PRIORITY SAMPLE</dt>
+            <dd>{prioritySample.length}</dd>
+          </div>
+        </dl>
       </section>
 
       <section className="panel">
         <p className="eyebrow">EVIDENCE PACKET — {person.name}</p>
-        <p className="panel__lede">
-          Mode {result.packet.retrievalMode} · Evidence{" "}
-          {result.packet.evidence.length} · Rejected{" "}
-          {result.packet.rejectedCandidates.length} · Tensions{" "}
-          {result.packet.tensions.length}
-        </p>
         <ol className="mode-rank-list">
           {result.packet.evidence.map((item, index) => (
             <li key={item.id}>
@@ -146,7 +260,7 @@ export default async function CuratorClaimsPage({
               </strong>
               <span>
                 {item.voiceType} · {item.authorialDistance.toUpperCase()} ·{" "}
-                {item.evidenceRole} · review {item.reviewStatus}
+                {item.evidenceRole}
               </span>
               <span>{item.normalizedMeaning}</span>
             </li>
@@ -155,48 +269,14 @@ export default async function CuratorClaimsPage({
       </section>
 
       <section className="panel">
-        <p className="eyebrow">CLAIM QUALITY</p>
-        <dl className="diff-meta">
-          <div>
-            <dt>TOTAL</dt>
-            <dd>{result.quality.totalClaims}</dd>
-          </div>
-          <div>
-            <dt>SUPPORTED</dt>
-            <dd>{result.quality.supported}</dd>
-          </div>
-          <div>
-            <dt>PARTIAL</dt>
-            <dd>{result.quality.partiallySupported}</dd>
-          </div>
-          <div>
-            <dt>UNSUPPORTED</dt>
-            <dd>{result.quality.unsupported}</dd>
-          </div>
-          <div>
-            <dt>ALLOWED</dt>
-            <dd>{result.quality.allowed}</dd>
-          </div>
-          <div>
-            <dt>BLOCKED</dt>
-            <dd>{result.quality.blocked}</dd>
-          </div>
-          <div>
-            <dt>WORK VOICE VIOLATIONS</dt>
-            <dd>{result.quality.workVoiceViolationCount}</dd>
-          </div>
-          <div>
-            <dt>ATTR RISK</dt>
-            <dd>{result.quality.attributionRiskCount}</dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="panel">
         <p className="eyebrow">GENERATED CLAIMS</p>
         <div className="claim-card-grid">
           {filtered.map((claim) => {
             const validation = validationsById.get(claim.id);
+            const human = getClaimHumanEvaluation({ claimId: claim.id });
+            const disagreement = human
+              ? machineHumanDisagreement({ claim, evaluation: human })
+              : null;
             const linked = result.packet.evidence.filter((e) =>
               claim.evidenceIds.includes(e.id),
             );
@@ -209,78 +289,83 @@ export default async function CuratorClaimsPage({
                     : "claim-card claim-card--blocked"
                 }
               >
+                {priorityIds.has(claim.id) ? (
+                  <p className="eyebrow">PRIORITY SAMPLE</p>
+                ) : null}
                 {!claim.allowedInFinalPerspective ? (
-                  <p className="baseline-compare__warn">BLOCKED</p>
+                  <p className="baseline-compare__warn">BLOCKED (machine)</p>
+                ) : null}
+                {disagreement ? (
+                  <p className="baseline-compare__warn">
+                    MACHINE / HUMAN DISAGREEMENT — {disagreement}
+                  </p>
                 ) : null}
                 <h3>{claim.text}</h3>
                 <dl className="diff-meta">
                   <div>
-                    <dt>TYPE</dt>
-                    <dd>{claim.claimType}</dd>
-                  </div>
-                  <div>
-                    <dt>SUPPORT</dt>
+                    <dt>MACHINE SUPPORT</dt>
                     <dd>{claim.supportStatus}</dd>
                   </div>
                   <div>
-                    <dt>ALLOWED</dt>
-                    <dd>{claim.allowedInFinalPerspective ? "YES" : "NO"}</dd>
+                    <dt>ATTR RISK</dt>
+                    <dd>{validation?.attributionRisk ?? "—"}</dd>
+                  </div>
+                  <div>
+                    <dt>TYPE</dt>
+                    <dd>{claim.claimType}</dd>
                   </div>
                   <div>
                     <dt>ATTRIBUTION</dt>
                     <dd>{claim.authorialAttribution}</dd>
                   </div>
                   <div>
-                    <dt>INTERP DIST</dt>
-                    <dd>{claim.interpretationDistance}</dd>
+                    <dt>HUMAN EVIDENCE</dt>
+                    <dd>{human?.evidenceVerdict ?? "NOT REVIEWED"}</dd>
                   </div>
                   <div>
-                    <dt>HIST TRANSFER</dt>
-                    <dd>{claim.historicalTransfer}</dd>
+                    <dt>HUMAN USEFULNESS</dt>
+                    <dd>{human?.usefulnessVerdict ?? "NOT REVIEWED"}</dd>
                   </div>
                   <div>
-                    <dt>CONFIDENCE</dt>
-                    <dd>{claim.confidence}</dd>
+                    <dt>HUMAN STRENGTH</dt>
+                    <dd>{human?.strengthVerdict ?? "NOT REVIEWED"}</dd>
                   </div>
                   <div>
-                    <dt>ATTR RISK</dt>
-                    <dd>{validation?.attributionRisk ?? "—"}</dd>
+                    <dt>APPROVED?</dt>
+                    <dd>
+                      {isHumanApprovedClaim(claim, human) ? "YES" : "NO"}
+                    </dd>
                   </div>
                 </dl>
-                {claim.validationIssues.length > 0 ? (
-                  <ul className="warning-list">
-                    {claim.validationIssues.map((issue) => (
-                      <li key={issue}>{issue}</li>
+                <details>
+                  <summary className="eyebrow">WHY THIS CLAIM?</summary>
+                  <ul className="mode-rank-list">
+                    {linked.map((item) => (
+                      <li key={item.id}>
+                        <strong>{item.sourceTitle}</strong>
+                        <span>
+                          {item.voiceType} ·{" "}
+                          {item.authorialDistance.toUpperCase()} · support{" "}
+                          {item.supportStatus}
+                        </span>
+                        {item.passageText ? (
+                          <p className="evidence-preview">{item.passageText}</p>
+                        ) : null}
+                      </li>
                     ))}
                   </ul>
-                ) : null}
-                <p className="eyebrow">EVIDENCE</p>
-                <ul className="mode-rank-list">
-                  {linked.map((item) => (
-                    <li key={item.id}>
-                      <strong>{item.sourceTitle}</strong>
-                      <span>
-                        {item.voiceType} · {item.authorialDistance.toUpperCase()}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                </details>
+                <ClaimHumanReviewForm
+                  claimId={claim.id}
+                  fixtureId={fixture.id}
+                  personId={person.id}
+                  existing={human}
+                />
               </article>
             );
           })}
         </div>
       </section>
-
-      {result.packet.tensions.length > 0 ? (
-        <section className="panel">
-          <p className="eyebrow">EVIDENCE TENSIONS (not flattened)</p>
-          <ul className="warning-list" style={{ color: "inherit" }}>
-            {result.packet.tensions.map((tension) => (
-              <li key={tension.description}>{tension.description}</li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
     </div>
   );
 }

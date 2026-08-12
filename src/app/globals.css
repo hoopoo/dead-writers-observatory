@@ -1359,6 +1359,32 @@ main {
   line-height: 1.55;
 }
 
+.claim-human-review {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--line);
+}
+
+.perspective-skeleton {
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.perspective-skeleton h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+}
+
+.perspective-skeleton p {
+  margin: 0.25rem 0;
+  line-height: 1.65;
+}
+
 .mode-compare-card {
   display: grid;
   gap: 0.65rem;

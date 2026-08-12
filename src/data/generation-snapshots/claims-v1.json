@@ -1,20 +1,20 @@
 {
   "version": "claims-v1",
-  "generatedAt": "2026-08-12T07:44:03.383Z",
+  "generatedAt": "2026-08-12T08:06:20.562Z",
   "generationMode": "deterministic-claims",
   "cases": [
     {
       "fixtureId": "q1",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-df5ed93b",
-        "claim-obs-7e4fa5f0",
-        "claim-obs-32248b91",
-        "claim-wp-eb71bcd3",
-        "claim-xes-e575681d",
-        "claim-tension-24a1e701",
-        "claim-mt-29103807",
-        "claim-rq-398f0cf0"
+        "claim-e4db3810",
+        "claim-4ad30357",
+        "claim-83bb3d37",
+        "claim-7cb14455",
+        "claim-f9f8e5d5",
+        "claim-49a188a9",
+        "claim-10b6d4aa",
+        "claim-54419280"
       ],
       "claimTexts": [
         "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
@@ -71,14 +71,14 @@
       "fixtureId": "q1",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-a21cc830",
-        "claim-obs-0f817795",
-        "claim-obs-58a81635",
-        "claim-wp-d9cba438",
-        "claim-xes-41fd80c8",
-        "claim-tension-9da64879",
-        "claim-mt-999b4942",
-        "claim-rq-62ea202f"
+        "claim-2c107cd2",
+        "claim-a0ce91a0",
+        "claim-58baedcc",
+        "claim-1a4d10b2",
+        "claim-89be35ea",
+        "claim-e3644c4a",
+        "claim-c29e67bb",
+        "claim-d2c7730f"
       ],
       "claimTexts": [
         "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
@@ -135,13 +135,13 @@
       "fixtureId": "q1",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-f5ed4925",
-        "claim-obs-f00b3935",
-        "claim-obs-a9eb3cc7",
-        "claim-wp-2733c831",
-        "claim-xes-3dfeb2f0",
-        "claim-mt-bb23945e",
-        "claim-rq-afda29f0"
+        "claim-dae4b96b",
+        "claim-b8ccffaa",
+        "claim-8002d0fb",
+        "claim-956ce01d",
+        "claim-d4ba96b2",
+        "claim-c3a766fa",
+        "claim-97a3eb35"
       ],
       "claimTexts": [
         "『津軽』の資料からは、金銭的不安や生活の失敗は、愛される資格への疑いに接続しやすい、という解釈上の仮説という観測が読み取れる。",
@@ -193,14 +193,14 @@
       "fixtureId": "q2",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-6181cf32",
-        "claim-obs-dbcf493d",
-        "claim-obs-bf7a109a",
-        "claim-wp-e3a3208f",
-        "claim-xes-434e9dd5",
-        "claim-tension-bdd4e086",
-        "claim-mt-7c793c51",
-        "claim-rq-b3d6a9b2"
+        "claim-df06e75c",
+        "claim-fae52dab",
+        "claim-c7bf6ef4",
+        "claim-7b355b61",
+        "claim-88511a62",
+        "claim-4ea8ec5e",
+        "claim-220304c7",
+        "claim-cf96456d"
       ],
       "claimTexts": [
         "『こころ』には、語り手は、ある人物を本名ではなく「先生」と呼ぶことが自然だと述べる。親密さと距離が、名前の呼び方そのものに現れる——作品内の視点という視点が作品内の声として現れる。",
@@ -257,14 +257,14 @@
       "fixtureId": "q2",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-69283fc9",
-        "claim-obs-c02110b2",
-        "claim-obs-87f99eec",
-        "claim-wp-cf6967c2",
-        "claim-xes-54328454",
-        "claim-tension-4aad36f7",
-        "claim-mt-ce17e9e7",
-        "claim-rq-00851c97"
+        "claim-99a784c",
+        "claim-9108691c",
+        "claim-1a8f1bce",
+        "claim-6ae008ca",
+        "claim-dd2a367",
+        "claim-1649a2b6",
+        "claim-485030fa",
+        "claim-fc210205"
       ],
       "claimTexts": [
         "『或阿呆の一生』の資料からは、孤独は人数の不足だけでなく、意味の共有ができない状態としても現れる、という読み（部分的支持）という観測が読み取れる。",
@@ -321,13 +321,13 @@
       "fixtureId": "q2",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-f6d9c0c5",
-        "claim-obs-ed8c5ce9",
-        "claim-obs-c85dada7",
-        "claim-wp-7150e5c5",
-        "claim-xes-fefcf421",
-        "claim-mt-cae4f532",
-        "claim-rq-28f3a40f"
+        "claim-b11bf9c2",
+        "claim-8abe52f3",
+        "claim-24618a1a",
+        "claim-69f4f4c1",
+        "claim-3fce63a9",
+        "claim-847b9ab5",
+        "claim-92d9ff05"
       ],
       "claimTexts": [
         "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
@@ -379,14 +379,14 @@
       "fixtureId": "q3",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-da7199ea",
-        "claim-obs-4cbba207",
-        "claim-obs-acaaba40",
-        "claim-wp-b58a1df3",
-        "claim-xes-0f3ad1b3",
-        "claim-tension-0473164c",
-        "claim-mt-ef7d00de",
-        "claim-rq-2fb11dd3"
+        "claim-f056906",
+        "claim-c607bc4",
+        "claim-fca9dd28",
+        "claim-1b49920c",
+        "claim-a2e74a0",
+        "claim-1b35d826",
+        "claim-8a6d04d5",
+        "claim-2924205"
       ],
       "claimTexts": [
         "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
@@ -443,14 +443,14 @@
       "fixtureId": "q3",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-e9d6eed3",
-        "claim-obs-2e12427e",
-        "claim-obs-aa9f3064",
-        "claim-wp-02ac1d85",
-        "claim-xes-0c571166",
-        "claim-tension-9e8ca741",
-        "claim-mt-d936f4f7",
-        "claim-rq-3d38bf0d"
+        "claim-b437498f",
+        "claim-9dd3161f",
+        "claim-61f83401",
+        "claim-ca535763",
+        "claim-22141ad7",
+        "claim-4b6b3daf",
+        "claim-2416305c",
+        "claim-29e4b38e"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
@@ -507,13 +507,13 @@
       "fixtureId": "q3",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-4c1454dc",
-        "claim-obs-34c500c8",
-        "claim-obs-ef0e8588",
-        "claim-wp-edbe98ab",
-        "claim-xes-161d9a7d",
-        "claim-mt-5c5ac3ef",
-        "claim-rq-b10da999"
+        "claim-672c0843",
+        "claim-90a1696e",
+        "claim-65d2af3b",
+        "claim-2ba12b66",
+        "claim-4a23fdca",
+        "claim-c3e76752",
+        "claim-c20802bc"
       ],
       "claimTexts": [
         "『人間失格』には、語り手は、人間を極度に恐れながらも思い切れず、「道化」によって他者とつながろうとする。他者の前で自己を演じる感覚が強く描かれているという視点が作品内の声として現れる。",
@@ -565,14 +565,14 @@
       "fixtureId": "q4",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-601748b1",
-        "claim-obs-f178635a",
-        "claim-obs-fecff5c9",
-        "claim-wp-2cab829c",
-        "claim-xes-5a7b68bb",
-        "claim-tension-f6d91fc1",
-        "claim-mt-fcc2ca7a",
-        "claim-rq-1e7564c8"
+        "claim-7fe5f8d6",
+        "claim-51cdccd9",
+        "claim-be67445d",
+        "claim-84be67e1",
+        "claim-f514e6a5",
+        "claim-7bec1588",
+        "claim-6f73c0e8",
+        "claim-384e9f58"
       ],
       "claimTexts": [
         "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
@@ -629,14 +629,14 @@
       "fixtureId": "q4",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-92c28272",
-        "claim-obs-32bbe59d",
-        "claim-obs-c3fa5929",
-        "claim-wp-84d6d169",
-        "claim-xes-d63edb32",
-        "claim-tension-45de2528",
-        "claim-mt-4c03d50a",
-        "claim-rq-66c6a594"
+        "claim-70e653aa",
+        "claim-fd193942",
+        "claim-152ef360",
+        "claim-fc3e33bf",
+        "claim-a6d0d55a",
+        "claim-5caf079c",
+        "claim-6ece962e",
+        "claim-55338807"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
@@ -693,13 +693,13 @@
       "fixtureId": "q4",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-b3928511",
-        "claim-obs-74b08741",
-        "claim-obs-bc7586e1",
-        "claim-wp-d2a027b6",
-        "claim-xes-5894711a",
-        "claim-mt-eca75260",
-        "claim-rq-d4dc6a31"
+        "claim-6e6e3d1c",
+        "claim-f7ab3ec6",
+        "claim-9921f5d7",
+        "claim-75fedf2a",
+        "claim-a6ffbfbc",
+        "claim-711e743a",
+        "claim-1509086d"
       ],
       "claimTexts": [
         "『津軽』の資料からは、津軽半島を一周した旅が、三十幾年の生涯でかなり重要な事件だった、と自伝的に記されている。故郷・帰属の再確認が主題化されるという観測が読み取れる。",
@@ -751,14 +751,14 @@
       "fixtureId": "q5",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-7fca672e",
-        "claim-obs-ca7c850d",
-        "claim-obs-d3fb034a",
-        "claim-wp-8147ed3f",
-        "claim-xes-4f13f96b",
-        "claim-tension-c972507e",
-        "claim-mt-906e8bc5",
-        "claim-rq-1a7c1fd6"
+        "claim-28f49833",
+        "claim-b2396e5",
+        "claim-b9778df6",
+        "claim-6260f4e9",
+        "claim-64ef5c23",
+        "claim-df3495b0",
+        "claim-905b88d0",
+        "claim-dbeac8d9"
       ],
       "claimTexts": [
         "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
@@ -817,14 +817,14 @@
       "fixtureId": "q5",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-87f89085",
-        "claim-obs-a2bd1ebc",
-        "claim-obs-317be762",
-        "claim-wp-fcff0a3c",
-        "claim-xes-daa72f95",
-        "claim-tension-87d9f534",
-        "claim-mt-88abb350",
-        "claim-rq-828a593b"
+        "claim-7774fc8c",
+        "claim-ebcd6812",
+        "claim-ed760a5",
+        "claim-9b0bca92",
+        "claim-65a0d3b0",
+        "claim-73df1996",
+        "claim-b7f3d1eb",
+        "claim-ac66ef60"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
@@ -881,14 +881,14 @@
       "fixtureId": "q5",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-4c388b74",
-        "claim-obs-0d0676ff",
-        "claim-obs-a0b7d237",
-        "claim-wp-4821cd12",
-        "claim-xes-4dd33cec",
-        "claim-tension-c294246d",
-        "claim-mt-966a2737",
-        "claim-rq-c96a77c8"
+        "claim-56f9af4f",
+        "claim-c3f24510",
+        "claim-883750ee",
+        "claim-7e1e565a",
+        "claim-9462e381",
+        "claim-f33119c",
+        "claim-626fdf6f",
+        "claim-40629ffa"
       ],
       "claimTexts": [
         "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
@@ -945,14 +945,14 @@
       "fixtureId": "q6",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-65893104",
-        "claim-obs-f00054f3",
-        "claim-obs-eacc1305",
-        "claim-wp-3ef5a67b",
-        "claim-xes-b292d17a",
-        "claim-tension-9a1e73ef",
-        "claim-mt-2f39da24",
-        "claim-rq-37be25ca"
+        "claim-d46ba3f7",
+        "claim-868b2f50",
+        "claim-6935e79e",
+        "claim-c38aa294",
+        "claim-2efd58a5",
+        "claim-619c840f",
+        "claim-15b08dcb",
+        "claim-44e276f3"
       ],
       "claimTexts": [
         "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
@@ -1011,14 +1011,14 @@
       "fixtureId": "q6",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-dc043f33",
-        "claim-obs-5a211213",
-        "claim-obs-b7c21b15",
-        "claim-wp-6ca90d3f",
-        "claim-xes-708d80c5",
-        "claim-tension-8150ec45",
-        "claim-mt-ca2fc85f",
-        "claim-rq-5a753e01"
+        "claim-264cad0a",
+        "claim-dac7a1d8",
+        "claim-af59f9b",
+        "claim-27582e7d",
+        "claim-54b9dd77",
+        "claim-3586fb92",
+        "claim-1654c5c7",
+        "claim-e979664c"
       ],
       "claimTexts": [
         "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
@@ -1075,14 +1075,14 @@
       "fixtureId": "q6",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-4e7c0a90",
-        "claim-obs-b7337e13",
-        "claim-obs-a924660b",
-        "claim-wp-8e18259e",
-        "claim-xes-14df5f27",
-        "claim-tension-ba077485",
-        "claim-mt-e4542310",
-        "claim-rq-0705ac58"
+        "claim-ba1363ce",
+        "claim-4ab2a04c",
+        "claim-155b3d71",
+        "claim-e46659a",
+        "claim-e0122192",
+        "claim-8ef41aa7",
+        "claim-5deb1a0d",
+        "claim-88882df4"
       ],
       "claimTexts": [
         "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
@@ -1139,14 +1139,14 @@
       "fixtureId": "q7",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-d167c6e2",
-        "claim-obs-1d1d1ee9",
-        "claim-obs-2e7c5c08",
-        "claim-wp-006dc79b",
-        "claim-xes-eed4b892",
-        "claim-tension-a5ba7fa2",
-        "claim-mt-49781bba",
-        "claim-rq-b009fde6"
+        "claim-d285402",
+        "claim-9cdf27b9",
+        "claim-b5cc4ee3",
+        "claim-c703e41b",
+        "claim-d0ad7a2e",
+        "claim-33c73a98",
+        "claim-f10c8afe",
+        "claim-adf44c3d"
       ],
       "claimTexts": [
         "『硝子戸の中』の資料からは、自伝的記述では、母の記憶がいくら辿っても老いた姿としてしか呼び起せない、と記されている。老いと記憶の非対称が、観察者自身の年齢とともに前景化するという観測が読み取れる。",
@@ -1205,14 +1205,14 @@
       "fixtureId": "q7",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-d76375e3",
-        "claim-obs-42e55a10",
-        "claim-obs-9a6b5f7a",
-        "claim-wp-ec46c666",
-        "claim-xes-eed52a20",
-        "claim-tension-f6eca656",
-        "claim-mt-5fb326a6",
-        "claim-rq-161fd277"
+        "claim-2ea1103f",
+        "claim-be054a0a",
+        "claim-f65ec3c1",
+        "claim-2065394f",
+        "claim-417f7da",
+        "claim-21674f85",
+        "claim-830cac02",
+        "claim-3c6b8369"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
@@ -1269,14 +1269,14 @@
       "fixtureId": "q7",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-df5ae9e4",
-        "claim-obs-ebaccfd8",
-        "claim-obs-0c07c6a1",
-        "claim-wp-68ac3617",
-        "claim-xes-f15e2b87",
-        "claim-tension-fb730bdb",
-        "claim-mt-f5e21496",
-        "claim-rq-5d607520"
+        "claim-592b1959",
+        "claim-4c68bd83",
+        "claim-e968c7aa",
+        "claim-4741bc5a",
+        "claim-78c57db8",
+        "claim-300c7851",
+        "claim-66b29fe5",
+        "claim-cb7492a9"
       ],
       "claimTexts": [
         "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
@@ -1333,14 +1333,14 @@
       "fixtureId": "q8",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-a28fe165",
-        "claim-obs-429e98a0",
-        "claim-obs-d8a8bcf5",
-        "claim-wp-670ba719",
-        "claim-xes-f2e2eb5f",
-        "claim-tension-844a8003",
-        "claim-mt-71540784",
-        "claim-rq-60b72319"
+        "claim-f837a229",
+        "claim-125fcc03",
+        "claim-a1b3782",
+        "claim-9a0aad60",
+        "claim-73de0cac",
+        "claim-42987431",
+        "claim-ae2c1f5",
+        "claim-4d0dd003"
       ],
       "claimTexts": [
         "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
@@ -1399,14 +1399,14 @@
       "fixtureId": "q8",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-2753e55d",
-        "claim-obs-ed08f0b8",
-        "claim-obs-2870ff18",
-        "claim-wp-2be35a96",
-        "claim-xes-e8751cd2",
-        "claim-tension-f6862c50",
-        "claim-mt-d9ff297c",
-        "claim-rq-9b34790a"
+        "claim-1d8355b2",
+        "claim-138d7973",
+        "claim-45dd7877",
+        "claim-9812b7da",
+        "claim-541b1aea",
+        "claim-7a01c6b",
+        "claim-7173ffb",
+        "claim-ee798b73"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
@@ -1463,13 +1463,13 @@
       "fixtureId": "q8",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-d3513fb7",
-        "claim-obs-ec29cfe7",
-        "claim-obs-9c3dcfb7",
-        "claim-wp-be56cfad",
-        "claim-xes-0ccf5e28",
-        "claim-mt-0a4b000e",
-        "claim-rq-16bbc4f7"
+        "claim-167b00a2",
+        "claim-7e20044b",
+        "claim-9b5f0fca",
+        "claim-b214845b",
+        "claim-854cb3d8",
+        "claim-682142d0",
+        "claim-eb6b6031"
       ],
       "claimTexts": [
         "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
@@ -1521,14 +1521,14 @@
       "fixtureId": "q9",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-54e23c14",
-        "claim-obs-995efe52",
-        "claim-obs-d57e3b95",
-        "claim-wp-d1277a68",
-        "claim-xes-a321386e",
-        "claim-tension-1e6f755a",
-        "claim-mt-fdc4be37",
-        "claim-rq-615df829"
+        "claim-6abbc0bd",
+        "claim-86b4b2fa",
+        "claim-3775b97e",
+        "claim-aeb945c5",
+        "claim-3012e084",
+        "claim-8e87ee07",
+        "claim-e6646ba0",
+        "claim-be3ba1e7"
       ],
       "claimTexts": [
         "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
@@ -1587,14 +1587,14 @@
       "fixtureId": "q9",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-d4e900ac",
-        "claim-obs-56ef5907",
-        "claim-obs-c21681bf",
-        "claim-wp-1269dec9",
-        "claim-xes-22811161",
-        "claim-tension-32da5004",
-        "claim-mt-1c74f684",
-        "claim-rq-9be8262a"
+        "claim-a3627a9e",
+        "claim-6f01e95",
+        "claim-5cc2cfe5",
+        "claim-410f728d",
+        "claim-dd8c5c14",
+        "claim-e620acc5",
+        "claim-907fc304",
+        "claim-f2e6e42a"
       ],
       "claimTexts": [
         "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
@@ -1651,13 +1651,13 @@
       "fixtureId": "q9",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-535a54f8",
-        "claim-obs-42382780",
-        "claim-obs-bc50089e",
-        "claim-wp-c047a1aa",
-        "claim-xes-6635d93d",
-        "claim-mt-72b50572",
-        "claim-rq-0d38852a"
+        "claim-6716d366",
+        "claim-b401db66",
+        "claim-5c7e48f7",
+        "claim-1075ee8d",
+        "claim-bab0fb52",
+        "claim-eb714feb",
+        "claim-857057a9"
       ],
       "claimTexts": [
         "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
@@ -1709,14 +1709,14 @@
       "fixtureId": "q10",
       "personId": "person-soseki",
       "claimIds": [
-        "claim-obs-df92cbb1",
-        "claim-obs-d179a0cb",
-        "claim-obs-0203f917",
-        "claim-wp-1e119a56",
-        "claim-xes-221c5a96",
-        "claim-tension-430a50f3",
-        "claim-mt-f4f8bbc1",
-        "claim-rq-d90a0c36"
+        "claim-c0f61cb4",
+        "claim-79dbae2c",
+        "claim-a38b15ef",
+        "claim-cbea26db",
+        "claim-ff32e32",
+        "claim-b9099d48",
+        "claim-b0b876a",
+        "claim-81b3a4df"
       ],
       "claimTexts": [
         "『こころ』には、死を思うことは、関係と責任の未解決が残っている印としても読める——作品内の構図としての仮説という視点が作品内の声として現れる。",
@@ -1773,14 +1773,14 @@
       "fixtureId": "q10",
       "personId": "person-akutagawa",
       "claimIds": [
-        "claim-obs-27742296",
-        "claim-obs-4d193ad4",
-        "claim-obs-3d7ecd68",
-        "claim-wp-a4d4eb63",
-        "claim-xes-baf95932",
-        "claim-tension-3f9d9b7d",
-        "claim-mt-3974c40c",
-        "claim-rq-6967f4d0"
+        "claim-4df9554d",
+        "claim-9141ce7b",
+        "claim-ef29c3e6",
+        "claim-2d0e68fa",
+        "claim-921e4336",
+        "claim-3382ced1",
+        "claim-8a52e646",
+        "claim-f130a054"
       ],
       "claimTexts": [
         "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
@@ -1837,13 +1837,13 @@
       "fixtureId": "q10",
       "personId": "person-dazai",
       "claimIds": [
-        "claim-obs-9c09c8dd",
-        "claim-obs-c12a24c2",
-        "claim-obs-c520edea",
-        "claim-wp-1fa81e76",
-        "claim-xes-1084a1fd",
-        "claim-mt-9f66a023",
-        "claim-rq-aec3c002"
+        "claim-6edbcab6",
+        "claim-777ae645",
+        "claim-745b0c8f",
+        "claim-71a3ad30",
+        "claim-e365ef3d",
+        "claim-335caff8",
+        "claim-68d5bea"
       ],
       "claimTexts": [
         "『人間失格』には、死を思うことは、作品内では羞恥と疲労の地点としても読まれうる。作者の死と相談者を同一化しないという視点が作品内の声として現れる。",

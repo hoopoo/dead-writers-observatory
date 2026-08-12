@@ -217,4 +217,36 @@ Evidence decides whether those claims survive.
 
 Default generation mode: `deterministic-claims`.
 LLM claim / prose generators are not connected yet.
-`/observe` user prose is unchanged.
+`/observe` user prose is unchanged by default.
+
+## Claim Human Evaluation
+
+Safe is not enough. A claim must also be useful.
+
+Machine ClaimValidator and Human Evaluation stay separate — no composite score.
+
+Axes:
+
+- Evidence / Attribution Quality
+- Perspective Usefulness
+- Strength
+
+```bash
+npx tsx scripts/persist-claim-human-evals.ts
+npm run eval:claim-human
+npm run eval:perspective-skeleton
+```
+
+Approved Claims (human-reviewed only) → Perspective Skeleton sections.
+No new prose synthesis. Silence is preferable to unsupported interpretation.
+
+```bash
+# optional public skeleton
+EVIDENCE_BOUNDED_SKELETON=true
+# or /observe?q=...&skeleton=1
+```
+
+```
+Silence is preferable
+to unsupported interpretation.
+```

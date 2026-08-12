@@ -40,6 +40,7 @@ export function createClaimGenerator(
 export async function generateClaimsForQuestion(args: {
   question: string;
   personId: string;
+  fixtureId?: string;
   retrievalMode?: RetrievalMode;
   generator?: PerspectiveClaimGenerator;
 }): Promise<ClaimCaseResult> {
@@ -64,7 +65,7 @@ export async function generateClaimsForQuestion(args: {
   );
 
   return {
-    fixtureId: "",
+    fixtureId: args.fixtureId ?? "",
     personId: args.personId,
     packet,
     claims,
@@ -84,3 +85,17 @@ export {
   applyValidation,
 } from "@/lib/claims/validator";
 export { summarizeClaimQuality } from "@/lib/claims/quality";
+export {
+  upsertClaimHumanEvaluation,
+  getClaimHumanEvaluation,
+  listClaimHumanEvaluations,
+  exportClaimHumanEvaluationsJson,
+} from "@/lib/claims/human-eval";
+export {
+  isHumanApprovedClaim,
+  buildApprovedClaimSet,
+  buildPerspectiveSkeleton,
+  PRIORITY_CLAIM_FIXTURES,
+} from "@/lib/claims/approved";
+export { samplePriorityClaims } from "@/lib/claims/sampling";
+export { summarizeClaimHumanEvaluations } from "@/lib/claims/human-summary";

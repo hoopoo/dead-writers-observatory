@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { people } from "@/data/people";
 import type {
   AuthorialAttribution,
@@ -15,12 +14,19 @@ const WORK_VOICES = new Set([
   "dialogue",
 ]);
 
-function personName(personId: string): string {
-  return people.find((p) => p.id === personId)?.name ?? personId;
+/** Deterministic claim ids for human-eval persistence across regenerations. */
+export function stableClaimId(parts: string[]): string {
+  let hash = 2166136261;
+  const input = parts.join("|");
+  for (let i = 0; i < input.length; i += 1) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `claim-${(hash >>> 0).toString(16)}`;
 }
 
-function uid(prefix: string): string {
-  return `${prefix}-${randomUUID().slice(0, 8)}`;
+function personName(personId: string): string {
+  return people.find((p) => p.id === personId)?.name ?? personId;
 }
 
 function attributionForItem(item: EvidencePacketItem): AuthorialAttribution {
@@ -83,7 +89,7 @@ function baseClaim(
 
 /**
  * Deterministic claims from Selected Evidence only.
- * No writer persona templates. No LLM.
+ * Claim IDs are stable for human evaluation persistence.
  */
 export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
   async generate(packet: EvidencePacket): Promise<PerspectiveClaim[]> {
@@ -92,20 +98,25 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
     const items = packet.evidence;
     if (items.length === 0) return claims;
 
-    // 1) Archive observations (2–3)
-    const observations = items.slice(0, 3);
-    for (const item of observations) {
-      const id = uid("claim-obs");
+    for (const item of items.slice(0, 3)) {
+      const text = observationText(item);
+      const id = stableClaimId([
+        packet.personId,
+        packet.question.rawQuestion,
+        "archive-observation",
+        item.id,
+        text,
+      ]);
       const attribution = attributionForItem(item);
       claims.push(
         baseClaim({
           id,
           personId: packet.personId,
           claimType: "archive-observation",
-          text: observationText(item),
+          text,
           evidenceIds: [item.id],
           authorialAttribution: attribution,
-          interpretationDistance: attribution === "work-level" ? "low" : "low",
+          interpretationDistance: "low",
           historicalTransfer: "none",
           confidence: item.supportStatus === "supported" ? "high" : "medium",
           links: [link(id, item.id, "direct-support")],
@@ -113,12 +124,19 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
       );
     }
 
-    // 2) Writer-perspective (from themes, not stereotype templates)
-    const themeSet = new Set(items.flatMap((i) => i.themes));
-    const themeList = Array.from(themeSet).slice(0, 4);
+    const themeList = Array.from(
+      new Set(items.flatMap((i) => i.themes)),
+    ).slice(0, 4);
     if (themeList.length >= 2) {
       const ids = items.slice(0, 4).map((i) => i.id);
-      const claimId = uid("claim-wp");
+      const text = `${name}の残した資料からは、${themeList.join("・")}といった観点を、この相談へ接続できる。`;
+      const claimId = stableClaimId([
+        packet.personId,
+        packet.question.rawQuestion,
+        "writer-perspective",
+        ids.join(","),
+        text,
+      ]);
       const attributions = new Set(items.map(attributionForItem));
       const attribution: AuthorialAttribution =
         ids.length > 1 || attributions.size > 1
@@ -131,7 +149,7 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
           id: claimId,
           personId: packet.personId,
           claimType: "writer-perspective",
-          text: `${name}の残した資料からは、${themeList.join("・")}といった観点を、この相談へ接続できる。`,
+          text,
           evidenceIds: ids,
           authorialAttribution: attribution,
           interpretationDistance: "medium",
@@ -142,20 +160,27 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
       );
     }
 
-    // 3) Cross-evidence synthesis / contrast
     const sources = new Set(items.map((i) => i.sourceId));
     if (sources.size >= 2) {
       const ids = items.slice(0, 4).map((i) => i.id);
-      const claimId = uid("claim-xes");
-      const titles = Array.from(
-        new Set(items.map((i) => i.sourceTitle)),
-      ).slice(0, 3);
+      const titles = Array.from(new Set(items.map((i) => i.sourceTitle))).slice(
+        0,
+        3,
+      );
+      const text = `${titles.map((t) => `『${t}』`).join("と")}を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。`;
+      const claimId = stableClaimId([
+        packet.personId,
+        packet.question.rawQuestion,
+        "cross-evidence-synthesis",
+        ids.join(","),
+        text,
+      ]);
       claims.push(
         baseClaim({
           id: claimId,
           personId: packet.personId,
           claimType: "cross-evidence-synthesis",
-          text: `${titles.map((t) => `『${t}』`).join("と")}を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。`,
+          text,
           evidenceIds: ids,
           authorialAttribution: "mixed",
           interpretationDistance: "medium",
@@ -167,7 +192,14 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
     }
 
     for (const tension of packet.tensions.slice(0, 1)) {
-      const claimId = uid("claim-tension");
+      const claimId = stableClaimId([
+        packet.personId,
+        packet.question.rawQuestion,
+        "cross-evidence-synthesis",
+        "tension",
+        tension.evidenceIds.join(","),
+        tension.description,
+      ]);
       claims.push(
         baseClaim({
           id: claimId,
@@ -186,19 +218,24 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
       );
     }
 
-    // 4) Modern transfer (never author-attributed)
     const modern = buildModernTransfer(packet);
     if (modern) claims.push(modern);
 
-    // 5) Returned question
-    const rqId = uid("claim-rq");
     const rqEvidence = items.slice(0, 3).map((i) => i.id);
+    const rqText = returnedQuestionText(packet);
+    const rqId = stableClaimId([
+      packet.personId,
+      packet.question.rawQuestion,
+      "returned-question",
+      rqEvidence.join(","),
+      rqText,
+    ]);
     claims.push(
       baseClaim({
         id: rqId,
         personId: packet.personId,
         claimType: "returned-question",
-        text: returnedQuestionText(packet),
+        text: rqText,
         evidenceIds: rqEvidence,
         authorialAttribution: "none",
         interpretationDistance: "high",
@@ -212,29 +249,22 @@ export class DeterministicClaimGenerator implements PerspectiveClaimGenerator {
   }
 }
 
-function buildModernTransfer(
-  packet: EvidencePacket,
-): PerspectiveClaim | null {
+function buildModernTransfer(packet: EvidencePacket): PerspectiveClaim | null {
   const q = packet.question.rawQuestion;
   const themes = new Set(packet.evidence.flatMap((i) => i.themes));
   const ids = packet.evidence.slice(0, 4).map((i) => i.id);
   if (ids.length === 0) return null;
 
-  const claimId = uid("claim-mt");
   let text: string | null = null;
-
   if (/AI|人工知能|仕事を奪/.test(q)) {
     const aspects: string[] = [];
     if (themes.has("work") || themes.has("independence")) aspects.push("仕事や独立");
-    if (themes.has("society") || themes.has("obligation")) {
-      aspects.push("社会的役割");
-    }
+    if (themes.has("society") || themes.has("obligation")) aspects.push("社会的役割");
     if (themes.has("self") || themes.has("shame") || themes.has("approval")) {
       aspects.push("自己像");
     }
     if (themes.has("money")) aspects.push("金銭と生活");
-    const joined = aspects.length > 0 ? aspects.join("や") : "個人と社会の摩擦";
-    text = `この問いには、AIという語彙そのものではなく、資料に見られる${joined}という観点を、現在の職業変化へ接続できる。`;
+    text = `この問いには、AIという語彙そのものではなく、資料に見られる${aspects.length ? aspects.join("や") : "個人と社会の摩擦"}という観点を、現在の職業変化へ接続できる。`;
   } else if (/SNS/.test(q)) {
     text =
       "この問いには、資料に見られる自己観察・他者の視線・自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することはできる。";
@@ -249,9 +279,15 @@ function buildModernTransfer(
       .slice(0, 3)
       .join("・")}という観点を、現在の相談へ限定的に接続できる。`;
   }
-
   if (!text) return null;
 
+  const claimId = stableClaimId([
+    packet.personId,
+    packet.question.rawQuestion,
+    "modern-transfer",
+    ids.join(","),
+    text,
+  ]);
   return baseClaim({
     id: claimId,
     personId: packet.personId,
