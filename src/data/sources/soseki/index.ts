@@ -10,11 +10,12 @@ export const sosekiSources: Source[] = [
     publicationDate: "1914",
     originalPublicationYear: 1914,
     bibliographicReference:
-      "夏目漱石『私の個人主義』（1914年講演）。正式テキストは後続アーカイブで差し替え。",
+      "夏目漱石『私の個人主義』（1914年講演）。底本：ちくま日本文学全集『夏目漱石』（筑摩書房, 1992）。青空文庫 card772。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000148/card772.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
-    notes: "個人の自立と他者への非侵害を同時に論じた講演。authorial distance: direct。",
+    notes: "講演。authorial distance: direct。",
   },
   {
     id: "src-soseki-garasudo",
@@ -25,7 +26,8 @@ export const sosekiSources: Source[] = [
     publicationDate: "1915",
     originalPublicationYear: 1915,
     bibliographicReference:
-      "夏目漱石『硝子戸の中』（1915）。正式テキストは後続アーカイブで差し替え。",
+      "夏目漱石『硝子戸の中』（1915）。青空文庫 card760。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000148/card760.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
@@ -40,7 +42,8 @@ export const sosekiSources: Source[] = [
     publicationDate: "1914",
     originalPublicationYear: 1914,
     bibliographicReference:
-      "夏目漱石『こころ』（1914）。正式テキストは後続アーカイブで差し替え。",
+      "夏目漱石『こころ』（1914）。青空文庫 card773。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000148/card773.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",

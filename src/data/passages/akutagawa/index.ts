@@ -1,39 +1,9 @@
 import type { SourcePassage } from "@/types/source-passage";
+import { shujuPassages } from "./shuju-no-kotoba";
+import { ahouPassages } from "./aru-aho-no-issho";
+import { hagurumaPassages } from "./haguruma";
 
-export const akutagawaPassages: SourcePassage[] = [
-  {
-    id: "pass-akutagawa-shuju-01",
-    sourceId: "src-akutagawa-shuju",
-    personId: "person-akutagawa",
-    locator: { section: "intellect-and-anxiety", anchor: "placeholder-01" },
-    voiceType: "essayistic",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "知性と不安・道徳をめぐるアフォリズム的記述。",
-  },
-  {
-    id: "pass-akutagawa-shuju-02",
-    sourceId: "src-akutagawa-shuju",
-    personId: "person-akutagawa",
-    locator: { section: "art-and-self", anchor: "placeholder-02" },
-    voiceType: "essayistic",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "芸術・自己観察に関する記述。",
-  },
-  {
-    id: "pass-akutagawa-ahou-01",
-    sourceId: "src-akutagawa-ahou",
-    personId: "person-akutagawa",
-    locator: { section: "creation-fatigue", anchor: "placeholder-01" },
-    voiceType: "autobiographical",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "創作と疲労・自己観察。作者の死の説明として用いない。",
-  },
+const placeholderPassages: SourcePassage[] = [
   {
     id: "pass-akutagawa-ahou-02",
     sourceId: "src-akutagawa-ahou",
@@ -43,19 +13,7 @@ export const akutagawaPassages: SourcePassage[] = [
     isAuthorDirectStatement: true,
     provenanceConfidence: "medium",
     verificationStatus: "placeholder",
-    notes: "近代的生活と不安の断章。",
-  },
-  {
-    id: "pass-akutagawa-hagu-01",
-    sourceId: "src-akutagawa-haguruma",
-    personId: "person-akutagawa",
-    locator: { section: "perception-fear", anchor: "placeholder-01" },
-    voiceType: "narrator",
-    speaker: "語り手",
-    isAuthorDirectStatement: false,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "知覚の変調・恐怖。作者人生への還元を禁止。",
+    notes: "近代的生活と不安。verified text 未投入。",
   },
   {
     id: "pass-akutagawa-hagu-02",
@@ -67,6 +25,13 @@ export const akutagawaPassages: SourcePassage[] = [
     isAuthorDirectStatement: false,
     provenanceConfidence: "low",
     verificationStatus: "placeholder",
-    notes: "現実感の揺らぎ・疲労。自殺説明への単純化を禁止。",
+    notes: "現実感の揺らぎ。自殺説明への単純化を禁止。",
   },
+];
+
+export const akutagawaPassages: SourcePassage[] = [
+  ...shujuPassages,
+  ...ahouPassages,
+  ...hagurumaPassages,
+  ...placeholderPassages,
 ];

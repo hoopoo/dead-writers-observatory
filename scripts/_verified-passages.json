@@ -1,0 +1,184 @@
+[
+  {
+    "id": "pass-soseki-ind-01",
+    "source": "私の個人主義",
+    "url": "https://www.aozora.gr.jp/cards/000148/files/772_33100.html",
+    "card": "https://www.aozora.gr.jp/cards/000148/card772.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）772_33100.html",
+    "text": "私はそれから文芸に対する自己の立脚地を堅めるため、堅めるというより新らしく建設するために、文芸とは全く縁のない書物を読み始めました。一口でいうと、自己本位という四字をようやく考えて、その自己本位を立証するために、科学的な研究やら哲学的の思索に耽り出したのであります。今は時勢が違いますから、この辺の事は多少頭のある人にはよく解せられているはずですが、その頃は私が幼稚な上に、世間がまだそれほど進んでいなかったので、私のやり方は実際やむをえなかったのです。\n私はこの自己本位という言葉を自分の手に握ってから大変強くなりました。彼ら何者ぞやと気慨が出ました。今まで茫然と自失していた私に、ここに立って、この道からこう行かなければならないと指図をしてくれたものは実にこの自我本位の四字なのであります。",
+    "locator": {
+      "section": "自己本位",
+      "anchor": "aozora-772-jikohonni"
+    }
+  },
+  {
+    "id": "pass-soseki-ind-02",
+    "source": "私の個人主義",
+    "url": "https://www.aozora.gr.jp/cards/000148/files/772_33100.html",
+    "card": "https://www.aozora.gr.jp/cards/000148/card772.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）772_33100.html",
+    "text": "権力に次ぐものは金力です。これもあなたがたは貧民よりも余計に所有しておられるに相違ない。この金力を同じくそうした意味から眺めると、これは個性を拡張するために、他人の上に誘惑の道具として使用し得る至極重宝なものになるのです。",
+    "locator": {
+      "section": "権力と金力",
+      "anchor": "aozora-772-kinryoku"
+    }
+  },
+  {
+    "id": "pass-soseki-ind-03",
+    "source": "私の個人主義",
+    "url": "https://www.aozora.gr.jp/cards/000148/files/772_33100.html",
+    "card": "https://www.aozora.gr.jp/cards/000148/card772.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）772_33100.html",
+    "text": "金力についても同じ事であります。私の考によると、責任を解しない金力家は、世の中にあってならないものなのです。その訳を一口にお話しするとこうなります。金銭というものは至極重宝なもので、何へでも自由自在に融通が利く。たとえば今私がここで、相場をして十万円儲けたとすると、その十万円で家屋を立てる事もできるし、書籍を買う事もできるし、または花柳社界を賑わす事もできるし、つまりどんな形にでも変って行く事ができます。そのうちでも人間の精神を買う手段に使用できるのだから恐ろしいではありませんか。",
+    "locator": {
+      "section": "金力と責任",
+      "anchor": "aozora-772-sekinin"
+    }
+  },
+  {
+    "id": "pass-soseki-gara-01",
+    "source": "硝子戸の中",
+    "url": "https://www.aozora.gr.jp/cards/000148/files/760_14940.html",
+    "card": "https://www.aozora.gr.jp/cards/000148/card760.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）760_14940.html",
+    "text": "硝子戸の中から外を見渡すと、霜除をした芭蕉だの、赤い実の結った梅もどきの枝だの、無遠慮に直立した電信柱だのがすぐ眼に着くが、その他にこれと云って数え立てるほどのものはほとんど視線に入って来ない。書斎にいる私の眼界は極めて単調でそうしてまた極めて狭いのである。",
+    "locator": {
+      "chapter": "一",
+      "anchor": "aozora-760-opening"
+    }
+  },
+  {
+    "id": "pass-soseki-kokoro-01",
+    "source": "こころ",
+    "url": "https://www.aozora.gr.jp/cards/000148/files/773_14560.html",
+    "card": "https://www.aozora.gr.jp/cards/000148/card773.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）773_14560.html",
+    "text": "私はその人を常に先生と呼んでいた。だからここでもただ先生と書くだけで本名は打ち明けない。これは世間を憚かる遠慮というよりも、その方が私にとって自然だからである。私はその人の記憶を呼び起すごとに、すぐ「先生」といいたくなる。筆を執っても心持は同じ事である。よそよそしい頭文字などはとても使う気にならない。",
+    "locator": {
+      "chapter": "上 先生と私",
+      "section": "一",
+      "anchor": "aozora-773-opening"
+    }
+  },
+  {
+    "id": "pass-akutagawa-shuju-01",
+    "source": "侏儒の言葉",
+    "url": "https://www.aozora.gr.jp/cards/000879/files/158_15132.html",
+    "card": "https://www.aozora.gr.jp/cards/000879/card158.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）158_15132.html",
+    "text": "道徳は便宜の異名である。「左側通行」と似たものである。\n＊\n道徳の与えたる恩恵は時間と労力との節約である。道徳の与える損害は完全なる良心の麻痺である。",
+    "locator": {
+      "section": "修身",
+      "anchor": "aozora-158-doutoku"
+    }
+  },
+  {
+    "id": "pass-akutagawa-shuju-02",
+    "source": "侏儒の言葉",
+    "url": "https://www.aozora.gr.jp/cards/000879/files/158_15132.html",
+    "card": "https://www.aozora.gr.jp/cards/000879/card158.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）158_15132.html",
+    "text": "芸術家は何時も意識的に彼の作品を作るのかも知れない。しかし作品そのものを見れば、作品の美醜の一半は芸術家の意識を超越した神秘の世界に存している。一半？或は大半と云っても好い。\n我我は妙に問うに落ちず、語るに落ちるものである。我我の魂はおのずから作品に露るることを免れない。一刀一拝した古人の用意はこの無意識の境に対する畏怖を語ってはいないであろうか？",
+    "locator": {
+      "section": "創作",
+      "anchor": "aozora-158-sousaku"
+    }
+  },
+  {
+    "id": "pass-akutagawa-ahou-01",
+    "source": "或阿呆の一生",
+    "url": "https://www.aozora.gr.jp/cards/000879/files/19_14618.html",
+    "card": "https://www.aozora.gr.jp/cards/000879/card19.html",
+    "checkedAgainst": "青空文庫 XHTML（新字旧仮名）19_14618.html",
+    "text": "「人生は一行のボオドレエルにも若かない。」",
+    "contextBefore": "それは或本屋の二階だつた。二十歳の彼は書棚にかけた西洋風の梯子に登り、新らしい本を探してゐた。モオパスサン、ボオドレエル、ストリントベリイ、イブセン、シヨウ、トルストイ、……",
+    "locator": {
+      "section": "一 時代",
+      "anchor": "aozora-19-baudelaire"
+    }
+  },
+  {
+    "id": "pass-akutagawa-hagu-01",
+    "source": "歯車",
+    "url": "https://www.aozora.gr.jp/cards/000879/files/42377_34745.html",
+    "card": "https://www.aozora.gr.jp/cards/000879/card42377.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）42377_34745.html",
+    "text": "レエン・コオトを着た男は僕のＴ君と別れる時にはいつかそこにいなくなっていた。僕は省線電車の或停車場からやはり鞄をぶら下げたまま、或ホテルへ歩いて行った。往来の両側に立っているのは大抵大きいビルディングだった。僕はそこを歩いているうちにふと松林を思い出した。のみならず僕の視野のうちに妙なものを見つけ出した。妙なものを？――と云うのは絶えずまわっている半透明の歯車だった。僕はこう云う経験を前にも何度か持ち合せていた。歯車は次第に数を殖やし、半ば僕の視野を塞いでしまう、が、それも長いことではない、暫らくの後には消え失せる代りに今度は頭痛を感じはじめる、――それはいつも同じことだった。眼科の医者はこの錯覚（？）の為に度々僕に節煙を命じた。",
+    "locator": {
+      "section": "一 レエン・コート",
+      "anchor": "aozora-42377-haguruma"
+    }
+  },
+  {
+    "id": "pass-dazai-tsugaru-01",
+    "source": "津軽",
+    "url": "https://www.aozora.gr.jp/cards/000035/files/2282_15074.html",
+    "card": "https://www.aozora.gr.jp/cards/000035/card2282.html",
+    "checkedAgainst": "青空文庫 XHTML（新字旧仮名）2282_15074.html",
+    "text": "或るとしの春、私は、生れてはじめて本州北端、津軽半島を凡そ三週間ほどかかつて一周したのであるが、それは、私の三十幾年の生涯に於いて、かなり重要な事件の一つであつた。私は津軽に生れ、さうして二十年間、津軽に於いて育ちながら、金木、五所川原、青森、弘前、浅虫、大鰐、それだけの町を見ただけで、その他の町村に就いては少しも知るところが無かつたのである。",
+    "locator": {
+      "section": "序編",
+      "anchor": "aozora-2282-jo"
+    }
+  },
+  {
+    "id": "pass-dazai-tsugaru-02",
+    "source": "津軽",
+    "url": "https://www.aozora.gr.jp/cards/000035/files/2282_15074.html",
+    "card": "https://www.aozora.gr.jp/cards/000035/card2282.html",
+    "checkedAgainst": "青空文庫 XHTML（新字旧仮名）2282_15074.html",
+    "text": "金木は、私の生れた町である。津軽平野のほぼ中央に位し、人口五、六千の、これといふ特徴もないが、どこやら都会ふうにちよつと気取つた町である。善く言へば、水のやうに淡泊であり、悪く言へば、底の浅い見栄坊の町といふ事になつてゐるやうである。それから三里ほど南下し、岩木川に沿うて五所川原といふ町が在る。この地方の産物の集散地で人口も一万以上あるやうだ。青森、弘前の両市を除いて、人口一万以上の町は、この辺には他に無い。善く言へば、活気のある町であり、悪く言へば、さわがしい町である。",
+    "locator": {
+      "section": "序編",
+      "anchor": "aozora-2282-oba"
+    }
+  },
+  {
+    "id": "pass-dazai-fugaku-01",
+    "source": "富嶽百景",
+    "url": "https://www.aozora.gr.jp/cards/000035/files/270_14914.html",
+    "card": "https://www.aozora.gr.jp/cards/000035/card270.html",
+    "checkedAgainst": "青空文庫 XHTML（新字旧仮名）270_14914.html",
+    "text": "井伏氏は、仕事をして居られた。私は、井伏氏のゆるしを得て、当分その茶屋に落ちつくことになつて、それから、毎日、いやでも富士と真正面から、向き合つてゐなければならなくなつた。この峠は、甲府から東海道に出る鎌倉往還の衝に当つてゐて、北面富士の代表観望台であると言はれ、ここから見た富士は、むかしから富士三景の一つにかぞへられてゐるのださうであるが、私は、あまり好かなかつた。好かないばかりか、軽蔑さへした。あまりに、おあつらひむきの富士である。",
+    "locator": {
+      "section": "御坂峠",
+      "anchor": "aozora-270-haji"
+    }
+  },
+  {
+    "id": "pass-dazai-ningen-01",
+    "source": "人間失格",
+    "url": "https://www.aozora.gr.jp/cards/000035/files/301_14912.html",
+    "card": "https://www.aozora.gr.jp/cards/000035/card301.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）301_14912.html",
+    "text": "恥の多い生涯を送って来ました。\n自分には、人間の生活というものが、見当つかないのです。自分は東北の田舎に生れましたので、汽車をはじめて見たのは、よほど大きくなってからでした。自分は停車場のブリッジを、上って、降りて、そうしてそれが線路をまたぎ越えるために造られたものだという事には全然気づかず、ただそれは停車場の構内を外国の遊戯場みたいに、複雑に楽しく、ハイカラにするためにのみ、設備せられてあるものだとばかり思っていました。しかも、かなり永い間そう思っていたのです。",
+    "locator": {
+      "chapter": "第一の手記",
+      "anchor": "aozora-301-haji"
+    }
+  },
+  {
+    "id": "pass-dazai-ningen-02",
+    "source": "人間失格",
+    "url": "https://www.aozora.gr.jp/cards/000035/files/301_14912.html",
+    "card": "https://www.aozora.gr.jp/cards/000035/card301.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）301_14912.html",
+    "text": "そこで考え出したのは、道化でした。\nそれは、自分の、人間に対する最後の求愛でした。自分は、人間を極度に恐れていながら、それでいて、人間を、どうしても思い切れなかったらしいのです。そうして自分は、この道化の一線でわずかに人間につながる事が出来たのでした。おもてでは、絶えず笑顔をつくりながらも、内心は必死の、それこそ千番に一番の兼ね合いとでもいうべき危機一髪の、油汗流してのサーヴィスでした。",
+    "locator": {
+      "chapter": "第一の手記",
+      "anchor": "aozora-301-douke"
+    }
+  },
+  {
+    "id": "pass-akutagawa-shuju-03",
+    "source": "侏儒の言葉",
+    "url": "https://www.aozora.gr.jp/cards/000879/files/158_15132.html",
+    "card": "https://www.aozora.gr.jp/cards/000879/card158.html",
+    "checkedAgainst": "青空文庫 XHTML（新字新仮名）158_15132.html",
+    "text": "わたしの信ずるところによれば、グッドセンスを待たない限り、如何なる幸福も得ることは出来ない。もしそれでも得られるとすれば、炎天に炭火を擁したり、大寒に団扇を揮ったりする痩せ我慢の幸福ばかりである。",
+    "locator": {
+      "section": "グッドセンス",
+      "anchor": "aozora-158-goodsense"
+    }
+  }
+]

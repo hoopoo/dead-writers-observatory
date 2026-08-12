@@ -440,6 +440,11 @@ main {
   background: var(--direct-bg);
 }
 
+.provenance-work-voice {
+  color: #4a3b55;
+  background: #eee8f3;
+}
+
 .provenance-reference {
   color: #3a4f3f;
   background: #e9f0ea;
@@ -587,6 +592,45 @@ main {
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.evidence-expand__button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+}
+
+.evidence-expand__body {
+  margin-top: 0.65rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.evidence-quote {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-left: 2px solid var(--line);
+  background: rgba(255, 255, 255, 0.45);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.evidence-context {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.transfer-note {
+  margin: 0.75rem 0 0 !important;
+  font-size: 0.82rem;
   color: var(--ink-soft);
 }
 

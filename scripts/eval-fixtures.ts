@@ -1,76 +1,85 @@
 import { FIXTURE_QUESTIONS } from "../src/data/fixtures/questions";
 import { observeQuestion } from "../src/lib/observe";
+import { getPassageById } from "../src/data/passages";
+import { getPassageReview } from "../src/data/reviews/passages";
+import { getFragmentReview } from "../src/data/reviews/fragments";
+import { detectOverclaimRisk } from "../src/lib/overclaim";
 
 const SPECIAL_TESTS = [
   {
     id: "A",
-    question: "人からどう見られているか気になります。",
-    personId: "person-dazai",
-    assert: (sources: string[]) => {
-      const unique = new Set(sources);
-      const hasNingen = sources.some((s) => s.includes("人間失格"));
-      const hasOther =
-        sources.some((s) => s.includes("津軽")) ||
-        sources.some((s) => s.includes("富嶽百景"));
+    question: "会社を辞めて独立したい。でも収入がなくなるのが怖い。",
+    personId: "person-soseki",
+    assert: (ctx: EvalContext) => {
+      const usesIndividualism = ctx.sources.some((s) =>
+        s.includes("私の個人主義"),
+      );
+      const hasVerifiedDirect = ctx.evidence.some(
+        (e) =>
+          e.sourceTitle.includes("私の個人主義") &&
+          e.provenance === "DIRECT SOURCE" &&
+          e.isDirectAuthorEvidence,
+      );
+      const noModernCommand = !/(会社を)?辞めろ|(会社を)?辞めるな|今すぐ独立しろ/.test(
+        ctx.perspectiveText.replace(/断定しない。?/g, ""),
+      );
       return {
-        ok: unique.size >= 2 && hasNingen && hasOther,
-        detail: `sources=${[...unique].join(", ")}`,
+        ok: usesIndividualism && hasVerifiedDirect && noModernCommand,
+        detail: `verifiedDirect=${hasVerifiedDirect}; sources=${ctx.uniqueSources.join(", ")}; commandLeak=${!noModernCommand}`,
       };
     },
   },
   {
     id: "B",
-    question: "死ぬことを考えることがあります。どう生きればいいのでしょうか。",
-    personId: "person-akutagawa",
-    assert: (
-      sources: string[],
-      perspectiveText: string,
-      safety?: string,
-      distances?: string[],
-    ) => {
-      const hasWork =
-        sources.some((s) => s.includes("歯車")) ||
-        sources.some((s) => s.includes("或阿呆の一生"));
-      const noSuicideSimplification = !/自殺を説明|同じ苦しみを経験/.test(
-        perspectiveText,
+    question: "人からどう見られているかが気になります。",
+    personId: "person-dazai",
+    assert: (ctx: EvalContext) => {
+      const ningen = ctx.evidence.find((e) => e.sourceTitle.includes("人間失格"));
+      const workVoice =
+        ningen?.provenance === "SOURCE TEXT — WORK VOICE" &&
+        ningen.authorialDistance === "indirect";
+      const authorClaim = /太宰治は、人間は演技|太宰は.*考えた/.test(
+        ctx.perspectiveText,
       );
+      const diversity = ctx.uniqueSources.length >= 2;
       return {
-        ok: Boolean(hasWork && safety && noSuicideSimplification),
-        detail: `sources=${sources.join(" / ")}; distances=${distances?.join(",")}; safety=${Boolean(safety)}`,
+        ok: Boolean(ningen && workVoice && !authorClaim && diversity),
+        detail: `ningenProvenance=${ningen?.provenance}; distance=${ningen?.authorialDistance}; diversity=${diversity}; authorClaim=${authorClaim}`,
       };
     },
   },
   {
     id: "C",
-    question: "友達はいるのに孤独です。",
-    personId: "person-soseki",
-    assert: (
-      _sources: string[],
-      perspectiveText: string,
-      _safety?: string,
-      distances?: string[],
-      evidenceRoles?: string[],
-    ) => {
-      const usesKokoro = _sources.some((s) => s.includes("こころ"));
-      const treatsAsAuthorExperience =
-        /漱石本人の体験である|漱石の体験として|漱石は.*を体験した/.test(
-          perspectiveText,
+    question: "死ぬことを考えることがあります。どう生きればいいのでしょうか。",
+    personId: "person-akutagawa",
+    assert: (ctx: EvalContext) => {
+      const hasWork =
+        ctx.sources.some((s) => s.includes("歯車")) ||
+        ctx.sources.some((s) => s.includes("或阿呆の一生"));
+      const romanticized =
+        /芥川もあなたと同じだった[^。]*。|太宰も死を選んだ|死を考えることは創造性の証/.test(
+          ctx.perspectiveText,
         );
-      const kokoroIsIndirect =
-        !usesKokoro ||
-        distances?.includes("indirect") ||
-        evidenceRoles?.includes("work-perspective");
       return {
-        ok: !treatsAsAuthorExperience && kokoroIsIndirect,
-        detail: `sources=${_sources.join(" / ")}; distances=${distances?.join(",")}; authorExperienceLeak=${treatsAsAuthorExperience}`,
+        ok: Boolean(hasWork && ctx.safety && !romanticized),
+        detail: `sources=${ctx.uniqueSources.join(" / ")}; safety=${Boolean(ctx.safety)}; romanticized=${romanticized}`,
       };
     },
   },
 ];
 
-async function main() {
-  console.log("Dead Writers Observatory — fixture evaluation (archive integrity)\n");
+interface EvalContext {
+  sources: string[];
+  uniqueSources: string[];
+  evidence: Awaited<ReturnType<typeof observeQuestion>>["perspectives"][number]["evidence"];
+  perspectiveText: string;
+  safety?: string;
+}
 
+async function main() {
+  console.log("Dead Writers Observatory — fixture evaluation (verified archive)\n");
+
+  let fail = false;
   let specialPass = 0;
 
   for (const fixture of FIXTURE_QUESTIONS) {
@@ -89,36 +98,82 @@ async function main() {
     for (const perspective of result.perspectives) {
       const sources = perspective.evidence.map((e) => e.sourceTitle);
       const uniqueSources = [...new Set(sources)];
-      const distances = perspective.evidence.map((e) => e.authorialDistance);
-      const provenances = perspective.evidence.map((e) => e.provenance);
+      const verifiedEvidenceCount = perspective.evidence.filter(
+        (e) => e.verificationStatus === "verified",
+      ).length;
+      const placeholderEvidenceCount = perspective.evidence.filter(
+        (e) => e.verificationStatus === "placeholder",
+      ).length;
+      const sourceTextWorkVoiceCount = perspective.evidence.filter(
+        (e) => e.provenance === "SOURCE TEXT — WORK VOICE",
+      ).length;
+      const directAuthorEvidenceCount = perspective.evidence.filter(
+        (e) => e.provenance === "DIRECT SOURCE" && e.isDirectAuthorEvidence,
+      ).length;
+      const reviewApprovedCount = perspective.evidence.filter(
+        (e) => e.reviewStatus === "approved",
+      ).length;
+      const overclaimRiskCount = perspective.evidence.filter((e) => {
+        const fragReview = getFragmentReview(e.fragmentId);
+        const passage = getPassageById(e.passageId);
+        const fragment = perspective.sourceFragments.find(
+          (s) => s.fragment.id === e.fragmentId,
+        )?.fragment;
+        if (!fragment) return fragReview?.overclaimRisk === "high";
+        const auto = detectOverclaimRisk(fragment, passage);
+        return (fragReview?.overclaimRisk ?? auto.risk) === "high";
+      }).length;
 
       console.log(
-        `- ${perspective.personName} [${perspective.primaryLens}] sources(${uniqueSources.length}): ${uniqueSources.join(" / ")}`,
+        `- ${perspective.personName} sources(${uniqueSources.length}): ${uniqueSources.join(" / ")}`,
       );
-      console.log(`  distances: ${distances.join(", ")}`);
-      console.log(`  provenance: ${provenances.join(", ")}`);
-      console.log(`  archival: ${perspective.archivalDistance.summaryText}`);
       console.log(
-        `  perspective: ${perspective.archiveBasedPerspective.slice(0, 110)}...`,
+        `  metrics: verified=${verifiedEvidenceCount} placeholder=${placeholderEvidenceCount} workVoice=${sourceTextWorkVoiceCount} directAuthor=${directAuthorEvidenceCount} approved=${reviewApprovedCount} highOverclaim=${overclaimRiskCount}`,
+      );
+      console.log(
+        `  provenance: ${perspective.evidence.map((e) => e.provenance).join(" | ")}`,
       );
 
-      const illegalDirect = provenances.some((p) => p === "DIRECT SOURCE");
-      if (illegalDirect) {
-        console.log("  FAIL: DIRECT SOURCE used without verified passage");
+      for (const evidence of perspective.evidence) {
+        if (
+          evidence.provenance === "DIRECT SOURCE" &&
+          evidence.verificationStatus !== "verified"
+        ) {
+          console.log("  FAIL: unverified text labeled DIRECT SOURCE");
+          fail = true;
+        }
+        if (
+          evidence.provenance === "DIRECT SOURCE" &&
+          (evidence.voiceType === "narrator" ||
+            evidence.voiceType === "fictional_character" ||
+            evidence.voiceType === "dialogue")
+        ) {
+          console.log("  FAIL: fictional voice labeled DIRECT SOURCE");
+          fail = true;
+        }
+        if (evidence.provenance === "AI INFERENCE") {
+          console.log("  FAIL: AI INFERENCE shown as source evidence");
+          fail = true;
+        }
+        const passage = getPassageById(evidence.passageId);
+        const review = passage ? getPassageReview(passage.id) : undefined;
+        if (
+          evidence.isApprovedEvidence &&
+          review?.reviewStatus !== "approved"
+        ) {
+          console.log("  FAIL: approved evidence without approved review");
+          fail = true;
+        }
+      }
+
+      if (/予見していた|予言していた/.test(perspective.archiveBasedPerspective)) {
+        console.log("  FAIL: modern transfer framed as prophecy");
+        fail = true;
       }
     }
 
-    console.log(`meet: ${result.comparison.sharedConcerns[0]}`);
-    console.log(
-      `can see: ${result.comparison.historicalDistance.timelessHumanThemes.slice(0, 3).join(" / ")}`,
-    );
-    console.log(
-      `unknown: ${result.comparison.historicalDistance.historicallySpecificUnknowns.slice(0, 2).join(" / ")}`,
-    );
     console.log(`return: ${result.comparison.returnedQuestion}`);
-    if (result.safetyNotice) {
-      console.log("safety: NOTICE ATTACHED");
-    }
+    if (result.safetyNotice) console.log("safety: NOTICE ATTACHED");
     console.log("");
   }
 
@@ -130,33 +185,28 @@ async function main() {
     );
     if (!perspective) {
       console.log(`Test ${test.id}: FAIL (missing perspective)`);
+      fail = true;
       continue;
     }
-
     const sources = perspective.evidence.map((e) => e.sourceTitle);
-    const distances = perspective.evidence.map((e) => e.authorialDistance);
-    const roles = perspective.evidence.map((e) => e.evidenceRole);
-    const verdict = test.assert(
+    const ctx: EvalContext = {
       sources,
-      perspective.archiveBasedPerspective + " " + perspective.interpretation,
-      result.safetyNotice,
-      distances,
-      roles,
-    );
-
+      uniqueSources: [...new Set(sources)],
+      evidence: perspective.evidence,
+      perspectiveText:
+        perspective.archiveBasedPerspective + " " + perspective.interpretation,
+      safety: result.safetyNotice,
+    };
+    const verdict = test.assert(ctx);
     if (verdict.ok) specialPass += 1;
+    else fail = true;
     console.log(
       `Test ${test.id}: ${verdict.ok ? "PASS" : "FAIL"} — ${verdict.detail}`,
     );
   }
 
-  console.log(
-    `\nSpecial tests passed: ${specialPass}/${SPECIAL_TESTS.length}`,
-  );
-
-  if (specialPass < SPECIAL_TESTS.length) {
-    process.exit(1);
-  }
+  console.log(`\nSpecial tests passed: ${specialPass}/${SPECIAL_TESTS.length}`);
+  if (fail || specialPass < SPECIAL_TESTS.length) process.exit(1);
 }
 
 main().catch((error) => {

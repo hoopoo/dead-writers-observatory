@@ -36,7 +36,9 @@ export function WriterPerspectiveCard({
           <li>DIRECT: {perspective.archivalDistance.directCount}</li>
           <li>NEAR: {perspective.archivalDistance.nearCount}</li>
           <li>INDIRECT: {perspective.archivalDistance.indirectCount}</li>
-          <li>UNKNOWN: {perspective.archivalDistance.unknownCount}</li>
+          <li>VERIFIED: {perspective.archivalDistance.verifiedCount}</li>
+          <li>APPROVED: {perspective.archivalDistance.approvedCount}</li>
+          <li>WORK VOICE: {perspective.archivalDistance.workVoiceCount}</li>
         </ul>
       </div>
 
@@ -55,6 +57,10 @@ export function WriterPerspectiveCard({
           <ProvenanceBadge label={perspective.provenanceMap.interpretation} />
         </div>
         <p>{perspective.interpretation}</p>
+        <p className="transfer-note">
+          SOURCE → INTERPRETATION → MODERN TRANSFER。verified source
+          でも、2026年への接続は AI INFERENCE です。
+        </p>
       </div>
     </section>
   );

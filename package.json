@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "eval:fixtures": "tsx scripts/eval-fixtures.ts"
+    "eval:fixtures": "tsx scripts/eval-fixtures.ts",
+    "review:archive": "tsx scripts/review-archive.ts"
   },
   "dependencies": {
     "next": "^15.5.2",

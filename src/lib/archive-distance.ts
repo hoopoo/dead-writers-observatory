@@ -1,5 +1,11 @@
 import type { ArchivalDistanceSummary } from "@/types/evidence";
 import type { AuthorialDistance, ThoughtFragment } from "@/types/thought-fragment";
+import { getPassageById } from "@/data/passages";
+import { getPassageReview } from "@/data/reviews/passages";
+import {
+  isApprovedDirectEvidence,
+  isWorkVoice,
+} from "@/lib/evidence";
 
 export const AUTHORIAL_DISTANCE_LABELS: Record<
   AuthorialDistance,
@@ -45,9 +51,19 @@ export function summarizeArchivalDistance(
     indirect: 0,
     unknown: 0,
   };
+  let verifiedCount = 0;
+  let approvedCount = 0;
+  let workVoiceCount = 0;
 
   for (const fragment of fragments) {
     counts[fragment.authorialDistance] += 1;
+    const passage = getPassageById(fragment.passageId);
+    const review = passage ? getPassageReview(passage.id) : undefined;
+    if (passage?.verificationStatus === "verified") verifiedCount += 1;
+    if (passage && isApprovedDirectEvidence(passage, review)) {
+      approvedCount += 1;
+      if (isWorkVoice(passage)) workVoiceCount += 1;
+    }
   }
 
   const parts: string[] = [];
@@ -66,7 +82,7 @@ export function summarizeArchivalDistance(
 
   const summaryText =
     parts.length > 0
-      ? `この回答では、${parts.join("、")}を参照しています。`
+      ? `この回答では、${parts.join("、")}を参照しています（verified ${verifiedCount} / approved ${approvedCount} / work voice ${workVoiceCount}）。`
       : "参照資料の作者距離を特定できませんでした。";
 
   return {
@@ -74,6 +90,9 @@ export function summarizeArchivalDistance(
     nearCount: counts.near,
     indirectCount: counts.indirect,
     unknownCount: counts.unknown,
+    verifiedCount,
+    approvedCount,
+    workVoiceCount,
     summaryText,
   };
 }

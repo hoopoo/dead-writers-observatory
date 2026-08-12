@@ -1,5 +1,8 @@
 import { getFragmentsByPersonId } from "@/data/fragments";
+import { getPassageById } from "@/data/passages";
+import { getPassageReview } from "@/data/reviews/passages";
 import { authorialDistanceBonus } from "@/lib/archive-distance";
+import { isApprovedDirectEvidence } from "@/lib/evidence";
 import type { QuestionAnalysis } from "@/types/question-analysis";
 import type {
   FragmentConfidence,
@@ -94,6 +97,14 @@ function scoreFragment(
 
   score += authorialDistanceBonus(fragment.authorialDistance);
   score += confidenceBonus(fragment.confidence);
+
+  const passage = getPassageById(fragment.passageId);
+  const review = passage ? getPassageReview(passage.id) : undefined;
+  if (passage && isApprovedDirectEvidence(passage, review)) {
+    score += 2.5; // prefer curated verified evidence without excluding others
+  } else if (passage?.verificationStatus === "verified") {
+    score += 1;
+  }
 
   // Keep strong thematic hits even when indirect (novels).
   const themeHits = fragment.themes.filter((theme) => themeSet.has(theme)).length;

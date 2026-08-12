@@ -23,6 +23,14 @@ export interface PassageLocator {
   anchor?: string;
 }
 
+export interface PassageVerificationMeta {
+  sourceUrl?: string;
+  checkedAgainst?: string;
+  checkedAt?: string;
+  checkedBy?: string;
+  notes?: string;
+}
+
 export interface SourcePassage {
   id: string;
   sourceId: string;
@@ -37,5 +45,6 @@ export interface SourcePassage {
   contextAfter?: string;
   provenanceConfidence: ProvenanceConfidence;
   verificationStatus: VerificationStatus;
+  verification?: PassageVerificationMeta;
   notes?: string;
 }

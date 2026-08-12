@@ -27,11 +27,15 @@ npm install
 npm run dev
 ```
 
-Fixture evaluation:
+Fixture evaluation / archive review:
 
 ```bash
 npm run eval:fixtures
+npm run review:archive
 ```
+
+`DIRECT SOURCE` requires `verificationStatus === "verified"` + approved PassageReview + `text`.
+Verified novel passages use `SOURCE TEXT — WORK VOICE` when narrator/character voice.
 
 ## Architecture
 

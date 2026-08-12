@@ -1,39 +1,9 @@
 import type { SourcePassage } from "@/types/source-passage";
+import { individualismPassages } from "./watashi-no-kojinshugi";
+import { garasudoPassages } from "./garasudo-no-uchi";
+import { kokoroPassages } from "./kokoro";
 
-export const sosekiPassages: SourcePassage[] = [
-  {
-    id: "pass-soseki-ind-01",
-    sourceId: "src-soseki-individualism",
-    personId: "person-soseki",
-    locator: { section: "individualism-and-power", anchor: "placeholder-01" },
-    voiceType: "authorial",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "個人の自立と権力／他者侵害の関係を論じる箇所（書誌参照）。",
-  },
-  {
-    id: "pass-soseki-ind-02",
-    sourceId: "src-soseki-individualism",
-    personId: "person-soseki",
-    locator: { section: "money-and-independence", anchor: "placeholder-02" },
-    voiceType: "authorial",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "金銭・職業と個人の独立の条件をめぐる箇所（書誌参照）。",
-  },
-  {
-    id: "pass-soseki-gara-01",
-    sourceId: "src-soseki-garasudo",
-    personId: "person-soseki",
-    locator: { section: "illness-and-observation", anchor: "placeholder-01" },
-    voiceType: "autobiographical",
-    isAuthorDirectStatement: true,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "病・日常観察を通じた自己と社会の記述。",
-  },
+const placeholderPassages: SourcePassage[] = [
   {
     id: "pass-soseki-gara-02",
     sourceId: "src-soseki-garasudo",
@@ -43,19 +13,7 @@ export const sosekiPassages: SourcePassage[] = [
     isAuthorDirectStatement: true,
     provenanceConfidence: "medium",
     verificationStatus: "placeholder",
-    notes: "記憶・老い・孤独に触れる自伝的記述。",
-  },
-  {
-    id: "pass-soseki-kokoro-01",
-    sourceId: "src-soseki-kokoro",
-    personId: "person-soseki",
-    locator: { chapter: "先生と私", section: "distance", anchor: "placeholder-01" },
-    voiceType: "narrator",
-    speaker: "語り手（私）",
-    isAuthorDirectStatement: false,
-    provenanceConfidence: "medium",
-    verificationStatus: "placeholder",
-    notes: "語り手の視点。作者本人の体験と表示しないこと。",
+    notes: "記憶・老い・孤独。verified text 未投入。",
   },
   {
     id: "pass-soseki-kokoro-02",
@@ -67,7 +25,7 @@ export const sosekiPassages: SourcePassage[] = [
     isAuthorDirectStatement: false,
     provenanceConfidence: "medium",
     verificationStatus: "placeholder",
-    notes: "登場人物の罪責・信頼をめぐる視点。作者思想への直結を禁止。",
+    notes: "登場人物の視点。作者思想への直結を禁止。",
   },
   {
     id: "pass-soseki-kokoro-03",
@@ -79,6 +37,13 @@ export const sosekiPassages: SourcePassage[] = [
     isAuthorDirectStatement: false,
     provenanceConfidence: "low",
     verificationStatus: "placeholder",
-    notes: "金銭・近代的関係の主題が作品内に現れる箇所。",
+    notes: "金銭・近代的関係の主題。verified text 未投入。",
   },
+];
+
+export const sosekiPassages: SourcePassage[] = [
+  ...individualismPassages,
+  ...garasudoPassages,
+  ...kokoroPassages,
+  ...placeholderPassages,
 ];

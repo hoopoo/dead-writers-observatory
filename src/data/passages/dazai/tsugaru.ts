@@ -1,0 +1,41 @@
+import type { SourcePassage } from "@/types/source-passage";
+export const tsugaruPassages: SourcePassage[] = [
+  {
+    id: "pass-dazai-tsugaru-01",
+    sourceId: "src-dazai-tsugaru",
+    personId: "person-dazai",
+    text: `或るとしの春、私は、生れてはじめて本州北端、津軽半島を凡そ三週間ほどかかつて一周したのであるが、それは、私の三十幾年の生涯に於いて、かなり重要な事件の一つであつた。私は津軽に生れ、さうして二十年間、津軽に於いて育ちながら、金木、五所川原、青森、弘前、浅虫、大鰐、それだけの町を見ただけで、その他の町村に就いては少しも知るところが無かつたのである。`,
+    locator: { section: "序編", anchor: "aozora-2282-jo" },
+    voiceType: "autobiographical",
+    isAuthorDirectStatement: true,
+    provenanceConfidence: "high",
+    verificationStatus: "verified",
+    verification: {
+      sourceUrl: "https://www.aozora.gr.jp/cards/000035/files/2282_15074.html",
+      checkedAgainst: "青空文庫 XHTML（新字旧仮名）2282_15074.html",
+      checkedAt: "2026-08-12",
+      checkedBy: "archive-curator",
+      notes: "青空文庫カード: https://www.aozora.gr.jp/cards/000035/card2282.html",
+    },
+    notes: "verified text。講演・随筆・自伝的記述として扱う。",
+  },
+  {
+    id: "pass-dazai-tsugaru-02",
+    sourceId: "src-dazai-tsugaru",
+    personId: "person-dazai",
+    text: `金木は、私の生れた町である。津軽平野のほぼ中央に位し、人口五、六千の、これといふ特徴もないが、どこやら都会ふうにちよつと気取つた町である。善く言へば、水のやうに淡泊であり、悪く言へば、底の浅い見栄坊の町といふ事になつてゐるやうである。それから三里ほど南下し、岩木川に沿うて五所川原といふ町が在る。この地方の産物の集散地で人口も一万以上あるやうだ。青森、弘前の両市を除いて、人口一万以上の町は、この辺には他に無い。善く言へば、活気のある町であり、悪く言へば、さわがしい町である。`,
+    locator: { section: "序編", anchor: "aozora-2282-oba" },
+    voiceType: "autobiographical",
+    isAuthorDirectStatement: true,
+    provenanceConfidence: "high",
+    verificationStatus: "verified",
+    verification: {
+      sourceUrl: "https://www.aozora.gr.jp/cards/000035/files/2282_15074.html",
+      checkedAgainst: "青空文庫 XHTML（新字旧仮名）2282_15074.html",
+      checkedAt: "2026-08-12",
+      checkedBy: "archive-curator",
+      notes: "青空文庫カード: https://www.aozora.gr.jp/cards/000035/card2282.html",
+    },
+    notes: "verified text。講演・随筆・自伝的記述として扱う。",
+  },
+];

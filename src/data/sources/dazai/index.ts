@@ -10,7 +10,8 @@ export const dazaiSources: Source[] = [
     publicationDate: "1948",
     originalPublicationYear: 1948,
     bibliographicReference:
-      "太宰治『人間失格』（1948）。正式テキストは後続アーカイブで差し替え。",
+      "太宰治『人間失格』（1948）。青空文庫 card301（新字新仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000035/card301.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
@@ -26,7 +27,8 @@ export const dazaiSources: Source[] = [
     publicationDate: "1944",
     originalPublicationYear: 1944,
     bibliographicReference:
-      "太宰治『津軽』（1944）。正式テキストは後続アーカイブで差し替え。",
+      "太宰治『津軽』（1944）。青空文庫 card2282（新字旧仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000035/card2282.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
@@ -41,7 +43,8 @@ export const dazaiSources: Source[] = [
     publicationDate: "1939",
     originalPublicationYear: 1939,
     bibliographicReference:
-      "太宰治『富嶽百景』（1939）。正式テキストは後続アーカイブで差し替え。",
+      "太宰治『富嶽百景』（1939）。青空文庫 card270（新字旧仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000035/card270.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",

@@ -10,7 +10,8 @@ export const akutagawaSources: Source[] = [
     publicationDate: "1923-1927",
     originalPublicationYear: 1923,
     bibliographicReference:
-      "芥川龍之介『侏儒の言葉』（1923–1927）。正式テキストは後続アーカイブで差し替え。",
+      "芥川龍之介『侏儒の言葉』（1923–1927）。青空文庫 card158（新字新仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000879/card158.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
@@ -25,7 +26,8 @@ export const akutagawaSources: Source[] = [
     publicationDate: "1927",
     originalPublicationYear: 1927,
     bibliographicReference:
-      "芥川龍之介『或阿呆の一生』（1927）。正式テキストは後続アーカイブで差し替え。",
+      "芥川龍之介『或阿呆の一生』（1927）。青空文庫 card19（新字旧仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000879/card19.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",
@@ -40,7 +42,8 @@ export const akutagawaSources: Source[] = [
     publicationDate: "1927",
     originalPublicationYear: 1927,
     bibliographicReference:
-      "芥川龍之介『歯車』（1927）。正式テキストは後続アーカイブで差し替え。",
+      "芥川龍之介『歯車』（1927）。青空文庫 card42377（新字新仮名）。",
+    sourceUrl: "https://www.aozora.gr.jp/cards/000879/card42377.html",
     copyrightStatus: "public_domain",
     publicDomainStatus: "public-domain",
     reliability: "primary",

@@ -9,6 +9,8 @@ export function provenanceClassName(label: ProvenanceLabel): string {
   switch (label) {
     case "DIRECT SOURCE":
       return "provenance-direct";
+    case "SOURCE TEXT — WORK VOICE":
+      return "provenance-work-voice";
     case "SOURCE REFERENCE":
       return "provenance-reference";
     case "ARCHIVE INTERPRETATION":
@@ -41,7 +43,7 @@ export function collectProvenanceItems(
     items.push({
       section: `${perspective.personName} — Archive-based perspective`,
       label: perspective.provenanceMap.perspective,
-      detail: "相談との接続文。本人の発言ではない。",
+      detail: "相談との接続文。本人の発言ではない。MODERN TRANSFER。",
     });
     items.push({
       section: `${perspective.personName} — Interpretation`,
@@ -58,7 +60,7 @@ export function collectProvenanceItems(
       items.push({
         section: `${perspective.personName} — ${evidence.sourceTitle} (${evidence.authorialDistance})`,
         label: evidence.provenance,
-        detail: `${evidence.roleLabelJa} / ${evidence.voiceLabelJa} / ${evidence.normalizedMeaning}`,
+        detail: `${evidence.relationshipLabelJa} / ${evidence.voiceLabelJa} / ${evidence.normalizedMeaning}`,
       });
     }
   }
