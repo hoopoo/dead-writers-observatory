@@ -257,6 +257,27 @@ Three archives in.
 Three different perspectives out.
 ```
 
+## Experiment C (neural-hybrid retrieval)
+
+Compare retrieval only; keep ClaimSetSelector / validator / promptVersion fixed.
+
+```bash
+npx tsx scripts/persist-experiment-c-claims.ts
+npm run eval:experiment-c
+npm run snapshot:perspectives:c
+```
+
+- Curator: `/curator/perspectives?experiment=C` and `?compare=bc`
+- Staging: `/observe?q=...&experiment=C`
+- Does **not** overwrite `perspective-sets-v1.json` (B)
+- Writes `perspective-sets-c-v1.json`
+- RetrievalRouter / TemporalSemanticDistance: interface prep only
+
+```
+Change the retrieval.
+Keep the perspective intact.
+```
+
 ## Claim Human Evaluation
 
 Safe is not enough. A claim must also be useful.

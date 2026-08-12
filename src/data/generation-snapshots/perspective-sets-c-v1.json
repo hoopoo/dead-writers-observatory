@@ -1,0 +1,703 @@
+{
+  "version": "perspective-sets-c-v1",
+  "generatedAt": "2026-08-12T23:59:04.830Z",
+  "experiment": "C",
+  "retrievalMode": "neural-hybrid",
+  "cases": [
+    {
+      "fixtureId": "q4",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-ffa5d970",
+      "claimIds": [
+        "claim-7fe5f8d6",
+        "claim-7955bef2",
+        "claim-ee25c463",
+        "claim-5981787c",
+        "claim-cb73c611"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "independence",
+        "self-image",
+        "anxiety"
+      ],
+      "sourceIds": [
+        "src-soseki-individualism",
+        "src-soseki-kokoro",
+        "src-soseki-garasudo",
+        "src-soseki-individualism",
+        "src-soseki-individualism"
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-87ad9815",
+      "claimIds": [
+        "claim-70e653aa",
+        "claim-eba3c363",
+        "claim-3c3d408d",
+        "claim-5f09181",
+        "claim-1df2f099"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "anxiety",
+        "observation",
+        "gaze"
+      ],
+      "sourceIds": [
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou",
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou"
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-b8c392d5",
+      "claimIds": [
+        "claim-6e6e3d1c",
+        "claim-79a7f500",
+        "claim-a7f30455",
+        "claim-9378b03f",
+        "claim-68e143dd"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "belonging",
+        "anxiety",
+        "social-position"
+      ],
+      "sourceIds": [
+        "src-dazai-tsugaru",
+        "src-dazai-ningen",
+        "src-dazai-fugaku",
+        "src-dazai-tsugaru",
+        "src-dazai-ningen"
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-71db93c9",
+      "claimIds": [
+        "claim-f056906",
+        "claim-ab2cd717",
+        "claim-1b35d826",
+        "claim-6b19d664",
+        "claim-8a6d04d5"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "deterministic",
+        "llm",
+        "deterministic"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "independence",
+        "performance",
+        "income"
+      ],
+      "sourceIds": [
+        "src-soseki-individualism",
+        "src-soseki-kokoro",
+        "src-soseki-garasudo",
+        "src-soseki-individualism",
+        "src-soseki-individualism"
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-4f933b4",
+      "claimIds": [
+        "claim-b437498f",
+        "claim-92143f96",
+        "claim-b610cfde",
+        "claim-89d33214",
+        "claim-4ed80210"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "gaze",
+        "performance",
+        "self-image"
+      ],
+      "sourceIds": [
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou",
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-shuju"
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-58ff07b1",
+      "claimIds": [
+        "claim-672c0843",
+        "claim-3ee0b23f",
+        "claim-9e5ec896",
+        "claim-e2a08cc6",
+        "claim-a979b2ff"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "gaze",
+        "performance",
+        "anxiety"
+      ],
+      "sourceIds": [
+        "src-dazai-ningen",
+        "src-dazai-fugaku",
+        "src-dazai-tsugaru",
+        "src-dazai-ningen",
+        "src-dazai-fugaku"
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-3f10df83",
+      "claimIds": [
+        "claim-28f49833",
+        "claim-3111ffa0",
+        "claim-afeeb7e2",
+        "claim-f2ca0c94",
+        "claim-35e3040d"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "independence",
+        "gaze"
+      ],
+      "sourceIds": [
+        "src-soseki-individualism",
+        "src-soseki-garasudo",
+        "src-soseki-kokoro",
+        "src-soseki-individualism",
+        "src-soseki-individualism"
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-50f0acd5",
+      "claimIds": [
+        "claim-7774fc8c",
+        "claim-898d5367",
+        "claim-70e38a3a",
+        "claim-da701749",
+        "claim-b7f3d1eb"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "deterministic"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "gaze",
+        "observation",
+        "self-image"
+      ],
+      "sourceIds": [
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou",
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-shuju"
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-22dc4ead",
+      "claimIds": [
+        "claim-56f9af4f",
+        "claim-87cd428b",
+        "claim-70c46079",
+        "claim-a0927afe",
+        "claim-9258d2dd"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "gaze",
+        "income",
+        "self-image"
+      ],
+      "sourceIds": [
+        "src-dazai-ningen",
+        "src-dazai-fugaku",
+        "src-dazai-tsugaru",
+        "src-dazai-fugaku",
+        "src-dazai-fugaku"
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-ad767221",
+      "claimIds": [
+        "claim-d46ba3f7",
+        "claim-3618d9b1",
+        "claim-5d4f1ac3",
+        "claim-59a17675",
+        "claim-cfb6ac98"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "aging",
+        "observation",
+        "anxiety"
+      ],
+      "sourceIds": [
+        "src-soseki-garasudo",
+        "src-soseki-individualism",
+        "src-soseki-kokoro",
+        "src-soseki-garasudo",
+        "src-soseki-kokoro"
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-7ccdd791",
+      "claimIds": [
+        "claim-264cad0a",
+        "claim-765b5744",
+        "claim-e22affcb",
+        "claim-56b1d304",
+        "claim-268dfe6b"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "anxiety",
+        "aging",
+        "observation"
+      ],
+      "sourceIds": [
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou",
+        "src-akutagawa-shuju",
+        "src-akutagawa-shuju"
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-558242be",
+      "claimIds": [
+        "claim-ba1363ce",
+        "claim-72853490",
+        "claim-49bf0285",
+        "claim-916e1e95"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "anxiety",
+        "gaze",
+        "social-position"
+      ],
+      "sourceIds": [
+        "src-dazai-fugaku",
+        "src-dazai-ningen",
+        "src-dazai-tsugaru",
+        "src-dazai-ningen",
+        "src-dazai-fugaku"
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-bc6eda6c",
+      "claimIds": [
+        "claim-df06e75c",
+        "claim-c4e34b1d",
+        "claim-b81e7b2d",
+        "claim-c74da967",
+        "claim-64cc78e9"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "belonging",
+        "social-position",
+        "gaze"
+      ],
+      "sourceIds": [
+        "src-soseki-kokoro",
+        "src-soseki-garasudo",
+        "src-soseki-individualism",
+        "src-soseki-kokoro",
+        "src-soseki-kokoro"
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-955e26b7",
+      "claimIds": [
+        "claim-99a784c",
+        "claim-2ea7c35e",
+        "claim-ab4e1a1b",
+        "claim-fa0131e3",
+        "claim-4073612"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "gaze"
+      ],
+      "sourceIds": [
+        "src-akutagawa-ahou",
+        "src-akutagawa-shuju",
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-shuju"
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-dc7ae5f5",
+      "claimIds": [
+        "claim-b11bf9c2",
+        "claim-81f80e3e",
+        "claim-4c89a58b",
+        "claim-cd79a8ef",
+        "claim-847b9ab5"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "deterministic"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "modern-transfer"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "belonging",
+        "income"
+      ],
+      "sourceIds": [
+        "src-dazai-tsugaru",
+        "src-dazai-ningen",
+        "src-dazai-fugaku",
+        "src-dazai-tsugaru",
+        "src-dazai-ningen"
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-soseki",
+      "evidencePacketHash": "pkt-df16d45c",
+      "claimIds": [
+        "claim-c0f61cb4",
+        "claim-d36cb295",
+        "claim-5cc1ccf6",
+        "claim-bdc8a397",
+        "claim-f39fb340"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "independence",
+        "death",
+        "self-image"
+      ],
+      "sourceIds": [
+        "src-soseki-garasudo",
+        "src-soseki-kokoro",
+        "src-soseki-individualism",
+        "src-soseki-garasudo",
+        "src-soseki-individualism"
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-akutagawa",
+      "evidencePacketHash": "pkt-edb52ebe",
+      "claimIds": [
+        "claim-4df9554d",
+        "claim-6d141de3",
+        "claim-1a67110a",
+        "claim-2bacf92",
+        "claim-dc105c7b"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "anxiety",
+        "observation",
+        "death"
+      ],
+      "sourceIds": [
+        "src-akutagawa-haguruma",
+        "src-akutagawa-shuju",
+        "src-akutagawa-ahou",
+        "src-akutagawa-shuju",
+        "src-akutagawa-shuju"
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-dazai",
+      "evidencePacketHash": "pkt-1854ba76",
+      "claimIds": [
+        "claim-6edbcab6",
+        "claim-69c66d95",
+        "claim-febbceb8",
+        "claim-da6de239",
+        "claim-7c5010bd"
+      ],
+      "claimOrigins": [
+        "deterministic",
+        "llm",
+        "llm",
+        "llm",
+        "llm"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "availability": "available",
+      "dominantThemes": [
+        "death",
+        "gaze",
+        "observation"
+      ],
+      "sourceIds": [
+        "src-dazai-ningen",
+        "src-dazai-fugaku",
+        "src-dazai-tsugaru",
+        "src-dazai-ningen",
+        "src-dazai-fugaku"
+      ]
+    }
+  ]
+}

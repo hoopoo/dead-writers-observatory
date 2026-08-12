@@ -375,6 +375,29 @@ async function main() {
   assert(typeof cross.returnedQuestionOverlap === "number", "rq overlap calculated");
   console.log("14. cross-writer distinctiveness calculated: PASS");
 
+  const { buildClaimReviewIdentity, shouldInvalidateReview } = await import(
+    "../src/lib/claims/experiment-c/review-identity"
+  );
+  const idA = buildClaimReviewIdentity({
+    claim: validated[0],
+    evidencePacketHash: "pkt-a",
+    question: "AIに自分の仕事を奪われる気がします。",
+  });
+  const idB = buildClaimReviewIdentity({
+    claim: validated[0],
+    evidencePacketHash: "pkt-b",
+    question: "AIに自分の仕事を奪われる気がします。",
+  });
+  assert(
+    shouldInvalidateReview({ previous: idA, next: idB }),
+    "changed evidence invalidates human review",
+  );
+  assert(
+    !shouldInvalidateReview({ previous: idA, next: idA }),
+    "unchanged claim+evidence can reuse review",
+  );
+  console.log("15. review identity invalidation: PASS");
+
   // Restore default DB env for fixture sweep
   delete process.env.CURATOR_REVIEW_DB_PATH;
   closeReviewDb();

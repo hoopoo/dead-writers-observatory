@@ -4,8 +4,10 @@ import { PerspectiveSkeletonCard } from "@/components/PerspectiveSkeletonView";
 import { QuestionForm } from "@/components/QuestionForm";
 import {
   isEvidenceBoundedSkeletonEnabled,
+  isExperimentCEnabled,
   isStagingClaimsEnabled,
   observeQuestion,
+  observeQuestionWithExperimentC,
   observeQuestionWithSkeleton,
   observeQuestionWithStagingClaims,
 } from "@/lib/observe";
@@ -17,13 +19,21 @@ export default async function ObservePage({
     q?: string;
     skeleton?: string;
     stagingClaims?: string;
+    experiment?: string;
+    retrieval?: string;
   }>;
 }) {
   const params = await searchParams;
   const question = params.q?.trim() ?? "";
-  const staging = isStagingClaimsEnabled(params.stagingClaims);
+  const experimentC = isExperimentCEnabled({
+    experiment: params.experiment,
+    retrieval: params.retrieval,
+  });
+  const staging =
+    !experimentC && isStagingClaimsEnabled(params.stagingClaims);
   const skeletonRequested =
     !staging &&
+    !experimentC &&
     (params.skeleton === "1" || isEvidenceBoundedSkeletonEnabled());
 
   if (!question) {
@@ -33,6 +43,54 @@ export default async function ObservePage({
         <p className="panel__lede">観測する問いを置いてください。</p>
         <QuestionForm />
       </section>
+    );
+  }
+
+  if (experimentC) {
+    const { observation, skeletons } =
+      await observeQuestionWithExperimentC(question);
+    return (
+      <>
+        {observation.safetyNotice ? (
+          <aside className="safety-notice" role="note">
+            {observation.safetyNotice}
+          </aside>
+        ) : null}
+        <section className="panel question-panel">
+          <p className="eyebrow">Experiment C · neural-hybrid retrieval</p>
+          <h1 className="question-panel__text">
+            {observation.analysis.surfaceQuestion}
+          </h1>
+          <p className="panel__lede">
+            Change the retrieval. Keep the perspective intact.（no free-form prose）
+          </p>
+        </section>
+        <section className="voices-section">
+          <div className="section-heading">
+            <p className="eyebrow">Three archives</p>
+            <h2>資料から組み立てた視点（Experiment C）</h2>
+          </div>
+          <div className="voices-grid">
+            {skeletons.map((skeleton) => (
+              <PerspectiveSkeletonCard
+                key={skeleton.personId}
+                skeleton={skeleton}
+              />
+            ))}
+          </div>
+        </section>
+        <div className="result-actions">
+          <Link href="/" className="button-secondary">
+            別の問いを置く
+          </Link>
+          <Link
+            href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
+            className="button-secondary"
+          >
+            Experiment B
+          </Link>
+        </div>
+      </>
     );
   }
 
@@ -78,6 +136,12 @@ export default async function ObservePage({
             className="button-secondary"
           >
             Production表示
+          </Link>
+          <Link
+            href={`/observe?q=${encodeURIComponent(question)}&experiment=C`}
+            className="button-secondary"
+          >
+            Experiment C
           </Link>
         </div>
       </>
@@ -127,12 +191,6 @@ export default async function ObservePage({
           >
             既存Perspective表示
           </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
-            className="button-secondary"
-          >
-            Staging Claims
-          </Link>
         </div>
       </>
     );
@@ -157,7 +215,7 @@ export default async function ObservePage({
           href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
           className="button-secondary"
         >
-          Staging Claims
+          Staging Claims (B)
         </Link>
       </div>
     </>

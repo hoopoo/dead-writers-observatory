@@ -90,6 +90,8 @@ export interface LLMClaimProposalRecord {
   provider: string;
   model: string;
   promptVersion: string;
+  experimentId?: string;
+  retrievalMode?: string;
   temperature?: number;
   rawStructuredOutput?: unknown;
   usage?: LLMClaimProposalUsage;
@@ -114,6 +116,8 @@ export interface LLMClaimExperimentCase {
   llmClaims: ValidatedLLMClaim[];
   record?: LLMClaimProposalRecord;
   providerUnavailable?: boolean;
+  experimentId?: string;
+  retrievalMode?: string;
 }
 
 /** Map LLM proposal type onto PerspectiveClaim.claimType. */

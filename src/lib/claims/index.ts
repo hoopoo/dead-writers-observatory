@@ -123,3 +123,7 @@ export {
   analyzeWriterDiversity,
   buildWriterFingerprint,
 } from "@/lib/claims/distinctiveness";
+export {
+  buildExperimentClaimPool,
+  comparePerspectiveExperiments,
+} from "@/lib/claims/experiment-c";

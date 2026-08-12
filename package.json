@@ -28,8 +28,10 @@
     "eval:llm-claim-human": "tsx scripts/eval-llm-claim-human.ts",
     "eval:perspective-distinctiveness": "tsx scripts/eval-perspective-distinctiveness.ts",
     "eval:perspective-human": "tsx scripts/eval-perspective-human.ts",
+    "eval:experiment-c": "tsx scripts/eval-experiment-c.ts",
     "snapshot:claims": "tsx scripts/snapshot-claims.ts",
-    "snapshot:perspectives": "tsx scripts/snapshot-perspectives.ts"
+    "snapshot:perspectives": "tsx scripts/snapshot-perspectives.ts",
+    "snapshot:perspectives:c": "tsx scripts/snapshot-perspectives-c.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",

@@ -23,8 +23,11 @@ import type {
   LLMClaimExperimentCase,
   ValidatedLLMClaim,
 } from "@/lib/claims/llm/types";
+import {
+  createExperimentRetriever,
+  type ExperimentRetrievalMode,
+} from "@/lib/claims/experiment-c/retriever";
 import { analyzeQuestion } from "@/lib/question-analysis";
-import { createRetriever } from "@/lib/retrieval-mode";
 import type { PerspectiveClaim } from "@/types/perspective-claim";
 
 const MAX_PROPOSALS = 6;
@@ -45,7 +48,7 @@ function applyLlmValidatorExtras(
   schemaIssues: string[],
 ): PerspectiveClaim {
   const result = defaultClaimValidator.validate(claim, packet);
-  const issues = [...result.issues];
+  const issues: typeof result.issues = [...result.issues];
 
   for (const issue of schemaIssues) {
     if (
@@ -58,7 +61,6 @@ function applyLlmValidatorExtras(
     }
   }
 
-  // Stereotype / external knowledge soft traps in claim text
   const text = claim.text;
   if (
     claim.personId.includes("dazai") &&
@@ -81,7 +83,6 @@ function applyLlmValidatorExtras(
     issues.push("writer-stereotype-injection");
   }
 
-  // Outside-packet biography / death facts
   if (
     /昭和|大正|明治|一九|18\d{2}|19\d{2}|玉川上水|服毒|芥川は自殺|太宰は入水/.test(
       text,
@@ -115,15 +116,19 @@ export async function runLlmClaimExperimentCase(args: {
   personId: string;
   fixtureId: string;
   forceRefresh?: boolean;
+  experimentId?: "B" | "C";
+  retrievalMode?: ExperimentRetrievalMode;
 }): Promise<LLMClaimExperimentCase> {
+  const experimentId = args.experimentId ?? "B";
+  const retrievalMode = args.retrievalMode ?? "deterministic";
   const analysis = analyzeQuestion(args.question);
-  const { mode, retriever } = createRetriever("deterministic");
+  const { mode, retriever } = createExperimentRetriever(retrievalMode);
   const selected = await retriever.retrieve(args.personId, analysis);
   const { packet } = buildEvidencePacket({
     personId: args.personId,
     analysis,
     selected,
-    retrievalMode: mode,
+    retrievalMode: mode === "neural-hybrid" ? "hybrid" : mode,
   });
   const packetHash = hashEvidencePacket(packet);
 
@@ -134,6 +139,10 @@ export async function runLlmClaimExperimentCase(args: {
 
   const provider = createClaimLLMProvider();
   const promptVersion = getClaimPromptVersion();
+  const cachePromptVersion =
+    experimentId === "B" && retrievalMode === "deterministic"
+      ? promptVersion
+      : `${promptVersion}:${experimentId}:${retrievalMode}`;
 
   if (!provider) {
     return {
@@ -144,6 +153,8 @@ export async function runLlmClaimExperimentCase(args: {
       deterministicClaims,
       llmClaims: [],
       providerUnavailable: true,
+      experimentId,
+      retrievalMode,
     };
   }
 
@@ -153,14 +164,22 @@ export async function runLlmClaimExperimentCase(args: {
       evidencePacketHash: packetHash,
       provider: provider.providerName,
       model: provider.modelName,
-      promptVersion,
+      promptVersion: cachePromptVersion,
+      experimentId,
+      retrievalMode,
     });
 
   if (cached) {
     const stored = listProposedClaims({
       fixtureId: args.fixtureId,
       personId: args.personId,
-    }).filter((item) => item.claim.promptVersion === promptVersion);
+      experimentId,
+      retrievalMode,
+    }).filter(
+      (item) =>
+        item.claim.promptVersion === promptVersion ||
+        item.claim.promptVersion === cachePromptVersion,
+    );
     if (stored.length > 0) {
       return {
         fixtureId: args.fixtureId,
@@ -170,6 +189,8 @@ export async function runLlmClaimExperimentCase(args: {
         deterministicClaims,
         llmClaims: stored,
         record: cached,
+        experimentId,
+        retrievalMode,
       };
     }
   }
@@ -180,7 +201,8 @@ export async function runLlmClaimExperimentCase(args: {
       question: args.question,
       questionAnalysis: analysis,
       personId: args.personId,
-      personName: people.find((p) => p.id === args.personId)?.name ?? args.personId,
+      personName:
+        people.find((p) => p.id === args.personId)?.name ?? args.personId,
       evidencePacket: packet,
       historicalDistance: packet.historicalDistance,
       promptVersion,
@@ -196,6 +218,8 @@ export async function runLlmClaimExperimentCase(args: {
         deterministicClaims,
         llmClaims: [],
         providerUnavailable: true,
+        experimentId,
+        retrievalMode,
       };
     }
     throw error;
@@ -208,6 +232,8 @@ export async function runLlmClaimExperimentCase(args: {
     provider: provider.providerName,
     model: provider.modelName,
     promptVersion,
+    experimentId,
+    retrievalMode,
     temperature: output.temperature,
     rawStructuredOutput: output.rawStructuredOutput,
     usage: output.usage,
@@ -222,6 +248,15 @@ export async function runLlmClaimExperimentCase(args: {
       modelName: provider.modelName,
       promptVersion,
     });
+    const evidenceOk = proposal.evidenceIds.every((id) =>
+      packet.evidence.some((e) => e.id === id || e.fragmentId === id),
+    );
+    if (!evidenceOk) {
+      base.schemaValid = false;
+      base.schemaIssues = Array.from(
+        new Set([...base.schemaIssues, "evidence-id-invalid"]),
+      );
+    }
     const withRules = forceModernTransferRules(base.claim);
     const validated = applyLlmValidatorExtras(
       withRules,
@@ -245,28 +280,21 @@ export async function runLlmClaimExperimentCase(args: {
     });
   }
 
-  // Dedupe among allowed first, then fill review queue up to MAX_REVIEW_QUEUE
   const allowed = built.filter((b) => b.claim.allowedInFinalPerspective);
   const blocked = built.filter((b) => !b.claim.allowedInFinalPerspective);
   const dedupedAllowedIds = new Set(
     dedupeProposals(allowed.map((a) => a.claim)).map((c) => c.id),
   );
-  const uniqueAllowed = allowed.filter((a) => dedupedAllowedIds.has(a.claim.id));
-  const forQueue = [
-    ...uniqueAllowed.slice(0, MAX_REVIEW_QUEUE),
-    ...blocked,
-  ];
-  // Keep all for curator observation of failures; queue preference is first 5 allowed
+  const uniqueAllowed = allowed.filter((a) =>
+    dedupedAllowedIds.has(a.claim.id),
+  );
+  const forQueue = [...uniqueAllowed.slice(0, MAX_REVIEW_QUEUE), ...blocked];
   const llmClaims = built.map((item) => {
     const inQueue =
-      forQueue.findIndex((q) => q.claim.id === item.claim.id) < MAX_REVIEW_QUEUE &&
-      item.claim.allowedInFinalPerspective;
+      forQueue.findIndex((q) => q.claim.id === item.claim.id) <
+        MAX_REVIEW_QUEUE && item.claim.allowedInFinalPerspective;
     return {
       ...item,
-      claim: {
-        ...item.claim,
-        // annotate via notes in novelty
-      },
       novelty: item.novelty
         ? {
             ...item.novelty,
@@ -280,6 +308,8 @@ export async function runLlmClaimExperimentCase(args: {
     recordId: record.id,
     fixtureId: args.fixtureId,
     personId: args.personId,
+    experimentId,
+    retrievalMode,
     items: llmClaims,
   });
 
@@ -291,6 +321,8 @@ export async function runLlmClaimExperimentCase(args: {
     deterministicClaims,
     llmClaims,
     record,
+    experimentId,
+    retrievalMode,
   };
 }
 

@@ -10,6 +10,7 @@ import {
   buildStagingPerspectiveSkeleton,
 } from "@/lib/claims/approved";
 import { listProposedClaims } from "@/lib/claims/llm/store";
+import { buildExperimentClaimPool } from "@/lib/claims/experiment-c/build";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
 import type { ObservationResult } from "@/types/observation";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
@@ -26,6 +27,15 @@ export function isEvidenceBoundedSkeletonEnabled(): boolean {
 export function isStagingClaimsEnabled(searchFlag?: string): boolean {
   if (searchFlag === "1" || searchFlag === "true") return true;
   return (process.env.STAGING_CLAIMS ?? "false").toLowerCase() === "true";
+}
+
+export function isExperimentCEnabled(args?: {
+  experiment?: string;
+  retrieval?: string;
+}): boolean {
+  if (args?.experiment === "C") return true;
+  if (args?.retrieval === "neural-hybrid") return true;
+  return (process.env.EXPERIMENT_C ?? "false").toLowerCase() === "true";
 }
 
 function fixtureIdForQuestion(question: string): string | undefined {
@@ -102,8 +112,13 @@ export async function observeQuestionWithStagingClaims(
       });
       const llm = listProposedClaims(
         fixtureId
-          ? { fixtureId, personId: person.id }
-          : { personId: person.id },
+          ? {
+              fixtureId,
+              personId: person.id,
+              experimentId: "B",
+              retrievalMode: "deterministic",
+            }
+          : { personId: person.id, experimentId: "B" },
       ).map((item) => item.claim);
 
       return buildStagingPerspectiveSkeleton({
@@ -112,6 +127,29 @@ export async function observeQuestionWithStagingClaims(
         deterministicClaims: result.claims,
         llmClaims: llm,
       });
+    }),
+  );
+  return { observation, skeletons };
+}
+
+/** Experiment C: neural-hybrid retrieval + det + human-approved LLM claims. */
+export async function observeQuestionWithExperimentC(
+  rawQuestion: string,
+): Promise<{
+  observation: ObservationResult;
+  skeletons: EvidenceBoundedPerspectiveSkeleton[];
+}> {
+  const observation = await observeQuestion(rawQuestion);
+  const fixtureId = fixtureIdForQuestion(rawQuestion) ?? "adhoc";
+  const skeletons = await Promise.all(
+    people.map(async (person) => {
+      const built = await buildExperimentClaimPool({
+        experimentId: "C",
+        question: rawQuestion,
+        personId: person.id,
+        fixtureId,
+      });
+      return built.skeleton;
     }),
   );
   return { observation, skeletons };
