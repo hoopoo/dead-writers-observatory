@@ -22,11 +22,7 @@ export default function RootLayout({
               Dead Writers Observatory
               <span>SHIRO & Co. Observatory</span>
             </Link>
-            <p className="nav-note">
-              <Link href="/curator">Curator</Link>
-              {" · "}
-              Archive-based Perspective Engine
-            </p>
+            <p className="nav-note">Archive-based Perspective Engine</p>
           </header>
           {children}
         </main>

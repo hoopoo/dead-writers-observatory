@@ -59,3 +59,42 @@ Source → SourcePassage → ThoughtFragment → WriterPerspective
 placeholder は `SOURCE REFERENCE` / `ARCHIVE INTERPRETATION`。
 
 RAG 接続時は `src/lib/retrieval.ts` の `PerspectiveRetriever` 実装を差し替える。
+
+## Curator Console (internal)
+
+`/curator` は運用者向け。公開 UI からはリンクしない。
+
+```bash
+# .env.local
+CURATOR_ENABLED=true
+# optional:
+# CURATOR_TOKEN=...
+```
+
+```bash
+npm run curator:seed
+npm run snapshot:retrieval
+npm run eval:retrieval-regression
+npm run eval:review-persistence
+```
+
+- Archive content（原文・Source）は Git 管理
+- Curator decisions（review status / events）は SQLite（`data/curator-reviews.sqlite`）
+- Review history は append-only
+
+## Retrieval quality (before semantic RAG)
+
+Similarity alone ≠ Retrieval Quality.
+
+Dead Writers Observatory treats search quality as:
+
+```
+Relevance
+× Provenance
+× Review Integrity
+× Source Diversity
+× Authorial Distance
+```
+
+Semantic retrieval 導入後も、似ている文章を選ぶだけでは品質を担保しない。
+`ArchiveTrustFilter` と `EvidenceDiversityReranker` が trust / diversity を先に守る。

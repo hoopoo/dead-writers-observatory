@@ -4,8 +4,11 @@ import { fragments } from "@/data/fragments";
 import { getPassageById } from "@/data/passages";
 import { getSourceById } from "@/data/sources";
 import { people } from "@/data/people";
-import { getPassageReview } from "@/data/reviews/passages";
-import { getFragmentReview } from "@/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "@/lib/review/active";
+import { sqliteReviewRepository } from "@/lib/review/sqlite-repository";
 import { detectOverclaimRisk } from "@/lib/overclaim";
 import {
   buildInterpretationLadder,
@@ -19,6 +22,7 @@ import {
 import { ArchivalDistanceMeter } from "@/components/curator/ArchivalDistanceMeter";
 import { InterpretationLadder } from "@/components/curator/InterpretationLadder";
 import { ReviewActionBar } from "@/components/curator/ReviewActionBar";
+import { ReviewHistory } from "@/components/curator/ReviewHistory";
 import { SourceInterpretationDiff } from "@/components/curator/SourceInterpretationDiff";
 import { VoiceWarnings } from "@/components/curator/VoiceWarnings";
 
@@ -42,11 +46,15 @@ export default async function CuratorPassagePage({
 
   const person = people.find((p) => p.id === passage.personId);
   const source = getSourceById(passage.sourceId);
-  const review = getPassageReview(passage.id);
+  const review = getActivePassageReview(passage.id);
+  const events = await sqliteReviewRepository.getReviewEvents(
+    "passage",
+    passage.id,
+  );
   const linked = fragments.filter((f) => f.passageId === passage.id);
   const primary = linked[0];
   const fragmentReview = primary
-    ? getFragmentReview(primary.id)
+    ? getActiveFragmentReview(primary.id)
     : undefined;
   const distance = primary?.authorialDistance ?? "unknown";
   const ladder = buildInterpretationLadder({
@@ -235,7 +243,7 @@ export default async function CuratorPassagePage({
         ) : (
           <ul className="fragment-review-list">
             {linked.map((fragment) => {
-              const fr = getFragmentReview(fragment.id);
+              const fr = getActiveFragmentReview(fragment.id);
               const auto = detectOverclaimRisk(fragment, passage);
               return (
                 <li key={fragment.id}>
@@ -289,6 +297,7 @@ export default async function CuratorPassagePage({
       </section>
 
       <ReviewActionBar passageId={passage.id} initialReview={review} />
+      <ReviewHistory events={events} />
 
       {score ? (
         <section className="panel">

@@ -39,22 +39,44 @@ export interface ThoughtFragmentReview {
   notes?: string;
 }
 
+export type ReviewActorType = "human" | "system" | "migration";
+
+export interface ReviewActor {
+  id: string;
+  displayName: string;
+  type: ReviewActorType;
+}
+
 export type ReviewEventAction =
+  | "created"
   | "approved"
   | "needs-review"
   | "rejected"
-  | "updated";
+  | "updated"
+  | "restored";
 
 export type ReviewTargetType = "passage" | "fragment";
 
-/** Future DB history shape. Not persisted yet. */
 export interface ReviewEvent {
   id: string;
   targetType: ReviewTargetType;
   targetId: string;
   action: ReviewEventAction;
-  reviewer?: string;
+  actor: ReviewActor;
+  previousState?: unknown;
+  nextState?: unknown;
   timestamp: string;
+  notes?: string;
+}
+
+export interface ReviewEventInput {
+  targetType: ReviewTargetType;
+  targetId: string;
+  action: ReviewEventAction;
+  actor: ReviewActor;
+  previousState?: unknown;
+  nextState?: unknown;
+  timestamp?: string;
   notes?: string;
 }
 
@@ -66,11 +88,40 @@ export interface PassageReviewUpdate {
   reviewer?: string;
 }
 
+export interface ThoughtFragmentReviewUpdate {
+  meaningSupportedByPassage?: MeaningSupport;
+  overclaimRisk?: OverclaimRisk;
+  notes?: string;
+}
+
 export interface ArchiveReviewRepository {
-  getPassageReview(passageId: string): Promise<PassageReview | undefined>;
+  getPassageReview(passageId: string): Promise<PassageReview | null>;
+  getFragmentReview(fragmentId: string): Promise<ThoughtFragmentReview | null>;
   updatePassageReview(
     passageId: string,
     update: PassageReviewUpdate,
+    actor?: ReviewActor,
   ): Promise<PassageReview>;
-  listReviewEvents?(targetId?: string): Promise<ReviewEvent[]>;
+  updateFragmentReview(
+    fragmentId: string,
+    update: ThoughtFragmentReviewUpdate,
+    actor?: ReviewActor,
+  ): Promise<ThoughtFragmentReview>;
+  getReviewEvents(
+    targetType: ReviewTargetType,
+    targetId: string,
+  ): Promise<ReviewEvent[]>;
+  appendReviewEvent(event: ReviewEventInput): Promise<ReviewEvent>;
 }
+
+export const DEFAULT_REVIEW_ACTOR: ReviewActor = {
+  id: "local-curator",
+  displayName: "Curator",
+  type: "human",
+};
+
+export const MIGRATION_ACTOR: ReviewActor = {
+  id: "migration",
+  displayName: "Migration",
+  type: "migration",
+};

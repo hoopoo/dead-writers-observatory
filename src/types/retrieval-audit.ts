@@ -20,6 +20,7 @@ export type RejectionReason =
   | "placeholder"
   | "rejected review"
   | "needs-review not primary"
+  | "REVIEW STATUS: NEEDS REVIEW"
   | "slot filled";
 
 export interface RetrievalCandidateAudit {

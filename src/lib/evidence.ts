@@ -2,7 +2,7 @@ import type { SourcePassage } from "@/types/source-passage";
 import type { PassageReview } from "@/types/review";
 import type { ProvenanceLabel } from "@/types/provenance";
 import type { AuthorialDistance } from "@/types/thought-fragment";
-import { getPassageReview } from "@/data/reviews/passages";
+import { getActivePassageReview } from "@/lib/review/active";
 
 const WORK_VOICES = new Set([
   "narrator",
@@ -19,7 +19,7 @@ export function isApprovedDirectEvidence(
   review?: PassageReview | null,
 ): boolean {
   if (!passage) return false;
-  const resolvedReview = review ?? getPassageReview(passage.id);
+  const resolvedReview = review ?? getActivePassageReview(passage.id);
   return (
     passage.verificationStatus === "verified" &&
     Boolean(passage.text && passage.text.trim()) &&

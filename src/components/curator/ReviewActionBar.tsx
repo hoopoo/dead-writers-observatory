@@ -1,39 +1,38 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { PassageReview, ReviewStatus } from "@/types/review";
-import { defaultReviewRepository } from "@/lib/review-repository";
+import { updatePassageReviewAction } from "@/app/curator/actions";
 
 export function ReviewActionBar({
   passageId,
   initialReview,
 }: {
   passageId: string;
-  initialReview?: PassageReview;
+  initialReview?: PassageReview | null;
 }) {
+  const router = useRouter();
   const [review, setReview] = useState(initialReview);
   const [pending, startTransition] = useTransition();
-  const [note, setNote] = useState("UI preview — not persisted to disk");
+  const [note, setNote] = useState("Writes to persistent review store + event log");
 
   function apply(status: ReviewStatus) {
     startTransition(async () => {
-      const next = await defaultReviewRepository.updatePassageReview(passageId, {
+      const result = await updatePassageReviewAction({
+        passageId,
         reviewStatus: status,
-        notes: `Curator Console preview → ${status}`,
-        checks:
-          status === "approved"
-            ? {
-                textVerified: true,
-                locatorVerified: true,
-                voiceVerified: true,
-                authorialDistanceVerified: true,
-                sourceRelationshipVerified: true,
-                fragmentMeaningVerified: true,
-              }
-            : undefined,
+        notes: `Curator Console → ${status}`,
       });
-      setReview(next);
-      setNote(`Preview state: ${next.reviewStatus} @ ${next.reviewedAt}`);
+      if (!result.ok) {
+        setNote(result.error);
+        return;
+      }
+      setReview(result.review);
+      setNote(
+        `Persisted: ${result.review.reviewStatus} @ ${result.review.reviewedAt}`,
+      );
+      router.refresh();
     });
   }
 

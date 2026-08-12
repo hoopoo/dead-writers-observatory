@@ -3,8 +3,10 @@ import { passages } from "../src/data/passages";
 import { fragments } from "../src/data/fragments";
 import { getSourceById } from "../src/data/sources";
 import { getPassageById } from "../src/data/passages";
-import { getPassageReview } from "../src/data/reviews/passages";
-import { getFragmentReview } from "../src/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "../src/lib/review/active";
 import {
   isApprovedDirectEvidence,
   isDirectAuthorEvidence,
@@ -29,7 +31,7 @@ function main() {
   for (const passage of passages) {
     const person = people.find((p) => p.id === passage.personId);
     const source = getSourceById(passage.sourceId);
-    const review = getPassageReview(passage.id);
+    const review = getActivePassageReview(passage.id);
     const linked = fragments.filter((f) => f.passageId === passage.id);
 
     if (passage.verificationStatus === "verified") verified += 1;
@@ -50,7 +52,7 @@ function main() {
     for (const fragment of linked) {
       if (fragment.authorialDistance === "near") near += 1;
       if (fragment.authorialDistance === "indirect") indirect += 1;
-      const fragReview = getFragmentReview(fragment.id);
+      const fragReview = getActiveFragmentReview(fragment.id);
       const auto = detectOverclaimRisk(fragment, passage);
       const risk = fragReview?.overclaimRisk ?? auto.risk;
       if (risk === "high") highOverclaim += 1;
@@ -112,7 +114,7 @@ function main() {
 
   // Fail hard conditions for curator workflow integrity.
   for (const passage of passages) {
-    const review = getPassageReview(passage.id);
+    const review = getActivePassageReview(passage.id);
     if (
       passage.verificationStatus !== "verified" &&
       review?.reviewStatus === "approved" &&
@@ -123,7 +125,7 @@ function main() {
   }
 
   const illegal = passages.some((passage) => {
-    const review = getPassageReview(passage.id);
+    const review = getActivePassageReview(passage.id);
     return (
       passage.verificationStatus !== "verified" &&
       isApprovedDirectEvidence(passage, review)

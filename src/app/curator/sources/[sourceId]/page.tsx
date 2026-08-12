@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSourceById } from "@/data/sources";
 import { getPassagesBySourceId } from "@/data/passages";
-import { getPassageReview } from "@/data/reviews/passages";
+import { getActivePassageReview } from "@/lib/review/active";
 import { people } from "@/data/people";
 
 export default async function CuratorSourcePage({
@@ -42,7 +42,7 @@ export default async function CuratorSourcePage({
         <p className="eyebrow">PASSAGES</p>
         <ul className="pending-list">
           {sourcePassages.map((passage) => {
-            const review = getPassageReview(passage.id);
+            const review = getActivePassageReview(passage.id);
             return (
               <li key={passage.id}>
                 <div>

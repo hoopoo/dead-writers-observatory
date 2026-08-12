@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { passages, getPassageById } from "../src/data/passages";
 import { fragments } from "../src/data/fragments";
-import { getPassageReview } from "../src/data/reviews/passages";
+import { getActivePassageReview } from "../src/lib/review/active";
 import {
   isApprovedDirectEvidence,
   isDirectAuthorEvidence,
@@ -31,7 +31,7 @@ async function main() {
     (p) => p.verificationStatus === "verified",
   ).length;
   const approvedCount = passages.filter(
-    (p) => getPassageReview(p.id)?.reviewStatus === "approved",
+    (p) => getActivePassageReview(p.id)?.reviewStatus === "approved",
   ).length;
   check(
     "verified ≠ approved concepts both present",
@@ -41,7 +41,7 @@ async function main() {
 
   // approved placeholder cannot become DIRECT SOURCE
   const approvedPlaceholderDirect = passages.some((p) => {
-    const review = getPassageReview(p.id);
+    const review = getActivePassageReview(p.id);
     return (
       p.verificationStatus === "placeholder" &&
       review?.reviewStatus === "approved" &&
@@ -59,7 +59,7 @@ async function main() {
       (p.voiceType === "fictional_character" ||
         p.voiceType === "narrator" ||
         p.voiceType === "dialogue") &&
-      isDirectAuthorEvidence(p, getPassageReview(p.id)),
+      isDirectAuthorEvidence(p, getActivePassageReview(p.id)),
   );
   check("fictional voice cannot become author direct", !fictionalDirect);
 
@@ -94,12 +94,12 @@ async function main() {
   check(
     "ningen-shikkaku is work voice",
     isWorkVoice(ningen) &&
-      !isDirectAuthorEvidence(ningen, getPassageReview(ningen.id)),
+      !isDirectAuthorEvidence(ningen, getActivePassageReview(ningen.id)),
   );
 
   // needs-review cannot be primary evidence (approved ones are primary)
   const primaryOk = fragments.every((fragment) => {
-    const review = getPassageReview(fragment.passageId);
+    const review = getActivePassageReview(fragment.passageId);
     if (review?.reviewStatus === "needs-review") {
       return !isPrimaryEvidenceEligible(fragment);
     }
@@ -138,7 +138,7 @@ async function main() {
 
   // Special curator tests A/B/C
   const ningenPassage = getPassageById("pass-dazai-ningen-01");
-  const ningenReview = getPassageReview("pass-dazai-ningen-01");
+  const ningenReview = getActivePassageReview("pass-dazai-ningen-01");
   check(
     "Special A: 人間失格 WORK VOICE",
     Boolean(
@@ -152,7 +152,7 @@ async function main() {
   );
 
   const indPassage = getPassageById("pass-soseki-ind-01");
-  const indReview = getPassageReview("pass-soseki-ind-01");
+  const indReview = getActivePassageReview("pass-soseki-ind-01");
   check(
     "Special B: 私の個人主義 DIRECT AUTHOR",
     Boolean(

@@ -1,8 +1,10 @@
 import { FIXTURE_QUESTIONS } from "../src/data/fixtures/questions";
 import { observeQuestion } from "../src/lib/observe";
 import { getPassageById } from "../src/data/passages";
-import { getPassageReview } from "../src/data/reviews/passages";
-import { getFragmentReview } from "../src/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "../src/lib/review/active";
 import { detectOverclaimRisk } from "../src/lib/overclaim";
 
 const SPECIAL_TESTS = [
@@ -114,7 +116,7 @@ async function main() {
         (e) => e.reviewStatus === "approved",
       ).length;
       const overclaimRiskCount = perspective.evidence.filter((e) => {
-        const fragReview = getFragmentReview(e.fragmentId);
+        const fragReview = getActiveFragmentReview(e.fragmentId);
         const passage = getPassageById(e.passageId);
         const fragment = perspective.sourceFragments.find(
           (s) => s.fragment.id === e.fragmentId,
@@ -156,7 +158,7 @@ async function main() {
           fail = true;
         }
         const passage = getPassageById(evidence.passageId);
-        const review = passage ? getPassageReview(passage.id) : undefined;
+        const review = passage ? getActivePassageReview(passage.id) : undefined;
         if (
           evidence.isApprovedEvidence &&
           review?.reviewStatus !== "approved"

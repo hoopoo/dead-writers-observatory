@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { PerspectiveEvidence } from "@/types/evidence";
-import { AUTHORIAL_DISTANCE_LABELS } from "@/lib/archive-distance";
+import { AUTHORIAL_DISTANCE_LABELS } from "@/lib/archive-distance-labels";
 import { ProvenanceBadge } from "./ProvenanceBadge";
 
 export function SourceEvidenceCard({ evidence }: { evidence: PerspectiveEvidence }) {

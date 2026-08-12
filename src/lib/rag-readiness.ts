@@ -1,7 +1,7 @@
 import { people } from "@/data/people";
 import { passages } from "@/data/passages";
 import { computeArchiveHealth } from "@/lib/archive-health";
-import { getPassageReview } from "@/data/reviews/passages";
+import { getActivePassageReview } from "@/lib/review/active";
 import type {
   GlobalRagReadiness,
   GlobalRagStatus,
@@ -17,7 +17,7 @@ export function computeRagReadiness(personId: string): RagReadiness {
     (p) => p.verificationStatus === "verified",
   ).length;
   const approved = personPassages.filter((p) => {
-    const review = getPassageReview(p.id);
+    const review = getActivePassageReview(p.id);
     return review?.reviewStatus === "approved";
   }).length;
 

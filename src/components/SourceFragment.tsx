@@ -1,6 +1,6 @@
 import type { SourceFragmentView } from "@/types/perspective";
 import { ProvenanceBadge } from "./ProvenanceBadge";
-import { AUTHORIAL_DISTANCE_LABELS } from "@/lib/archive-distance";
+import { AUTHORIAL_DISTANCE_LABELS } from "@/lib/archive-distance-labels";
 
 export function SourceFragment({ item }: { item: SourceFragmentView }) {
   const distance = AUTHORIAL_DISTANCE_LABELS[item.fragment.authorialDistance];

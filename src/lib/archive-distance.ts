@@ -1,46 +1,17 @@
 import type { ArchivalDistanceSummary } from "@/types/evidence";
-import type { AuthorialDistance, ThoughtFragment } from "@/types/thought-fragment";
+import type { ThoughtFragment } from "@/types/thought-fragment";
 import { getPassageById } from "@/data/passages";
-import { getPassageReview } from "@/data/reviews/passages";
+import { getActivePassageReview } from "@/lib/review/active";
 import {
   isApprovedDirectEvidence,
   isWorkVoice,
 } from "@/lib/evidence";
+import {
+  AUTHORIAL_DISTANCE_LABELS,
+  authorialDistanceBonus,
+} from "@/lib/archive-distance-labels";
 
-export const AUTHORIAL_DISTANCE_LABELS: Record<
-  AuthorialDistance,
-  { en: string; ja: string }
-> = {
-  direct: {
-    en: "DIRECT",
-    ja: "作者本人の直接発言",
-  },
-  near: {
-    en: "NEAR",
-    ja: "作者の自伝的・随筆的記述",
-  },
-  indirect: {
-    en: "INDIRECT",
-    ja: "作品内の語り・人物",
-  },
-  unknown: {
-    en: "UNKNOWN",
-    ja: "距離を特定できない",
-  },
-};
-
-export function authorialDistanceBonus(distance: AuthorialDistance): number {
-  switch (distance) {
-    case "direct":
-      return 2;
-    case "near":
-      return 1;
-    case "indirect":
-      return 0;
-    case "unknown":
-      return -1;
-  }
-}
+export { AUTHORIAL_DISTANCE_LABELS, authorialDistanceBonus };
 
 export function summarizeArchivalDistance(
   fragments: ThoughtFragment[],
@@ -58,7 +29,7 @@ export function summarizeArchivalDistance(
   for (const fragment of fragments) {
     counts[fragment.authorialDistance] += 1;
     const passage = getPassageById(fragment.passageId);
-    const review = passage ? getPassageReview(passage.id) : undefined;
+    const review = passage ? getActivePassageReview(passage.id) : undefined;
     if (passage?.verificationStatus === "verified") verifiedCount += 1;
     if (passage && isApprovedDirectEvidence(passage, review)) {
       approvedCount += 1;
@@ -99,7 +70,7 @@ export function summarizeArchivalDistance(
 
 export function distanceAwareSourcePhrase(
   sourceTitle: string,
-  distance: AuthorialDistance,
+  distance: import("@/types/thought-fragment").AuthorialDistance,
 ): string {
   switch (distance) {
     case "direct":

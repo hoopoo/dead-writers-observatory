@@ -1,11 +1,12 @@
-/**
- * Future internal-only gate.
- * Auth is not implemented; keep a single flag for route/layout checks.
- */
-export const CURATOR_MODE = true;
+import { isCuratorEnabled } from "@/lib/curator-env";
+
+/** @deprecated Prefer isCuratorEnabled(); kept for layout clarity. */
+export const CURATOR_MODE = process.env.CURATOR_ENABLED === "true";
+
+export { isCuratorEnabled };
 
 export function assertCuratorAccess(): void {
-  if (!CURATOR_MODE) {
-    throw new Error("Curator Console is disabled.");
+  if (!isCuratorEnabled()) {
+    throw new Error("CURATOR_ACCESS_DENIED");
   }
 }

@@ -1,9 +1,24 @@
 import Link from "next/link";
-import { assertCuratorAccess } from "@/lib/curator";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isCuratorEnabled } from "@/lib/curator-env";
 import type { ReactNode } from "react";
 
+export const metadata: Metadata = {
+  title: "Curator Console — Dead Writers Observatory",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
+
+export const dynamic = "force-dynamic";
+
 export default function CuratorLayout({ children }: { children: ReactNode }) {
-  assertCuratorAccess();
+  if (!isCuratorEnabled()) {
+    notFound();
+  }
 
   return (
     <div className="curator-shell">
@@ -16,6 +31,9 @@ export default function CuratorLayout({ children }: { children: ReactNode }) {
             死者の言葉を、AIの解釈より先に確認する。
             <br />
             Verify the source. Measure the distance. Then interpret.
+            <br />
+            Relevance × Provenance × Review Integrity × Source Diversity ×
+            Authorial Distance
           </p>
         </div>
         <nav className="curator-nav">

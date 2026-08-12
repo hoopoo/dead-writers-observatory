@@ -2,8 +2,10 @@ import { people } from "@/data/people";
 import { passages, getPassagesBySourceId, getPassagesByPersonId } from "@/data/passages";
 import { fragments } from "@/data/fragments";
 import { getSourcesByPersonId, getSourceById } from "@/data/sources";
-import { getPassageReview } from "@/data/reviews/passages";
-import { getFragmentReview } from "@/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "@/lib/review/active";
 import { computeArchiveHealth } from "@/lib/archive-health";
 import {
   isApprovedDirectEvidence,
@@ -55,23 +57,23 @@ export function getGlobalArchiveSummary() {
   const health = people.map((p) => computeArchiveHealth(p.id));
   const verified = passages.filter((p) => p.verificationStatus === "verified").length;
   const approved = passages.filter((p) => {
-    const review = getPassageReview(p.id);
+    const review = getActivePassageReview(p.id);
     return review?.reviewStatus === "approved";
   }).length;
   const placeholder = passages.filter(
     (p) => p.verificationStatus === "placeholder",
   ).length;
   const directAuthor = passages.filter((p) =>
-    isDirectAuthorEvidence(p, getPassageReview(p.id)),
+    isDirectAuthorEvidence(p, getActivePassageReview(p.id)),
   ).length;
   const workVoice = passages.filter((p) => {
-    const review = getPassageReview(p.id);
+    const review = getActivePassageReview(p.id);
     return isApprovedDirectEvidence(p, review) && isWorkVoice(p);
   }).length;
   let highOverclaim = 0;
   for (const fragment of fragments) {
     const passage = passages.find((p) => p.id === fragment.passageId);
-    const review = getFragmentReview(fragment.id);
+    const review = getActiveFragmentReview(fragment.id);
     const auto = detectOverclaimRisk(fragment, passage);
     if ((review?.overclaimRisk ?? auto.risk) === "high") highOverclaim += 1;
   }
@@ -94,7 +96,7 @@ export function getGlobalArchiveSummary() {
 export function listPendingArchiveWork(): PendingArchiveItem[] {
   return passages
     .filter((passage) => {
-      const review = getPassageReview(passage.id);
+      const review = getActivePassageReview(passage.id);
       return (
         passage.verificationStatus === "placeholder" ||
         !review ||
@@ -128,7 +130,7 @@ export function listPendingArchiveWork(): PendingArchiveItem[] {
         reasonPending:
           passage.verificationStatus === "placeholder"
             ? "PLACEHOLDER"
-            : `review=${getPassageReview(passage.id)?.reviewStatus ?? "none"}`,
+            : `review=${getActivePassageReview(passage.id)?.reviewStatus ?? "none"}`,
         requiredActions,
       };
     });
@@ -147,7 +149,7 @@ export function buildPersonArchiveTree(personId: string): SourceTreeNode[] {
     let riskCount = 0;
 
     const passageNodes = sourcePassages.map((passage) => {
-      const review = getPassageReview(passage.id);
+      const review = getActivePassageReview(passage.id);
       const linked = fragments.filter((f) => f.passageId === passage.id);
       fragmentCount += linked.length;
       if (passage.verificationStatus === "verified") verifiedCount += 1;
@@ -158,7 +160,7 @@ export function buildPersonArchiveTree(personId: string): SourceTreeNode[] {
       for (const fragment of linked) {
         distanceDistribution[fragment.authorialDistance] =
           (distanceDistribution[fragment.authorialDistance] ?? 0) + 1;
-        const fragReview = getFragmentReview(fragment.id);
+        const fragReview = getActiveFragmentReview(fragment.id);
         const auto = detectOverclaimRisk(fragment, passage);
         if ((fragReview?.overclaimRisk ?? auto.risk) === "high") {
           riskCount += 1;

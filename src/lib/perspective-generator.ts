@@ -1,7 +1,7 @@
 import { getPersonById } from "@/data/people";
 import { getSourceById } from "@/data/sources";
 import { getPassageById } from "@/data/passages";
-import { getPassageReview } from "@/data/reviews/passages";
+import { getActivePassageReview } from "@/lib/review/active";
 import {
   AUTHORIAL_DISTANCE_LABELS,
   distanceAwareSourcePhrase,
@@ -200,7 +200,7 @@ function buildInterpretation(
 function toEvidence(fragment: ThoughtFragment): PerspectiveEvidence {
   const source = getSourceById(fragment.sourceId);
   const passage = getPassageById(fragment.passageId);
-  const review = passage ? getPassageReview(passage.id) : undefined;
+  const review = passage ? getActivePassageReview(passage.id) : undefined;
   const role = evidenceRoleFor(fragment);
 
   return {
@@ -240,7 +240,7 @@ function toEvidence(fragment: ThoughtFragment): PerspectiveEvidence {
 function toSourceFragmentView(fragment: ThoughtFragment): SourceFragmentView {
   const source = getSourceById(fragment.sourceId);
   const passage = getPassageById(fragment.passageId);
-  const review = passage ? getPassageReview(passage.id) : undefined;
+  const review = passage ? getActivePassageReview(passage.id) : undefined;
 
   return {
     fragment,

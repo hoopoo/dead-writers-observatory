@@ -2,8 +2,10 @@ import { people } from "@/data/people";
 import { getFragmentsByPersonId } from "@/data/fragments";
 import { getPassageById } from "@/data/passages";
 import { getSourceById } from "@/data/sources";
-import { getPassageReview } from "@/data/reviews/passages";
-import { getFragmentReview } from "@/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "@/lib/review/active";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
 import { analyzeQuestion } from "@/lib/question-analysis";
 import { detectOverclaimRisk } from "@/lib/overclaim";
@@ -35,8 +37,8 @@ function collectRejectionReasons(
 
   const reasons: RejectionReason[] = [];
   const passage = getPassageById(frag.passageId);
-  const review = passage ? getPassageReview(passage.id) : undefined;
-  const fragReview = getFragmentReview(frag.id);
+  const review = passage ? getActivePassageReview(passage.id) : undefined;
+  const fragReview = getActiveFragmentReview(frag.id);
   const auto = detectOverclaimRisk(frag, passage);
   const risk = fragReview?.overclaimRisk ?? auto.risk;
   const gate = isRetrievableFragment(frag);
@@ -57,6 +59,7 @@ function collectRejectionReasons(
   }
   if (review?.reviewStatus === "needs-review") {
     reasons.push("needs-review not primary");
+    reasons.push("REVIEW STATUS: NEEDS REVIEW");
   }
   if (review && review.reviewStatus !== "approved") {
     reasons.push("unapproved");

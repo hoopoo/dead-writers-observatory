@@ -1,0 +1,2145 @@
+{
+  "version": "v1",
+  "generatedAt": "2026-08-12T06:16:45.084Z",
+  "fixtures": [
+    {
+      "fixtureId": "q1",
+      "question": "会社を辞めて独立したい。でも収入がなくなるのが怖い。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-02",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-03",
+            "pass-soseki-ind-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-02",
+            "frag-soseki-kokoro-03",
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-03",
+            "frag-soseki-ind-01"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-kokoro",
+            "src-soseki-garasudo"
+          ],
+          "authorialDistances": [
+            "direct",
+            "indirect",
+            "near",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "money",
+            "work",
+            "society",
+            "independence",
+            "self",
+            "modernization",
+            "intimacy",
+            "obligation",
+            "loneliness",
+            "observation",
+            "aging",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-kokoro-01",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 17.04,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 37.04
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-ahou-02",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-haguruma",
+            "src-akutagawa-ahou"
+          ],
+          "authorialDistances": [
+            "direct",
+            "indirect",
+            "near",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "creativity",
+            "observation",
+            "self",
+            "anxiety",
+            "society",
+            "fear",
+            "fatigue",
+            "death",
+            "modernization",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-02"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 13.09,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 33.09
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-tsugaru-03",
+            "frag-dazai-ningen-02",
+            "frag-dazai-fugaku-02",
+            "frag-dazai-tsugaru-01",
+            "frag-dazai-tsugaru-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-tsugaru",
+            "src-dazai-ningen",
+            "src-dazai-fugaku"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "near",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "money",
+            "work",
+            "shame",
+            "love",
+            "fear",
+            "intimacy",
+            "performance",
+            "approval",
+            "observation",
+            "self",
+            "anxiety",
+            "family",
+            "loneliness",
+            "society"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 14,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 9.35,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 28.35
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "question": "友達はいるのに孤独です。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-kokoro-01",
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-02",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-kokoro-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-kokoro-01",
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-02",
+            "frag-soseki-kokoro-02",
+            "frag-soseki-kokoro-04"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-kokoro",
+            "src-soseki-garasudo",
+            "src-soseki-individualism"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "near",
+            "direct",
+            "indirect",
+            "indirect"
+          ],
+          "themes": [
+            "loneliness",
+            "self",
+            "intimacy",
+            "society",
+            "observation",
+            "aging",
+            "money",
+            "work",
+            "independence",
+            "shame",
+            "love",
+            "fear",
+            "death",
+            "obligation"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 1,
+          "nearCount": 1,
+          "indirectCount": 3,
+          "rejectedPassageIds": [
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-ind-01",
+            "pass-soseki-ind-03"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 14,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 11.12,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 31.119999999999997
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-ahou-03",
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-ahou",
+            "src-akutagawa-shuju",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "near",
+            "direct",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "loneliness",
+            "society",
+            "self",
+            "anxiety",
+            "happiness",
+            "creativity",
+            "observation",
+            "fear",
+            "fatigue",
+            "death",
+            "obligation",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-02"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 6.890000000000001,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 26.89
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-ningen-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-ningen-01",
+            "frag-dazai-fugaku-01",
+            "frag-dazai-tsugaru-01",
+            "frag-dazai-ningen-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-tsugaru",
+            "src-dazai-ningen",
+            "src-dazai-fugaku"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "near",
+            "near",
+            "indirect"
+          ],
+          "themes": [
+            "family",
+            "intimacy",
+            "loneliness",
+            "self",
+            "shame",
+            "approval",
+            "creativity",
+            "observation",
+            "society",
+            "fear",
+            "performance"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 3,
+          "indirectCount": 2,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 12.55,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 31.55
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "question": "SNSを見るのをやめたいのに、つい見てしまいます。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-03",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-02",
+            "pass-soseki-ind-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-03",
+            "frag-soseki-kokoro-03",
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-02",
+            "frag-soseki-ind-01"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-kokoro",
+            "src-soseki-garasudo"
+          ],
+          "authorialDistances": [
+            "direct",
+            "indirect",
+            "near",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "money",
+            "obligation",
+            "happiness",
+            "society",
+            "approval",
+            "modernization",
+            "intimacy",
+            "loneliness",
+            "self",
+            "observation",
+            "aging",
+            "work",
+            "independence"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 7.49,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 27.490000000000002
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-03",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-shuju-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-03",
+            "frag-akutagawa-ahou-02",
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-shuju-01"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "happiness",
+            "self",
+            "observation",
+            "anxiety",
+            "approval",
+            "modernization",
+            "fatigue",
+            "society",
+            "fear",
+            "death",
+            "creativity",
+            "obligation"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 7.26,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 27.259999999999998
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-ningen-02",
+            "frag-dazai-fugaku-02",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-fugaku-01",
+            "frag-dazai-ningen-01"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-ningen",
+            "src-dazai-fugaku",
+            "src-dazai-tsugaru"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "near",
+            "near",
+            "near",
+            "indirect"
+          ],
+          "themes": [
+            "fear",
+            "intimacy",
+            "performance",
+            "shame",
+            "approval",
+            "observation",
+            "self",
+            "anxiety",
+            "family",
+            "loneliness",
+            "creativity"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 3,
+          "indirectCount": 2,
+          "rejectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 10.249999999999998,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 29.25
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "question": "AIに自分の仕事を奪われる気がします。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-02",
+            "pass-soseki-gara-01",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-ind-01",
+            "pass-soseki-kokoro-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-02",
+            "frag-soseki-gara-01",
+            "frag-soseki-kokoro-03",
+            "frag-soseki-ind-01",
+            "frag-soseki-kokoro-01"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-garasudo",
+            "src-soseki-kokoro"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "indirect"
+          ],
+          "themes": [
+            "money",
+            "work",
+            "society",
+            "independence",
+            "self",
+            "loneliness",
+            "observation",
+            "aging",
+            "modernization",
+            "intimacy",
+            "obligation"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 1,
+          "indirectCount": 2,
+          "rejectedPassageIds": [
+            "pass-soseki-ind-03",
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 15.62,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 35.62
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-ahou-02",
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "creativity",
+            "observation",
+            "self",
+            "anxiety",
+            "society",
+            "modernization",
+            "fatigue",
+            "fear",
+            "death",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-02"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 11.78,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 31.78
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-tsugaru-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-tsugaru-01",
+            "frag-dazai-fugaku-01",
+            "frag-dazai-ningen-01",
+            "frag-dazai-tsugaru-03",
+            "frag-dazai-tsugaru-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-tsugaru",
+            "src-dazai-fugaku",
+            "src-dazai-ningen"
+          ],
+          "authorialDistances": [
+            "near",
+            "near",
+            "indirect",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "family",
+            "loneliness",
+            "intimacy",
+            "self",
+            "society",
+            "creativity",
+            "approval",
+            "shame",
+            "observation",
+            "money",
+            "work",
+            "love",
+            "fear"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 9.749999999999998,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 28.75
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "question": "成功しているはずなのに幸福ではありません。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-03",
+            "pass-soseki-gara-01",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-ind-02",
+            "pass-soseki-ind-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-03",
+            "frag-soseki-gara-01",
+            "frag-soseki-kokoro-01",
+            "frag-soseki-ind-02",
+            "frag-soseki-ind-01"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-garasudo",
+            "src-soseki-kokoro"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "money",
+            "obligation",
+            "happiness",
+            "society",
+            "approval",
+            "loneliness",
+            "self",
+            "observation",
+            "aging",
+            "intimacy",
+            "work",
+            "independence"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 10.940000000000001,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 30.94
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-03",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-shuju-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-03",
+            "frag-akutagawa-ahou-03",
+            "frag-akutagawa-hagu-02",
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-shuju-01"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "happiness",
+            "self",
+            "observation",
+            "anxiety",
+            "approval",
+            "loneliness",
+            "society",
+            "fatigue",
+            "shame",
+            "creativity",
+            "obligation"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-ahou-02"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 12.469999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 32.47
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-fugaku-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-fugaku-03",
+            "frag-dazai-ningen-01",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-fugaku-01",
+            "frag-dazai-fugaku-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-fugaku",
+            "src-dazai-ningen",
+            "src-dazai-tsugaru"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "near",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "love",
+            "family",
+            "approval",
+            "happiness",
+            "aging",
+            "shame",
+            "intimacy",
+            "loneliness",
+            "self",
+            "creativity",
+            "observation",
+            "performance",
+            "anxiety"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-02",
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 11.92,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 30.92
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "question": "歳を取っていくことが怖いです。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-02",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-gara-02",
+            "pass-soseki-ind-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-02",
+            "frag-soseki-kokoro-02",
+            "frag-soseki-gara-02",
+            "frag-soseki-ind-03"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-garasudo",
+            "src-soseki-individualism",
+            "src-soseki-kokoro"
+          ],
+          "authorialDistances": [
+            "near",
+            "direct",
+            "indirect",
+            "near",
+            "direct"
+          ],
+          "themes": [
+            "loneliness",
+            "self",
+            "society",
+            "observation",
+            "aging",
+            "money",
+            "work",
+            "independence",
+            "intimacy",
+            "shame",
+            "love",
+            "fear",
+            "family",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 2,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-ind-01",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 16,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 7.869999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 27.869999999999997
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-ahou-01",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-haguruma",
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "direct",
+            "near",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "anxiety",
+            "fear",
+            "fatigue",
+            "observation",
+            "death",
+            "creativity",
+            "self",
+            "society",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 11.53,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 31.53
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-02",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-fugaku-03",
+            "frag-dazai-ningen-02",
+            "frag-dazai-tsugaru-03",
+            "frag-dazai-fugaku-02",
+            "frag-dazai-tsugaru-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-fugaku",
+            "src-dazai-ningen",
+            "src-dazai-tsugaru"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "near",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "love",
+            "family",
+            "approval",
+            "happiness",
+            "aging",
+            "fear",
+            "intimacy",
+            "performance",
+            "shame",
+            "money",
+            "work",
+            "observation",
+            "self",
+            "anxiety",
+            "loneliness"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-ningen-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 15,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 7.55,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 26.55
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q7",
+      "question": "結婚しなくてもいいと思っています。でも将来後悔するでしょうか。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-ind-02",
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-gara-02",
+            "frag-soseki-kokoro-02",
+            "frag-soseki-ind-02",
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-03"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-garasudo",
+            "src-soseki-kokoro",
+            "src-soseki-individualism"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "direct",
+            "near",
+            "direct"
+          ],
+          "themes": [
+            "aging",
+            "self",
+            "loneliness",
+            "family",
+            "observation",
+            "intimacy",
+            "shame",
+            "love",
+            "fear",
+            "money",
+            "work",
+            "society",
+            "independence",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 2,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-ind-01",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 16,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 9.719999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 29.72
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-ahou-01",
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "creativity",
+            "observation",
+            "self",
+            "anxiety",
+            "society",
+            "fatigue",
+            "fear",
+            "death",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 6.3,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 26.3
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-fugaku-03",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-ningen-01",
+            "frag-dazai-tsugaru-01",
+            "frag-dazai-tsugaru-03"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-fugaku",
+            "src-dazai-tsugaru",
+            "src-dazai-ningen"
+          ],
+          "authorialDistances": [
+            "near",
+            "near",
+            "indirect",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "love",
+            "family",
+            "approval",
+            "happiness",
+            "aging",
+            "intimacy",
+            "loneliness",
+            "self",
+            "shame",
+            "society",
+            "money",
+            "work",
+            "fear"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 13.459999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 32.46
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q8",
+      "question": "人からどう見られているかが気になります。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-03",
+            "pass-soseki-gara-01",
+            "pass-soseki-kokoro-02",
+            "pass-soseki-ind-02",
+            "pass-soseki-ind-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-03",
+            "frag-soseki-gara-01",
+            "frag-soseki-kokoro-02",
+            "frag-soseki-ind-02",
+            "frag-soseki-ind-01"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-garasudo",
+            "src-soseki-kokoro"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "money",
+            "obligation",
+            "happiness",
+            "society",
+            "approval",
+            "loneliness",
+            "self",
+            "observation",
+            "aging",
+            "intimacy",
+            "shame",
+            "love",
+            "fear",
+            "work",
+            "independence"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-gara-02",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 15,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 7.58,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 27.58
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-03",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-03",
+            "frag-akutagawa-hagu-02",
+            "frag-akutagawa-ahou-01",
+            "frag-akutagawa-shuju-04",
+            "frag-akutagawa-shuju-02"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-haguruma",
+            "src-akutagawa-ahou"
+          ],
+          "authorialDistances": [
+            "direct",
+            "indirect",
+            "near",
+            "near",
+            "direct"
+          ],
+          "themes": [
+            "happiness",
+            "self",
+            "observation",
+            "anxiety",
+            "approval",
+            "fatigue",
+            "shame",
+            "creativity",
+            "society"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 2,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 9,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 16.68,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 36.68
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-fugaku-01",
+            "frag-dazai-ningen-01",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-ningen-02",
+            "frag-dazai-fugaku-02"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-fugaku",
+            "src-dazai-ningen",
+            "src-dazai-tsugaru"
+          ],
+          "authorialDistances": [
+            "near",
+            "indirect",
+            "near",
+            "indirect",
+            "near"
+          ],
+          "themes": [
+            "creativity",
+            "approval",
+            "shame",
+            "self",
+            "observation",
+            "intimacy",
+            "loneliness",
+            "family",
+            "fear",
+            "performance",
+            "anxiety"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 3,
+          "indirectCount": 2,
+          "rejectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-01",
+            "pass-dazai-tsugaru-01"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 13.959999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 32.96
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q9",
+      "question": "何かを作りたいのに、意味があるのかわからなくなります。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-ind-02",
+            "pass-soseki-gara-01",
+            "pass-soseki-kokoro-01",
+            "pass-soseki-ind-01",
+            "pass-soseki-gara-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-ind-02",
+            "frag-soseki-gara-01",
+            "frag-soseki-kokoro-01",
+            "frag-soseki-ind-01",
+            "frag-soseki-gara-02"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-individualism",
+            "src-soseki-garasudo",
+            "src-soseki-kokoro"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "near"
+          ],
+          "themes": [
+            "money",
+            "work",
+            "society",
+            "independence",
+            "self",
+            "loneliness",
+            "observation",
+            "aging",
+            "intimacy",
+            "obligation",
+            "family"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 2,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-kokoro-02",
+            "pass-soseki-ind-03",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 10.93,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 30.93
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-ahou-01",
+            "frag-akutagawa-hagu-02",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou",
+            "src-akutagawa-haguruma"
+          ],
+          "authorialDistances": [
+            "direct",
+            "near",
+            "indirect",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "creativity",
+            "observation",
+            "self",
+            "anxiety",
+            "society",
+            "fatigue",
+            "shame",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 10,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 21.889999999999997,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 41.89
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-fugaku-01",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-ningen-01",
+            "frag-dazai-fugaku-02",
+            "frag-dazai-tsugaru-01"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-fugaku",
+            "src-dazai-tsugaru",
+            "src-dazai-ningen"
+          ],
+          "authorialDistances": [
+            "near",
+            "near",
+            "indirect",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "creativity",
+            "approval",
+            "shame",
+            "self",
+            "observation",
+            "family",
+            "intimacy",
+            "loneliness",
+            "performance",
+            "anxiety",
+            "society"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-01",
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 11.249999999999998,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 30.25
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "question": "死ぬことを考えることがあります。どう生きればいいのでしょうか。",
+      "writers": [
+        {
+          "personId": "person-soseki",
+          "selectedPassageIds": [
+            "pass-soseki-kokoro-02",
+            "pass-soseki-ind-02",
+            "pass-soseki-gara-01",
+            "pass-soseki-ind-01",
+            "pass-soseki-gara-02"
+          ],
+          "selectedFragmentIds": [
+            "frag-soseki-kokoro-04",
+            "frag-soseki-ind-02",
+            "frag-soseki-gara-01",
+            "frag-soseki-ind-01",
+            "frag-soseki-gara-02"
+          ],
+          "selectedSourceIds": [
+            "src-soseki-kokoro",
+            "src-soseki-individualism",
+            "src-soseki-garasudo"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "direct",
+            "near",
+            "direct",
+            "near"
+          ],
+          "themes": [
+            "death",
+            "self",
+            "intimacy",
+            "obligation",
+            "loneliness",
+            "money",
+            "work",
+            "society",
+            "independence",
+            "observation",
+            "aging",
+            "family"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 2,
+          "nearCount": 2,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-soseki-kokoro-01",
+            "pass-soseki-ind-03",
+            "pass-soseki-kokoro-03",
+            "pass-soseki-kokoro-02"
+          ],
+          "diversity": {
+            "personId": "person-soseki",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 12,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 12.280000000000001,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 32.28
+          }
+        },
+        {
+          "personId": "person-akutagawa",
+          "selectedPassageIds": [
+            "pass-akutagawa-hagu-01",
+            "pass-akutagawa-shuju-02",
+            "pass-akutagawa-ahou-01",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-shuju-03"
+          ],
+          "selectedFragmentIds": [
+            "frag-akutagawa-hagu-01",
+            "frag-akutagawa-shuju-02",
+            "frag-akutagawa-ahou-01",
+            "frag-akutagawa-shuju-01",
+            "frag-akutagawa-shuju-03"
+          ],
+          "selectedSourceIds": [
+            "src-akutagawa-haguruma",
+            "src-akutagawa-shuju",
+            "src-akutagawa-ahou"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "direct",
+            "near",
+            "direct",
+            "direct"
+          ],
+          "themes": [
+            "anxiety",
+            "fear",
+            "fatigue",
+            "observation",
+            "death",
+            "creativity",
+            "self",
+            "society",
+            "obligation",
+            "happiness",
+            "approval"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 3,
+          "nearCount": 1,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-akutagawa-hagu-02",
+            "pass-akutagawa-shuju-01",
+            "pass-akutagawa-ahou-02",
+            "pass-akutagawa-ahou-01"
+          ],
+          "diversity": {
+            "personId": "person-akutagawa",
+            "sourceDiversity": 3,
+            "distanceDiversity": 3,
+            "themeDiversity": 11,
+            "singleSourceDominance": false,
+            "score": 18
+          },
+          "quality": {
+            "relevance": 15.55,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 5,
+            "reviewIntegrity": 5,
+            "total": 35.55
+          }
+        },
+        {
+          "personId": "person-dazai",
+          "selectedPassageIds": [
+            "pass-dazai-ningen-01",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-01"
+          ],
+          "selectedFragmentIds": [
+            "frag-dazai-ningen-03",
+            "frag-dazai-fugaku-01",
+            "frag-dazai-tsugaru-02",
+            "frag-dazai-fugaku-02",
+            "frag-dazai-tsugaru-01"
+          ],
+          "selectedSourceIds": [
+            "src-dazai-ningen",
+            "src-dazai-fugaku",
+            "src-dazai-tsugaru"
+          ],
+          "authorialDistances": [
+            "indirect",
+            "near",
+            "near",
+            "near",
+            "near"
+          ],
+          "themes": [
+            "death",
+            "shame",
+            "fatigue",
+            "loneliness",
+            "self",
+            "creativity",
+            "approval",
+            "observation",
+            "family",
+            "intimacy",
+            "performance",
+            "anxiety",
+            "society"
+          ],
+          "sourceDiversity": 3,
+          "directCount": 0,
+          "nearCount": 4,
+          "indirectCount": 1,
+          "rejectedPassageIds": [
+            "pass-dazai-ningen-01",
+            "pass-dazai-ningen-02",
+            "pass-dazai-fugaku-01",
+            "pass-dazai-tsugaru-02"
+          ],
+          "diversity": {
+            "personId": "person-dazai",
+            "sourceDiversity": 3,
+            "distanceDiversity": 2,
+            "themeDiversity": 13,
+            "singleSourceDominance": false,
+            "score": 16
+          },
+          "quality": {
+            "relevance": 10.559999999999999,
+            "provenance": 5,
+            "diversity": 5,
+            "authorialBalance": 4,
+            "reviewIntegrity": 5,
+            "total": 29.56
+          }
+        }
+      ]
+    }
+  ]
+}

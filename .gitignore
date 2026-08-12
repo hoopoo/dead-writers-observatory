@@ -32,6 +32,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# curator operational store (seed regenerates)
+/data/curator-reviews.sqlite
+/data/curator-reviews.sqlite-*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

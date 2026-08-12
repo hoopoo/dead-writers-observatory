@@ -1,8 +1,10 @@
 import { people } from "@/data/people";
 import { passages } from "@/data/passages";
 import { fragments } from "@/data/fragments";
-import { getPassageReview } from "@/data/reviews/passages";
-import { getFragmentReview } from "@/data/reviews/fragments";
+import {
+  getActiveFragmentReview,
+  getActivePassageReview,
+} from "@/lib/review/active";
 import type { ArchiveHealth, ArchiveReadiness } from "@/types/archive-health";
 import { isApprovedDirectEvidence, isDirectAuthorEvidence } from "@/lib/evidence";
 import { detectOverclaimRisk } from "@/lib/overclaim";
@@ -39,7 +41,7 @@ export function computeArchiveHealth(personId: string): ArchiveHealth {
 
   for (const passage of personPassages) {
     sources.add(passage.sourceId);
-    const review = getPassageReview(passage.id);
+    const review = getActivePassageReview(passage.id);
     if (passage.verificationStatus === "verified") verifiedPassages += 1;
     if (isApprovedDirectEvidence(passage, review)) {
       approvedPassages += 1;
@@ -77,7 +79,7 @@ export function computeArchiveHealth(personId: string): ArchiveHealth {
 
   let highRiskInterpretations = 0;
   for (const fragment of personFragments) {
-    const review = getFragmentReview(fragment.id);
+    const review = getActiveFragmentReview(fragment.id);
     const passage = getPassageById(fragment.passageId);
     const auto = detectOverclaimRisk(fragment, passage);
     const risk = review?.overclaimRisk ?? auto.risk;
