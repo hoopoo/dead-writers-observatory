@@ -5,9 +5,11 @@ import type {
   ClaimHumanEvaluation,
   ClaimHumanEvaluationInput,
   ClaimHumanReasonTag,
+  HumanNoveltyVerdict,
 } from "@/types/perspective-claim";
 
 const MIGRATION_ID = "005_claim_human_evaluations";
+const NOVELTY_MIGRATION = "007_claim_human_novelty";
 
 export function ensureClaimHumanEvalTable(): void {
   const db = getReviewDb();
@@ -15,33 +17,50 @@ export function ensureClaimHumanEvalTable(): void {
   const applied = db
     .prepare(`SELECT id FROM schema_migrations WHERE id = ?`)
     .get(MIGRATION_ID);
-  if (applied) return;
+  if (!applied) {
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS claim_human_evaluations (
+        id TEXT PRIMARY KEY,
+        claim_id TEXT NOT NULL,
+        fixture_id TEXT NOT NULL,
+        person_id TEXT NOT NULL,
+        evidence_verdict TEXT NOT NULL,
+        usefulness_verdict TEXT NOT NULL,
+        strength_verdict TEXT NOT NULL,
+        reason_tags_json TEXT NOT NULL DEFAULT '[]',
+        notes TEXT,
+        reviewer_id TEXT NOT NULL,
+        reviewer_name TEXT NOT NULL,
+        reviewer_type TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT,
+        UNIQUE (claim_id, reviewer_id)
+      );
 
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS claim_human_evaluations (
-      id TEXT PRIMARY KEY,
-      claim_id TEXT NOT NULL,
-      fixture_id TEXT NOT NULL,
-      person_id TEXT NOT NULL,
-      evidence_verdict TEXT NOT NULL,
-      usefulness_verdict TEXT NOT NULL,
-      strength_verdict TEXT NOT NULL,
-      reason_tags_json TEXT NOT NULL DEFAULT '[]',
-      notes TEXT,
-      reviewer_id TEXT NOT NULL,
-      reviewer_name TEXT NOT NULL,
-      reviewer_type TEXT NOT NULL,
-      created_at TEXT NOT NULL,
-      updated_at TEXT,
-      UNIQUE (claim_id, reviewer_id)
-    );
+      CREATE INDEX IF NOT EXISTS idx_claim_human_eval_fixture
+        ON claim_human_evaluations(fixture_id, person_id);
+    `);
+    db.prepare(
+      `INSERT INTO schema_migrations (id, applied_at) VALUES (?, ?)`,
+    ).run(MIGRATION_ID, new Date().toISOString());
+  }
 
-    CREATE INDEX IF NOT EXISTS idx_claim_human_eval_fixture
-      ON claim_human_evaluations(fixture_id, person_id);
-  `);
-  db.prepare(
-    `INSERT INTO schema_migrations (id, applied_at) VALUES (?, ?)`,
-  ).run(MIGRATION_ID, new Date().toISOString());
+  const noveltyApplied = db
+    .prepare(`SELECT id FROM schema_migrations WHERE id = ?`)
+    .get(NOVELTY_MIGRATION);
+  if (!noveltyApplied) {
+    const cols = db
+      .prepare(`PRAGMA table_info(claim_human_evaluations)`)
+      .all() as Array<{ name: string }>;
+    if (!cols.some((c) => c.name === "novelty_verdict")) {
+      db.exec(
+        `ALTER TABLE claim_human_evaluations ADD COLUMN novelty_verdict TEXT`,
+      );
+    }
+    db.prepare(
+      `INSERT INTO schema_migrations (id, applied_at) VALUES (?, ?)`,
+    ).run(NOVELTY_MIGRATION, new Date().toISOString());
+  }
 }
 
 type Row = {
@@ -52,6 +71,7 @@ type Row = {
   evidence_verdict: ClaimHumanEvaluation["evidenceVerdict"];
   usefulness_verdict: ClaimHumanEvaluation["usefulnessVerdict"];
   strength_verdict: ClaimHumanEvaluation["strengthVerdict"];
+  novelty_verdict: HumanNoveltyVerdict | null;
   reason_tags_json: string;
   notes: string | null;
   reviewer_id: string;
@@ -70,6 +90,7 @@ function rowToEval(row: Row): ClaimHumanEvaluation {
     evidenceVerdict: row.evidence_verdict,
     usefulnessVerdict: row.usefulness_verdict,
     strengthVerdict: row.strength_verdict,
+    noveltyVerdict: row.novelty_verdict ?? undefined,
     reasonTags: JSON.parse(row.reason_tags_json) as ClaimHumanReasonTag[],
     notes: row.notes ?? undefined,
     reviewer: {
@@ -104,6 +125,7 @@ export function upsertClaimHumanEvaluation(
         evidence_verdict = ?,
         usefulness_verdict = ?,
         strength_verdict = ?,
+        novelty_verdict = ?,
         reason_tags_json = ?,
         notes = ?,
         reviewer_name = ?,
@@ -116,6 +138,7 @@ export function upsertClaimHumanEvaluation(
       input.evidenceVerdict,
       input.usefulnessVerdict,
       input.strengthVerdict,
+      input.noveltyVerdict ?? null,
       JSON.stringify(input.reasonTags ?? []),
       input.notes ?? null,
       reviewer.displayName,
@@ -130,11 +153,11 @@ export function upsertClaimHumanEvaluation(
   db.prepare(
     `INSERT INTO claim_human_evaluations (
       id, claim_id, fixture_id, person_id,
-      evidence_verdict, usefulness_verdict, strength_verdict,
+      evidence_verdict, usefulness_verdict, strength_verdict, novelty_verdict,
       reason_tags_json, notes,
       reviewer_id, reviewer_name, reviewer_type,
       created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).run(
     id,
     input.claimId,
@@ -143,6 +166,7 @@ export function upsertClaimHumanEvaluation(
     input.evidenceVerdict,
     input.usefulnessVerdict,
     input.strengthVerdict,
+    input.noveltyVerdict ?? null,
     JSON.stringify(input.reasonTags ?? []),
     input.notes ?? null,
     reviewer.id,

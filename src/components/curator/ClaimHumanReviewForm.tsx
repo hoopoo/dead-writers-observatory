@@ -5,6 +5,7 @@ import { saveClaimHumanEvaluationAction } from "@/app/curator/actions";
 import type {
   ClaimHumanEvaluation,
   ClaimHumanReasonTag,
+  HumanNoveltyVerdict,
 } from "@/types/perspective-claim";
 
 const EVIDENCE = [
@@ -29,6 +30,14 @@ const STRENGTH = [
   "too-certain",
   "unclear",
 ] as const;
+
+const NOVELTY: HumanNoveltyVerdict[] = [
+  "new-angle",
+  "useful-rephrase",
+  "duplicate",
+  "stereotype",
+  "unclear",
+];
 
 const REASON_TAGS: ClaimHumanReasonTag[] = [
   "well-grounded",
@@ -55,6 +64,7 @@ export function ClaimHumanReviewForm(props: {
   fixtureId: string;
   personId: string;
   existing?: ClaimHumanEvaluation | null;
+  requireNovelty?: boolean;
 }) {
   const [evidenceVerdict, setEvidenceVerdict] = useState<
     ClaimHumanEvaluation["evidenceVerdict"] | ""
@@ -65,6 +75,9 @@ export function ClaimHumanReviewForm(props: {
   const [strengthVerdict, setStrengthVerdict] = useState<
     ClaimHumanEvaluation["strengthVerdict"] | ""
   >(props.existing?.strengthVerdict ?? "");
+  const [noveltyVerdict, setNoveltyVerdict] = useState<
+    HumanNoveltyVerdict | ""
+  >(props.existing?.noveltyVerdict ?? "");
   const [tags, setTags] = useState<ClaimHumanReasonTag[]>(
     props.existing?.reasonTags ?? [],
   );
@@ -83,6 +96,10 @@ export function ClaimHumanReviewForm(props: {
       setMessage("Evidence / Usefulness / Strength をすべて選択してください。");
       return;
     }
+    if (props.requireNovelty && !noveltyVerdict) {
+      setMessage("HUMAN NOVELTY を選択してください。");
+      return;
+    }
     startTransition(async () => {
       const result = await saveClaimHumanEvaluationAction({
         claimId: props.claimId,
@@ -91,6 +108,7 @@ export function ClaimHumanReviewForm(props: {
         evidenceVerdict,
         usefulnessVerdict,
         strengthVerdict,
+        noveltyVerdict: noveltyVerdict || undefined,
         reasonTags: tags,
         notes: notes.trim() || undefined,
       });
@@ -138,6 +156,20 @@ export function ClaimHumanReviewForm(props: {
             type="button"
             className={strengthVerdict === item ? "is-active" : undefined}
             onClick={() => setStrengthVerdict(item)}
+          >
+            {item.replace(/-/g, " ").toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      <p className="eyebrow">HUMAN NOVELTY (vs deterministic set)</p>
+      <div className="verdict-buttons">
+        {NOVELTY.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className={noveltyVerdict === item ? "is-active" : undefined}
+            onClick={() => setNoveltyVerdict(item)}
           >
             {item.replace(/-/g, " ").toUpperCase()}
           </button>

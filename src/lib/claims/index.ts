@@ -99,6 +99,7 @@ export {
   isHumanApprovedClaim,
   buildApprovedClaimSet,
   buildPerspectiveSkeleton,
+  buildStagingPerspectiveSkeleton,
   PRIORITY_CLAIM_FIXTURES,
 } from "@/lib/claims/approved";
 export { samplePriorityClaims } from "@/lib/claims/sampling";
@@ -108,3 +109,17 @@ export {
   createClaimLLMProvider,
   ClaimLLMProviderUnavailableError,
 } from "@/lib/claims/llm/provider";
+export {
+  isLlmStagingEligible,
+  isDeterministicStagingEligible,
+  isTrueLlmAddedValue,
+} from "@/lib/claims/staging";
+export {
+  buildApprovedClaimPool,
+  defaultClaimSetSelector,
+} from "@/lib/claims/selector";
+export {
+  analyzeCrossWriterDistinctiveness,
+  analyzeWriterDiversity,
+  buildWriterFingerprint,
+} from "@/lib/claims/distinctiveness";

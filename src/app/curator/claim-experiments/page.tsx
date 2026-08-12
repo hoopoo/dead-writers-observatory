@@ -4,17 +4,21 @@ import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
 import { ClaimHumanReviewForm } from "@/components/curator/ClaimHumanReviewForm";
 import { PRIORITY_CLAIM_FIXTURES } from "@/lib/claims/approved";
 import { getClaimHumanEvaluation } from "@/lib/claims/human-eval";
-import { machineHumanDisagreement } from "@/lib/claims/human-summary";
+import { isLlmStagingEligible, isTrueLlmAddedValue } from "@/lib/claims/staging";
 import { runLlmClaimExperimentCase } from "@/lib/claims/llm/experiment";
 import { OpenAIClaimLLMProvider } from "@/lib/claims/llm/provider";
+import { getPassageById } from "@/data/passages";
 
-function flip(seed: string): boolean {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) {
-    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
-  }
-  return hash % 2 === 1;
-}
+type LiveFilter =
+  | "unreviewed"
+  | "new-angle-candidates"
+  | "high-usefulness"
+  | "surprising"
+  | "possible-rephrase"
+  | "possible-stereotype"
+  | "human-approved"
+  | "human-rejected"
+  | "all";
 
 export default async function ClaimExperimentsPage({
   searchParams,
@@ -23,12 +27,14 @@ export default async function ClaimExperimentsPage({
     fixture?: string;
     person?: string;
     blind?: string;
+    queue?: string;
   }>;
 }) {
   const params = await searchParams;
   const fixtureId = params.fixture ?? "q4";
   const personId = params.person ?? "person-soseki";
   const blind = params.blind === "1";
+  const queue = (params.queue as LiveFilter) || "unreviewed";
 
   const fixture =
     FIXTURE_QUESTIONS.find((item) => item.id === fixtureId) ??
@@ -44,32 +50,97 @@ export default async function ClaimExperimentsPage({
       })
     : null;
 
-  const flipped = flip(`${fixture.id}:${person.id}:llm-claims`);
-  const setA = flipped
-    ? experiment?.llmClaims.map((c) => c.claim) ?? []
-    : experiment?.deterministicClaims ?? [];
-  const setB = flipped
-    ? experiment?.deterministicClaims ?? []
-    : experiment?.llmClaims.map((c) => c.claim) ?? [];
-  const setATitle = blind ? "SET A" : flipped ? "LLM PROPOSALS" : "DETERMINISTIC";
-  const setBTitle = blind ? "SET B" : flipped ? "DETERMINISTIC" : "LLM PROPOSALS";
+  const llmItems = experiment?.llmClaims ?? [];
+  const withEval = llmItems.map((item) => ({
+    item,
+    evaluation: getClaimHumanEvaluation({ claimId: item.claim.id }),
+  }));
 
-  const queryBase = `/curator/claim-experiments?fixture=${fixture.id}&person=${person.id}`;
+  const filtered = withEval.filter(({ item, evaluation }) => {
+    const staging = isLlmStagingEligible(item.claim, evaluation);
+    switch (queue) {
+      case "unreviewed":
+        return !evaluation?.noveltyVerdict;
+      case "new-angle-candidates":
+        return (
+          item.novelty?.novelty === "new-angle" ||
+          evaluation?.usefulnessVerdict === "surprising-but-defensible"
+        );
+      case "high-usefulness":
+        return (
+          evaluation?.usefulnessVerdict === "useful" ||
+          evaluation?.usefulnessVerdict === "surprising-but-defensible"
+        );
+      case "surprising":
+        return evaluation?.usefulnessVerdict === "surprising-but-defensible";
+      case "possible-rephrase":
+        return (
+          item.novelty?.novelty === "similar" ||
+          item.novelty?.novelty === "duplicate" ||
+          evaluation?.noveltyVerdict === "useful-rephrase"
+        );
+      case "possible-stereotype":
+        return (
+          evaluation?.noveltyVerdict === "stereotype" ||
+          item.claim.validationIssues.includes("writer-stereotype-injection") ||
+          /自滅|発狂|個人主義だけ/.test(item.claim.text)
+        );
+      case "human-approved":
+        return staging.ok;
+      case "human-rejected":
+        return Boolean(evaluation?.noveltyVerdict) && !staging.ok;
+      default:
+        return true;
+    }
+  });
+
+  const trueValue = withEval.filter(({ item, evaluation }) =>
+    isTrueLlmAddedValue(item.claim, evaluation),
+  ).length;
+  const noveltyCounts = {
+    newAngle: withEval.filter((r) => r.evaluation?.noveltyVerdict === "new-angle")
+      .length,
+    rephrase: withEval.filter(
+      (r) => r.evaluation?.noveltyVerdict === "useful-rephrase",
+    ).length,
+    duplicate: withEval.filter(
+      (r) => r.evaluation?.noveltyVerdict === "duplicate",
+    ).length,
+    stereotype: withEval.filter(
+      (r) => r.evaluation?.noveltyVerdict === "stereotype",
+    ).length,
+    unclear: withEval.filter((r) => r.evaluation?.noveltyVerdict === "unclear")
+      .length,
+    reviewed: withEval.filter((r) => r.evaluation?.noveltyVerdict).length,
+  };
+
+  const queues: Array<{ id: LiveFilter; label: string }> = [
+    { id: "unreviewed", label: "UNREVIEWED" },
+    { id: "new-angle-candidates", label: "NEW-ANGLE CANDIDATES" },
+    { id: "high-usefulness", label: "HIGH USEFULNESS" },
+    { id: "surprising", label: "SURPRISING" },
+    { id: "possible-rephrase", label: "POSSIBLE REPHRASE" },
+    { id: "possible-stereotype", label: "POSSIBLE STEREOTYPE" },
+    { id: "human-approved", label: "HUMAN APPROVED" },
+    { id: "human-rejected", label: "HUMAN REJECTED" },
+    { id: "all", label: "ALL" },
+  ];
 
   return (
     <main className="curator-main">
       <section className="panel">
-        <p className="eyebrow">LLM CLAIM EXPERIMENT</p>
+        <p className="eyebrow">LLM LIVE REVIEW</p>
         <h2>The model may propose. The archive does not have to agree.</h2>
         <p className="lede">
           AIは答えを作るのではなく、資料の間にある接続候補を提案します。
           <br />
-          残すかどうかは、Evidenceと人間のレビューが決めます。
+          Human novelty が staging 採用を決めます（lexical new-angle は参考）。
         </p>
         <p className="meta">
-          Prompt {experiment?.record?.promptVersion ?? "v1"} · Provider{" "}
-          {experiment?.record?.provider ?? (providerOk ? "openai" : "unavailable")} ·
-          Model {experiment?.record?.model ?? "—"}
+          Reviewed novelty: {noveltyCounts.reviewed}/{llmItems.length} · True LLM
+          Added Value: {trueValue} · New-angle: {noveltyCounts.newAngle} ·
+          Rephrase: {noveltyCounts.rephrase} · Duplicate:{" "}
+          {noveltyCounts.duplicate} · Stereotype: {noveltyCounts.stereotype}
         </p>
         {!providerOk || experiment?.providerUnavailable ? (
           <p className="warn">LLM CLAIM PROVIDER UNAVAILABLE</p>
@@ -83,7 +154,7 @@ export default async function ClaimExperimentsPage({
             return (
               <Link
                 key={id}
-                href={`/curator/claim-experiments?fixture=${id}&person=${person.id}${blind ? "&blind=1" : ""}`}
+                href={`/curator/claim-experiments?fixture=${id}&person=${person.id}&queue=${queue}${blind ? "&blind=1" : ""}`}
                 className={id === fixture.id ? "chip chip--active" : "chip"}
               >
                 {item.label}
@@ -95,123 +166,97 @@ export default async function ClaimExperimentsPage({
           {people.map((item) => (
             <Link
               key={item.id}
-              href={`/curator/claim-experiments?fixture=${fixture.id}&person=${item.id}${blind ? "&blind=1" : ""}`}
+              href={`/curator/claim-experiments?fixture=${fixture.id}&person=${item.id}&queue=${queue}${blind ? "&blind=1" : ""}`}
               className={item.id === person.id ? "chip chip--active" : "chip"}
             >
               {item.name}
             </Link>
           ))}
         </div>
-        <Link href={`${queryBase}&blind=${blind ? "0" : "1"}`}>
-          {blind ? "Exit blind mode" : "Blind evaluation mode"}
-        </Link>
+        <div className="chip-row">
+          {queues.map((item) => (
+            <Link
+              key={item.id}
+              href={`/curator/claim-experiments?fixture=${fixture.id}&person=${person.id}&queue=${item.id}${blind ? "&blind=1" : ""}`}
+              className={queue === item.id ? "chip chip--active" : "chip"}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="panel">
-        <h3>{fixture.label}</h3>
+        <h3>
+          {fixture.label} / {person.name}
+        </h3>
         <p>{fixture.question}</p>
-        <p className="meta">
-          Evidence packet: {experiment?.packet.evidence.length ?? 0} items · hash{" "}
-          {experiment?.packetHash ?? "—"}
-        </p>
-      </section>
-
-      <section className="compare-grid">
-        <div className="panel">
-          <h3>{setATitle}</h3>
-          {(setA.length ? setA : []).map((claim) => (
-            <article key={claim.id} className="claim-card">
-              <p className="meta">
-                {claim.claimType}
-                {!blind ? ` · ${claim.generatorOrigin ?? "deterministic"}` : ""}
-              </p>
-              <p>{claim.text}</p>
-              <p className="meta">
-                Support: {claim.supportStatus} · Allowed:{" "}
-                {claim.allowedInFinalPerspective ? "yes" : "no"}
-              </p>
-            </article>
-          ))}
-          {setA.length === 0 ? <p className="meta">No claims.</p> : null}
-        </div>
-        <div className="panel">
-          <h3>{setBTitle}</h3>
-          {(setB.length ? setB : []).map((claim) => (
-            <article key={claim.id} className="claim-card">
-              <p className="meta">
-                {claim.claimType}
-                {!blind ? ` · ${claim.generatorOrigin ?? "deterministic"}` : ""}
-              </p>
-              <p>{claim.text}</p>
-              <p className="meta">
-                Support: {claim.supportStatus} · Allowed:{" "}
-                {claim.allowedInFinalPerspective ? "yes" : "no"}
-              </p>
-            </article>
-          ))}
-          {setB.length === 0 ? <p className="meta">No claims.</p> : null}
-        </div>
       </section>
 
       <section className="panel">
-        <h3>LLM HUMAN REVIEW QUEUE</h3>
-        <p className="meta">
-          Origin is stored with the claim. Blind mode hides labels above; review
-          forms still bind to claim ids.
-        </p>
-        {(experiment?.llmClaims ?? [])
-          .filter((item) => item.claim.allowedInFinalPerspective)
-          .slice(0, 5)
-          .map((item) => {
-            const existing = getClaimHumanEvaluation({ claimId: item.claim.id });
-            const disagreement = existing
-              ? machineHumanDisagreement({
-                  claim: item.claim,
-                  evaluation: existing,
-                })
-              : null;
-            return (
-              <article key={item.claim.id} className="claim-card">
-                <p className="meta">
-                  {item.claim.claimType} · novelty={item.novelty?.novelty ?? "—"}
-                  {!blind ? " · origin=llm" : ""}
-                </p>
-                <p>{item.claim.text}</p>
-                <p className="meta">Rationale: {item.proposal.rationale}</p>
-                <p className="meta">
-                  MACHINE Support: {item.claim.supportStatus} · Issues:{" "}
-                  {item.claim.validationIssues.join(", ") || "none"}
-                </p>
-                {disagreement ? (
-                  <p className="warn">MACHINE / HUMAN DISAGREEMENT — {disagreement}</p>
-                ) : null}
-                <ClaimHumanReviewForm
-                  claimId={item.claim.id}
-                  fixtureId={fixture.id}
-                  personId={person.id}
-                  existing={existing}
-                />
-              </article>
-            );
-          })}
-      </section>
-
-      <section className="panel">
-        <h3>BLOCKED LLM PROPOSALS (observation)</h3>
-        {(experiment?.llmClaims ?? [])
-          .filter((item) => !item.claim.allowedInFinalPerspective)
-          .map((item) => (
+        <h3>REVIEW QUEUE · {queue}</h3>
+        {filtered.map(({ item, evaluation }) => {
+          const evidence = experiment?.packet.evidence.filter((e) =>
+            item.claim.evidenceIds.includes(e.id),
+          );
+          const staging = isLlmStagingEligible(item.claim, evaluation);
+          return (
             <article key={item.claim.id} className="claim-card">
-              <p className="meta">{item.claim.claimType}</p>
+              <p className="meta">
+                {blind ? "SET ITEM" : "LLM PROPOSAL"} · {item.claim.claimType}
+                {!blind ? " · HUMAN APPROVED candidate gate" : ""}
+                {staging.ok ? " · STAGING ELIGIBLE" : ` · blocked:${staging.reason}`}
+              </p>
               <p>{item.claim.text}</p>
               <p className="meta">
-                Issues: {item.claim.validationIssues.join(", ") || "blocked"}
-                {item.schemaIssues.length
-                  ? ` · schema: ${item.schemaIssues.join(", ")}`
-                  : ""}
+                MACHINE SUPPORT: {item.claim.supportStatus} · Attribution:{" "}
+                {item.claim.authorialAttribution} · Distance:{" "}
+                {item.claim.interpretationDistance} · Transfer:{" "}
+                {item.claim.historicalTransfer}
               </p>
+              <p className="meta">
+                HUMAN: evidence={evaluation?.evidenceVerdict ?? "—"} usefulness=
+                {evaluation?.usefulnessVerdict ?? "—"} strength=
+                {evaluation?.strengthVerdict ?? "—"} novelty=
+                {evaluation?.noveltyVerdict ?? "unreviewed"}
+              </p>
+              <details>
+                <summary>WHY THIS CLAIM?</summary>
+                <ul>
+                  {(evidence ?? []).map((e) => {
+                    const passage = getPassageById(e.passageId);
+                    return (
+                      <li key={e.id}>
+                        <strong>{e.sourceTitle}</strong> · voice={e.voiceType} ·
+                        distance={e.authorialDistance}
+                        <br />
+                        {passage?.text?.slice(0, 160) ?? e.normalizedMeaning}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+              <ClaimHumanReviewForm
+                claimId={item.claim.id}
+                fixtureId={fixture.id}
+                personId={person.id}
+                existing={evaluation}
+                requireNovelty
+              />
             </article>
-          ))}
+          );
+        })}
+        {filtered.length === 0 ? <p className="meta">No items in queue.</p> : null}
+      </section>
+
+      <section className="panel">
+        <h3>DETERMINISTIC BASELINE (reference)</h3>
+        {(experiment?.deterministicClaims ?? []).map((claim) => (
+          <article key={claim.id} className="claim-card">
+            <p className="meta">DETERMINISTIC · {claim.claimType}</p>
+            <p>{claim.text}</p>
+          </article>
+        ))}
       </section>
     </main>
   );

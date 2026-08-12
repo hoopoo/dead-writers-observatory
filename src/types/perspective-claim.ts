@@ -176,6 +176,13 @@ export interface ClaimQualitySummary {
   workVoiceViolationCount: number;
 }
 
+export type HumanNoveltyVerdict =
+  | "new-angle"
+  | "useful-rephrase"
+  | "duplicate"
+  | "stereotype"
+  | "unclear";
+
 export interface ClaimHumanEvaluation {
   id: string;
   claimId: string;
@@ -198,6 +205,8 @@ export interface ClaimHumanEvaluation {
     | "too-cautious"
     | "too-certain"
     | "unclear";
+  /** Required for LLM staging eligibility; optional for deterministic grounding claims. */
+  noveltyVerdict?: HumanNoveltyVerdict;
   reasonTags?: ClaimHumanReasonTag[];
   notes?: string;
   reviewer: import("@/types/review").ReviewActor;
@@ -231,6 +240,7 @@ export interface ClaimHumanEvaluationInput {
   evidenceVerdict: ClaimHumanEvaluation["evidenceVerdict"];
   usefulnessVerdict: ClaimHumanEvaluation["usefulnessVerdict"];
   strengthVerdict: ClaimHumanEvaluation["strengthVerdict"];
+  noveltyVerdict?: HumanNoveltyVerdict;
   reasonTags?: ClaimHumanReasonTag[];
   notes?: string;
 }
@@ -247,6 +257,130 @@ export interface PerspectiveExperienceEvaluation {
     | "too-abstract"
     | "unclear";
   notes?: string;
+}
+
+export interface PerspectiveSetHumanEvaluation {
+  id: string;
+  fixtureId: string;
+  personId: string;
+  usefulness:
+    | "strong"
+    | "useful"
+    | "flat"
+    | "repetitive"
+    | "too-cautious"
+    | "too-abstract"
+    | "unclear";
+  distinctFromOtherWriters: "yes" | "partly" | "no" | "unclear";
+  evidenceFeelsVisible: "yes" | "partly" | "no";
+  notes?: string;
+  experiment?: "A" | "B" | "C";
+  reviewer: import("@/types/review").ReviewActor;
+  createdAt: string;
+}
+
+export interface ThreeWriterExperienceEvaluation {
+  id: string;
+  fixtureId: string;
+  verdict:
+    | "meaningfully-different"
+    | "some-difference"
+    | "too-similar"
+    | "unclear";
+  mostDistinctWriter?: string;
+  weakestWriter?: string;
+  notes?: string;
+  experiment?: "A" | "B" | "C";
+  reviewer: import("@/types/review").ReviewActor;
+  createdAt: string;
+}
+
+export type ClaimPairRelationship =
+  | "duplicate"
+  | "strong-overlap"
+  | "related"
+  | "distinct";
+
+export interface ThemeSaturation {
+  theme: string;
+  count: number;
+  ratio: number;
+}
+
+export interface ApprovedClaimPool {
+  personId: string;
+  question: string;
+  deterministic: PerspectiveClaim[];
+  llmHumanApproved: PerspectiveClaim[];
+  excluded: Array<{ claim: PerspectiveClaim; reason: string }>;
+}
+
+export interface ClaimSetSelectionContext {
+  fixtureId?: string;
+  maxClaims?: number;
+  includeLlm?: boolean;
+  packetEvidenceIds?: string[];
+}
+
+export interface WriterPerspectiveDiversity {
+  personId: string;
+  claimTypeDiversity: number;
+  themeDiversity: number;
+  sourceDiversity: number;
+  distanceDiversity: number;
+  redundancyCount: number;
+  dominantTheme?: string;
+  dominantThemeRatio: number;
+  score: number;
+  themeSaturation: ThemeSaturation[];
+  narrowArchiveConnection: boolean;
+}
+
+export interface WriterPerspectiveFingerprint {
+  personId: string;
+  dominantThemes: string[];
+  secondaryThemes: string[];
+  claimTypes: ClaimType[];
+  sourceIds: string[];
+  authorialDistances: string[];
+  modernTransferConcepts: string[];
+  returnedQuestionConcepts: string[];
+  claimIds: string[];
+}
+
+export interface ReturnedQuestionDistinctiveness {
+  overlap: number;
+  repeatedConcepts: string[];
+  uniqueConcepts: Record<string, string[]>;
+  risk: "low" | "medium" | "high";
+}
+
+export interface CrossWriterDistinctivenessAnalysis {
+  question: string;
+  fingerprints: WriterPerspectiveFingerprint[];
+  sharedThemes: string[];
+  writerSpecificThemes: Array<{ personId: string; themes: string[] }>;
+  returnedQuestionOverlap: number;
+  perspectiveSemanticOverlap: number;
+  distinctivenessScore: number;
+  convergenceRisk: "low" | "medium" | "high";
+  warnings: string[];
+  returnedQuestions: ReturnedQuestionDistinctiveness;
+}
+
+export interface PerspectiveSetSnapshotBundle {
+  version: string;
+  generatedAt: string;
+  experiment: "A" | "B";
+  cases: Array<{
+    fixtureId: string;
+    personId: string;
+    claimIds: string[];
+    claimOrigins: Array<"deterministic" | "llm">;
+    claimTypes: ClaimType[];
+    availability: PerspectiveAvailability;
+    dominantThemes: string[];
+  }>;
 }
 
 export type PerspectiveAvailability =
@@ -278,6 +412,9 @@ export interface EvidenceBoundedPerspectiveSkeleton {
   evidenceIds: string[];
   claims: PerspectiveClaim[];
   humanReviewed: boolean;
+  staging?: boolean;
+  narrowArchiveConnection?: boolean;
+  themeSaturation?: ThemeSaturation[];
 }
 
 export interface ClaimCaseResult {

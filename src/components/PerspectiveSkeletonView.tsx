@@ -64,6 +64,22 @@ export function PerspectiveSkeletonCard(props: {
         </div>
       ) : null}
 
+      {skeleton.narrowArchiveConnection ? (
+        <p className="warn">NARROW ARCHIVE CONNECTION</p>
+      ) : null}
+
+      {skeleton.themeSaturation?.[0] &&
+      skeleton.themeSaturation[0].ratio >= 0.6 ? (
+        <p className="meta-label">
+          THEME SATURATION · {skeleton.themeSaturation[0].theme}{" "}
+          {Math.round(skeleton.themeSaturation[0].ratio * 100)}%
+        </p>
+      ) : null}
+
+      {skeleton.staging ? (
+        <p className="meta-label">Staging · Det + Human-approved LLM</p>
+      ) : null}
+
       {skeleton.humanReviewed ? (
         <p className="meta-label">Provenance: Curated / Reviewed</p>
       ) : null}

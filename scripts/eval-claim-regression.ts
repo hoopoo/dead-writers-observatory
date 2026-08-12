@@ -295,6 +295,86 @@ async function main() {
   );
   console.log("11. duplicate reduction + deterministic origin: PASS");
 
+  const { isLlmStagingEligible } = await import("../src/lib/claims/staging");
+  const { filterRedundantClaims } = await import("../src/lib/claims/redundancy");
+  const { analyzeCrossWriterDistinctiveness } = await import(
+    "../src/lib/claims/distinctiveness"
+  );
+
+  const llmCandidate = {
+    ...validated[0],
+    id: "llm-stage-test",
+    generatorOrigin: "llm" as const,
+    allowedInFinalPerspective: true,
+    supportStatus: "partially-supported" as const,
+    claimType: "modern-transfer" as const,
+    authorialAttribution: "none" as const,
+    historicalTransfer: "explicit" as const,
+    text: "資料の観点を、現在の職業変化へ限定的に接続できる。",
+  };
+  assert(
+    !isLlmStagingEligible(llmCandidate, null).ok,
+    "unreviewed LLM claim cannot stage",
+  );
+  assert(
+    !isLlmStagingEligible(llmCandidate, {
+      id: "e1",
+      claimId: llmCandidate.id,
+      fixtureId: "q4",
+      personId: llmCandidate.personId,
+      evidenceVerdict: "supported",
+      usefulnessVerdict: "useful",
+      strengthVerdict: "appropriate",
+      noveltyVerdict: "stereotype",
+      reviewer: DEFAULT_REVIEW_ACTOR,
+      createdAt: new Date().toISOString(),
+    }).ok,
+    "stereotype claim cannot stage",
+  );
+  assert(
+    isLlmStagingEligible(llmCandidate, {
+      id: "e2",
+      claimId: llmCandidate.id,
+      fixtureId: "q4",
+      personId: llmCandidate.personId,
+      evidenceVerdict: "supported",
+      usefulnessVerdict: "surprising-but-defensible",
+      strengthVerdict: "appropriate",
+      noveltyVerdict: "new-angle",
+      reviewer: DEFAULT_REVIEW_ACTOR,
+      createdAt: new Date().toISOString(),
+    }).ok,
+    "new-angle useful claim can stage",
+  );
+  console.log("12. staging eligibility novelty gates: PASS");
+
+  const red = filterRedundantClaims([
+    validated[0],
+    { ...validated[0], id: "copy", text: validated[0].text },
+  ]);
+  assert(red.selected.length === 1, "duplicate claim removed from set");
+  console.log("13. duplicate claim removed: PASS");
+
+  const cross = analyzeCrossWriterDistinctiveness({
+    question: "AIに自分の仕事を奪われる気がします。",
+    claimsByPerson: {
+      "person-soseki": validated.slice(0, 3),
+      "person-akutagawa": validated.slice(0, 3).map((c) => ({
+        ...c,
+        id: `${c.id}-a`,
+        text: `${c.text}不安と観察`,
+      })),
+      "person-dazai": validated.slice(0, 3).map((c) => ({
+        ...c,
+        id: `${c.id}-d`,
+        text: `${c.text}羞恥と視線`,
+      })),
+    },
+  });
+  assert(typeof cross.distinctivenessScore === "number", "distinctiveness calculated");
+  assert(typeof cross.returnedQuestionOverlap === "number", "rq overlap calculated");
+  console.log("14. cross-writer distinctiveness calculated: PASS");
+
   // Restore default DB env for fixture sweep
   delete process.env.CURATOR_REVIEW_DB_PATH;
   closeReviewDb();

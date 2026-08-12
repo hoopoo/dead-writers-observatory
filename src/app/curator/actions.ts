@@ -187,7 +187,16 @@ export async function saveClaimHumanEvaluationAction(
     "too-certain",
     "unclear",
   ].includes(input.strengthVerdict);
-  if (!evidenceOk || !usefulnessOk || !strengthOk) {
+  const noveltyOk =
+    input.noveltyVerdict === undefined ||
+    [
+      "new-angle",
+      "useful-rephrase",
+      "duplicate",
+      "stereotype",
+      "unclear",
+    ].includes(input.noveltyVerdict);
+  if (!evidenceOk || !usefulnessOk || !strengthOk || !noveltyOk) {
     return { ok: false, error: "Invalid verdict values" };
   }
   try {
@@ -197,6 +206,7 @@ export async function saveClaimHumanEvaluationAction(
     );
     revalidatePath("/curator/claims");
     revalidatePath("/curator/claim-experiments");
+    revalidatePath("/curator/perspectives");
     revalidatePath("/curator");
     return { ok: true, evaluation };
   } catch (error) {

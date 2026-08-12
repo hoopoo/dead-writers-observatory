@@ -41,6 +41,7 @@ export default function CuratorLayout({ children }: { children: ReactNode }) {
           <Link href="/curator/retrieval">Retrieval</Link>
           <Link href="/curator/claims">Claims</Link>
           <Link href="/curator/claim-experiments">Claim Experiments</Link>
+          <Link href="/curator/perspectives">Perspectives</Link>
           <Link href="/">Observatory</Link>
         </nav>
       </header>

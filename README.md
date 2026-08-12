@@ -235,6 +235,28 @@ Evidence decides.
 Human judges whether the proposal is worth keeping.
 ```
 
+## Staging Perspectives (Experiment B)
+
+Live human novelty (`new-angle` / `useful-rephrase` / `duplicate` / `stereotype`) decides LLM staging eligibility.
+
+```bash
+npx tsx scripts/persist-live-llm-novelty.ts
+npm run eval:perspective-distinctiveness
+npm run eval:perspective-human
+npm run snapshot:perspectives
+```
+
+- Curator: `/curator/claim-experiments` (LLM LIVE REVIEW)
+- Curator: `/curator/perspectives` (3-writer set + distinctiveness)
+- Staging observe only: `/observe?q=...&stagingClaims=1`
+- Production default unchanged (`stagingClaims=false`)
+- No LLM prose yet
+
+```
+Three archives in.
+Three different perspectives out.
+```
+
 ## Claim Human Evaluation
 
 Safe is not enough. A claim must also be useful.

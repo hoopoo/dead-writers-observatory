@@ -1,5 +1,7 @@
 import { getPersonById } from "@/data/people";
 import { getClaimHumanEvaluation } from "@/lib/claims/human-eval";
+import { analyzeWriterDiversity } from "@/lib/claims/distinctiveness";
+import { buildApprovedClaimPool, defaultClaimSetSelector } from "@/lib/claims/selector";
 import type {
   ApprovedClaimSet,
   ClaimHumanEvaluation,
@@ -70,8 +72,48 @@ export function availabilityForSet(set: ApprovedClaimSet): PerspectiveAvailabili
   return "insufficient";
 }
 
+function skeletonFromOrdered(args: {
+  personId: string;
+  question: string;
+  ordered: PerspectiveClaim[];
+  set: ApprovedClaimSet;
+  staging?: boolean;
+}): EvidenceBoundedPerspectiveSkeleton {
+  const diversity = analyzeWriterDiversity(args.personId, args.ordered);
+  const claimIds = args.ordered.map((c) => c.id);
+  const evidenceIds = Array.from(
+    new Set(args.ordered.flatMap((c) => c.evidenceIds)),
+  );
+
+  return {
+    personId: args.personId,
+    personName: getPersonById(args.personId)?.name ?? args.personId,
+    question: args.question,
+    availability: availabilityForSet(args.set),
+    sections: {
+      archiveObservation: args.set.archiveObservations
+        .slice(0, 1)
+        .map((c) => c.text),
+      acrossSources: [
+        ...args.set.writerPerspectives.slice(0, 1),
+        ...args.set.syntheses.slice(0, 2),
+      ].map((c) => c.text),
+      connectionToQuestion: args.set.modernTransfers.slice(0, 2).map((c) => c.text),
+      returnedQuestion: args.set.returnedQuestions.slice(0, 1).map((c) => c.text),
+    },
+    claimIds,
+    evidenceIds,
+    claims: args.ordered,
+    humanReviewed: claimIds.length > 0,
+    staging: args.staging,
+    narrowArchiveConnection: diversity.narrowArchiveConnection,
+    themeSaturation: diversity.themeSaturation,
+  };
+}
+
 /**
- * Skeleton places Approved Claim.text only — no new prose synthesis.
+ * Production / Experiment A skeleton: deterministic approved claims only.
+ * Places Approved Claim.text only — no new prose synthesis.
  */
 export function buildPerspectiveSkeleton(args: {
   personId: string;
@@ -94,38 +136,50 @@ export function buildPerspectiveSkeleton(args: {
 
   const set = buildApprovedClaimSet(args.personId, args.claims, evaluations);
   const ordered = [
-    ...set.archiveObservations.slice(0, 2),
+    ...set.archiveObservations.slice(0, 1),
     ...set.writerPerspectives.slice(0, 1),
     ...set.syntheses.slice(0, 2),
     ...set.modernTransfers.slice(0, 1),
     ...set.returnedQuestions.slice(0, 1),
   ];
-  const claimIds = ordered.map((c) => c.id);
-  const evidenceIds = Array.from(
-    new Set(ordered.flatMap((c) => c.evidenceIds)),
-  );
-
-  return {
+  return skeletonFromOrdered({
     personId: args.personId,
-    personName: getPersonById(args.personId)?.name ?? args.personId,
     question: args.question,
-    availability: availabilityForSet(set),
-    sections: {
-      archiveObservation: set.archiveObservations
-        .slice(0, 2)
-        .map((c) => c.text),
-      acrossSources: [
-        ...set.writerPerspectives.slice(0, 1),
-        ...set.syntheses.slice(0, 2),
-      ].map((c) => c.text),
-      connectionToQuestion: set.modernTransfers.slice(0, 1).map((c) => c.text),
-      returnedQuestion: set.returnedQuestions.slice(0, 1).map((c) => c.text),
-    },
-    claimIds,
-    evidenceIds,
-    claims: ordered,
-    humanReviewed: claimIds.length > 0,
-  };
+    ordered,
+    set: buildApprovedClaimSet(args.personId, ordered, evaluations),
+    staging: false,
+  });
+}
+
+/**
+ * Experiment B staging skeleton: deterministic + human-approved LLM claims
+ * via ClaimSetSelector. Unreviewed / stereotype / duplicate LLM claims excluded.
+ */
+export function buildStagingPerspectiveSkeleton(args: {
+  personId: string;
+  question: string;
+  deterministicClaims: PerspectiveClaim[];
+  llmClaims: PerspectiveClaim[];
+  evaluationsByClaimId?: Map<string, ClaimHumanEvaluation>;
+}): EvidenceBoundedPerspectiveSkeleton {
+  const pool = buildApprovedClaimPool({
+    personId: args.personId,
+    question: args.question,
+    deterministicClaims: args.deterministicClaims,
+    llmClaims: args.llmClaims,
+    evaluationsByClaimId: args.evaluationsByClaimId,
+  });
+  const { set, ordered } = defaultClaimSetSelector.select(pool, {
+    includeLlm: true,
+    maxClaims: 5,
+  });
+  return skeletonFromOrdered({
+    personId: args.personId,
+    question: args.question,
+    ordered,
+    set,
+    staging: true,
+  });
 }
 
 export const PRIORITY_CLAIM_FIXTURES = [

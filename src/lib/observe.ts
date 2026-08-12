@@ -5,7 +5,12 @@ import { createRetriever } from "@/lib/retrieval-mode";
 import { generatePerspective } from "@/lib/perspective-generator";
 import { comparePerspectives } from "@/lib/comparison";
 import { generateClaimsForQuestion } from "@/lib/claims";
-import { buildPerspectiveSkeleton } from "@/lib/claims/approved";
+import {
+  buildPerspectiveSkeleton,
+  buildStagingPerspectiveSkeleton,
+} from "@/lib/claims/approved";
+import { listProposedClaims } from "@/lib/claims/llm/store";
+import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
 import type { ObservationResult } from "@/types/observation";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
 
@@ -16,6 +21,15 @@ export function isEvidenceBoundedSkeletonEnabled(): boolean {
   return (
     (process.env.EVIDENCE_BOUNDED_SKELETON ?? "false").toLowerCase() === "true"
   );
+}
+
+export function isStagingClaimsEnabled(searchFlag?: string): boolean {
+  if (searchFlag === "1" || searchFlag === "true") return true;
+  return (process.env.STAGING_CLAIMS ?? "false").toLowerCase() === "true";
+}
+
+function fixtureIdForQuestion(question: string): string | undefined {
+  return FIXTURE_QUESTIONS.find((f) => f.question === question)?.id;
 }
 
 export async function observeQuestion(
@@ -63,6 +77,40 @@ export async function observeQuestionWithSkeleton(
         personId: person.id,
         question: rawQuestion,
         claims: result.claims,
+      });
+    }),
+  );
+  return { observation, skeletons };
+}
+
+/** Experiment B: deterministic retrieval + det claims + human-approved LLM claims. */
+export async function observeQuestionWithStagingClaims(
+  rawQuestion: string,
+): Promise<{
+  observation: ObservationResult;
+  skeletons: EvidenceBoundedPerspectiveSkeleton[];
+}> {
+  const observation = await observeQuestion(rawQuestion);
+  const fixtureId = fixtureIdForQuestion(rawQuestion);
+  const skeletons = await Promise.all(
+    people.map(async (person) => {
+      const result = await generateClaimsForQuestion({
+        question: rawQuestion,
+        personId: person.id,
+        fixtureId,
+        retrievalMode: "deterministic",
+      });
+      const llm = listProposedClaims(
+        fixtureId
+          ? { fixtureId, personId: person.id }
+          : { personId: person.id },
+      ).map((item) => item.claim);
+
+      return buildStagingPerspectiveSkeleton({
+        personId: person.id,
+        question: rawQuestion,
+        deterministicClaims: result.claims,
+        llmClaims: llm,
       });
     }),
   );
