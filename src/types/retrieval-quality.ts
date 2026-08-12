@@ -71,6 +71,11 @@ export interface EvidenceTrace {
   themeOverlap: ThemeTag[];
   finalRerankScore: number;
   matchedBy: SemanticMatchBy;
+  /** Short verified passage preview for human evaluation (not full text). */
+  passagePreview?: string;
+  normalizedMeaning?: string;
+  voiceType?: string;
+  themes?: ThemeTag[];
 }
 
 export type RetrievalWarning =

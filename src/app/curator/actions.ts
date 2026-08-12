@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getPassageById } from "@/data/passages";
 import { evaluatePassageApproveGate } from "@/lib/review/approve-gate";
+import { upsertRetrievalHumanEvaluation } from "@/lib/retrieval-human-eval";
 import { sqliteReviewRepository } from "@/lib/review/sqlite-repository";
 import { canTransitionReviewStatus } from "@/lib/review/transitions";
 import {
@@ -13,6 +14,11 @@ import {
   type ReviewStatus,
 } from "@/types/review";
 import { isCuratorEnabled } from "@/lib/curator-env";
+import type {
+  CandidateEvaluationMode,
+  RetrievalHumanEvaluation,
+  RetrievalHumanEvaluationInput,
+} from "@/types/embedding";
 
 export async function loginCurator(token: string, nextPath: string) {
   if (!isCuratorEnabled()) {
@@ -105,6 +111,44 @@ export async function updatePassageReviewAction(input: {
     return {
       ok: false,
       error: error instanceof Error ? error.message : "Update failed",
+    };
+  }
+}
+
+export async function saveRetrievalHumanEvaluationAction(
+  input: RetrievalHumanEvaluationInput,
+): Promise<
+  | { ok: true; evaluation: RetrievalHumanEvaluation }
+  | { ok: false; error: string }
+> {
+  if (!isCuratorEnabled()) {
+    return { ok: false, error: "Curator is disabled" };
+  }
+
+  const allowed: CandidateEvaluationMode[] = [
+    "local-semantic",
+    "neural-semantic",
+    "neural-hybrid",
+  ];
+  if (!allowed.includes(input.candidateMode)) {
+    return { ok: false, error: "Invalid candidate mode" };
+  }
+  if (!["better", "same", "worse", "unclear"].includes(input.verdict)) {
+    return { ok: false, error: "Invalid verdict" };
+  }
+
+  try {
+    const evaluation = upsertRetrievalHumanEvaluation(
+      input,
+      DEFAULT_REVIEW_ACTOR,
+    );
+    revalidatePath("/curator/retrieval");
+    revalidatePath("/curator");
+    return { ok: true, evaluation };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Save failed",
     };
   }
 }

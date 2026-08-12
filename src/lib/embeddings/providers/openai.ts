@@ -1,8 +1,15 @@
 import type { EmbeddingProvider } from "@/types/embedding";
 
+export class NeuralProviderUnavailableError extends Error {
+  constructor(message = "NEURAL PROVIDER UNAVAILABLE") {
+    super(message);
+    this.name = "NeuralProviderUnavailableError";
+  }
+}
+
 /**
- * Optional OpenAI-compatible embeddings.
- * Enabled only when EMBEDDING_API_KEY is set.
+ * OpenAI / OpenAI-compatible neural embeddings.
+ * Secrets and response shape stay inside this provider.
  */
 export class OpenAIEmbeddingProvider implements EmbeddingProvider {
   readonly providerName = "openai";
@@ -17,14 +24,25 @@ export class OpenAIEmbeddingProvider implements EmbeddingProvider {
     baseUrl?: string;
     dimensions?: number;
   }) {
-    this.apiKey = options?.apiKey ?? process.env.EMBEDDING_API_KEY ?? "";
+    this.apiKey =
+      options?.apiKey ??
+      process.env.OPENAI_API_KEY ??
+      process.env.EMBEDDING_API_KEY ??
+      "";
     this.modelName =
-      options?.model ?? process.env.EMBEDDING_MODEL ?? "text-embedding-3-small";
+      options?.model ??
+      process.env.OPENAI_EMBEDDING_MODEL ??
+      process.env.EMBEDDING_MODEL ??
+      "text-embedding-3-small";
     this.baseUrl =
       options?.baseUrl ??
       process.env.EMBEDDING_BASE_URL ??
       "https://api.openai.com/v1";
     this.dimensions = options?.dimensions;
+  }
+
+  static isConfigured(): boolean {
+    return Boolean(process.env.OPENAI_API_KEY || process.env.EMBEDDING_API_KEY);
   }
 
   async embedText(text: string): Promise<number[]> {
@@ -34,7 +52,9 @@ export class OpenAIEmbeddingProvider implements EmbeddingProvider {
 
   async embedBatch(texts: string[]): Promise<number[][]> {
     if (!this.apiKey) {
-      throw new Error("EMBEDDING_API_KEY missing");
+      throw new NeuralProviderUnavailableError(
+        "NEURAL PROVIDER UNAVAILABLE: missing OPENAI_API_KEY / EMBEDDING_API_KEY",
+      );
     }
     const response = await fetch(`${this.baseUrl}/embeddings`, {
       method: "POST",
@@ -48,8 +68,8 @@ export class OpenAIEmbeddingProvider implements EmbeddingProvider {
       }),
     });
     if (!response.ok) {
-      throw new Error(
-        `OpenAI embeddings failed: ${response.status} ${await response.text()}`,
+      throw new NeuralProviderUnavailableError(
+        `NEURAL PROVIDER UNAVAILABLE: ${response.status}`,
       );
     }
     const json = (await response.json()) as {

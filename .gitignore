@@ -35,6 +35,7 @@ yarn-error.log*
 # curator operational store (seed regenerates)
 /data/curator-reviews.sqlite
 /data/curator-reviews.sqlite-*
+/data/evaluations/
 
 # typescript
 *.tsbuildinfo

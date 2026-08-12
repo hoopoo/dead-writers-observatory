@@ -59,7 +59,7 @@ async function main() {
         modes,
       });
       for (const result of comparisons) {
-        const bucket = aggregates[result.mode];
+        const bucket = aggregates[result.mode as RetrievalMode];
         bucket.quality += result.quality.total;
         bucket.sourceDiversity += result.sourceDiversity;
         bucket.distanceDiversity += result.distanceDiversity;

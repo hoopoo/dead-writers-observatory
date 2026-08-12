@@ -3,7 +3,10 @@ import { getPassageById } from "@/data/passages";
 import { defaultTrustFilter } from "@/lib/archive-trust-filter";
 import { defaultDiversityReranker } from "@/lib/evidence-diversity-reranker";
 import { buildQueryEmbeddingPayload } from "@/lib/embeddings/payload";
-import { createEmbeddingProvider } from "@/lib/embeddings/provider";
+import {
+  createEmbeddingProvider,
+  type EmbeddingProviderKind,
+} from "@/lib/embeddings/provider";
 import { minMaxNormalize } from "@/lib/embeddings/cosine";
 import { defaultSemanticIndex } from "@/lib/embeddings/store";
 import {
@@ -18,6 +21,8 @@ import type { ScoreBreakdown } from "@/types/retrieval-audit";
 
 export interface SemanticRetrievalTrace {
   mode: "semantic" | "hybrid";
+  provider?: string;
+  model?: string;
   fallback?: string;
   semanticCandidates: SemanticCandidate[];
   trustRejected: Array<{
@@ -38,6 +43,18 @@ export interface SemanticRetrievalTrace {
     diversityReranked: number;
     selected: number;
   };
+}
+
+export interface SemanticRetrieverConfig {
+  /** Embedding provider namespace used for query + index lookup. */
+  providerKind?: EmbeddingProviderKind | string;
+  /** When true, never silently use local-bridge as neural. */
+  requireNeural?: boolean;
+  /**
+   * Public runtime may fall back to deterministic.
+   * Evaluation must set false so provider failure surfaces.
+   */
+  allowDeterministicFallback?: boolean;
 }
 
 const TOP_K = 12;
@@ -64,8 +81,49 @@ function fragmentsForPassage(
   );
 }
 
+function hybridWeights() {
+  return {
+    semanticWeight: Number(process.env.SEMANTIC_WEIGHT ?? 0.65),
+    deterministicWeight: Number(process.env.DETERMINISTIC_WEIGHT ?? 0.35),
+  };
+}
+
+function combineScores(
+  similarity: number,
+  deterministicRaw: number,
+  mode: "semantic" | "hybrid",
+): HybridScore {
+  const { semanticWeight, deterministicWeight } = hybridWeights();
+  const semanticSimilarity = Math.max(0, Math.min(1, similarity));
+  const deterministicScore = Math.max(0, Math.min(1, deterministicRaw / 20));
+
+  if (mode === "semantic") {
+    return {
+      semanticSimilarity,
+      deterministicScore,
+      combinedScore: semanticSimilarity,
+    };
+  }
+
+  return {
+    semanticSimilarity,
+    deterministicScore,
+    combinedScore:
+      semanticSimilarity * semanticWeight +
+      deterministicScore * deterministicWeight,
+  };
+}
+
 export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
   lastTrace: SemanticRetrievalTrace | null = null;
+  protected readonly config: SemanticRetrieverConfig;
+
+  constructor(config: SemanticRetrieverConfig = {}) {
+    this.config = {
+      allowDeterministicFallback: true,
+      ...config,
+    };
+  }
 
   async retrieve(
     personId: string,
@@ -74,6 +132,7 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
     try {
       return await this.retrieveSemantic(personId, analysis, "semantic");
     } catch (error) {
+      if (!this.config.allowDeterministicFallback) throw error;
       const fallback = new MockPerspectiveRetriever();
       const selected = await fallback.retrieve(personId, analysis);
       this.lastTrace = {
@@ -102,12 +161,16 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
     analysis: QuestionAnalysis,
     mode: "semantic" | "hybrid",
   ): Promise<ThoughtFragment[]> {
-    const provider = createEmbeddingProvider();
+    const provider = createEmbeddingProvider(this.config.providerKind, {
+      requireNeural: this.config.requireNeural,
+    });
     const queryPayload = buildQueryEmbeddingPayload(analysis);
     const queryVector = await provider.embedText(queryPayload);
     const semanticCandidates = await defaultSemanticIndex.search(queryVector, {
       personId,
       topK: TOP_K,
+      provider: provider.providerName,
+      model: provider.modelName,
     });
 
     const candidates = [];
@@ -126,7 +189,6 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
       }
     }
 
-    // Prefer best fragment per passage by hybrid/semantic score.
     const bestByPassage = new Map<string, (typeof candidates)[number]>();
     for (const candidate of candidates) {
       const existing = bestByPassage.get(candidate.fragment.passageId);
@@ -150,6 +212,8 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
 
     this.lastTrace = {
       mode,
+      provider: provider.providerName,
+      model: provider.modelName,
       semanticCandidates,
       trustRejected: trust.rejected.map((item) => {
         const withSem = item as typeof item & { semantic?: SemanticCandidate };
@@ -176,7 +240,10 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
 
     if (selected.length >= 2) return selected;
 
-    // Under-filled after gates: deterministic fill that still passes trust.
+    if (!this.config.allowDeterministicFallback) {
+      return selected;
+    }
+
     const filler = new MockPerspectiveRetriever();
     const fallback = await filler.retrieve(personId, analysis);
     const merged = [...selected];
@@ -192,48 +259,23 @@ export class SemanticPerspectiveRetriever implements PerspectiveRetriever {
   }
 }
 
-function combineScores(
-  similarity: number,
-  deterministicRaw: number,
-  mode: "semantic" | "hybrid",
-): HybridScore {
-  const semanticWeight = Number(process.env.SEMANTIC_WEIGHT ?? 0.65);
-  const deterministicWeight = Number(process.env.DETERMINISTIC_WEIGHT ?? 0.35);
-  const semanticSimilarity = Math.max(0, Math.min(1, similarity));
-  // Deterministic totals commonly land 0–20; normalize softly.
-  const deterministicScore = Math.max(0, Math.min(1, deterministicRaw / 20));
-
-  if (mode === "semantic") {
-    return {
-      semanticSimilarity,
-      deterministicScore,
-      combinedScore: semanticSimilarity,
-    };
-  }
-
-  return {
-    semanticSimilarity,
-    deterministicScore,
-    combinedScore:
-      semanticSimilarity * semanticWeight +
-      deterministicScore * deterministicWeight,
-  };
-}
-
 export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
   async retrieve(
     personId: string,
     analysis: QuestionAnalysis,
   ): Promise<ThoughtFragment[]> {
     try {
-      // Build hybrid pool: semantic + deterministic union before trust.
-      const provider = createEmbeddingProvider();
+      const provider = createEmbeddingProvider(this.config.providerKind, {
+        requireNeural: this.config.requireNeural,
+      });
       const queryVector = await provider.embedText(
         buildQueryEmbeddingPayload(analysis),
       );
       const semanticCandidates = await defaultSemanticIndex.search(queryVector, {
         personId,
         topK: TOP_K,
+        provider: provider.providerName,
+        model: provider.modelName,
       });
 
       const pool = getFragmentsByPersonId(personId);
@@ -244,7 +286,11 @@ export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
       const semByPassage = new Map(
         semanticCandidates.map((c) => [c.passageId, c.similarity]),
       );
-      const maxSem = Math.max(0.0001, ...semanticCandidates.map((c) => c.similarity));
+      const maxSem = Math.max(
+        0.0001,
+        ...semanticCandidates.map((c) => c.similarity),
+        0,
+      );
 
       const candidates = pool.map((fragment, index) => {
         const sem = (semByPassage.get(fragment.passageId) ?? 0) / maxSem;
@@ -280,6 +326,8 @@ export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
 
       this.lastTrace = {
         mode: "hybrid",
+        provider: provider.providerName,
+        model: provider.modelName,
         semanticCandidates,
         trustRejected: trust.rejected.map((item) => ({
           passageId: item.fragment.passageId,
@@ -301,6 +349,8 @@ export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
       };
 
       if (selected.length >= 2) return selected;
+      if (!this.config.allowDeterministicFallback) return selected;
+
       const filler = await new MockPerspectiveRetriever().retrieve(
         personId,
         analysis,
@@ -308,6 +358,7 @@ export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
       this.lastTrace.fallback = "underfilled after hybrid trust/diversity";
       return filler;
     } catch (error) {
+      if (!this.config.allowDeterministicFallback) throw error;
       const selected = await new MockPerspectiveRetriever().retrieve(
         personId,
         analysis,
@@ -334,8 +385,33 @@ export class HybridPerspectiveRetriever extends SemanticPerspectiveRetriever {
   }
 }
 
+/** Factory for curator / eval modes (no silent neural→local remap). */
+export function createEvaluationRetriever(
+  mode: "local-semantic" | "neural-semantic" | "neural-hybrid",
+): SemanticPerspectiveRetriever | HybridPerspectiveRetriever {
+  if (mode === "local-semantic") {
+    return new SemanticPerspectiveRetriever({
+      providerKind: "local-bridge",
+      requireNeural: false,
+      allowDeterministicFallback: false,
+    });
+  }
+  if (mode === "neural-semantic") {
+    return new SemanticPerspectiveRetriever({
+      providerKind: "openai",
+      requireNeural: true,
+      allowDeterministicFallback: false,
+    });
+  }
+  return new HybridPerspectiveRetriever({
+    providerKind: "openai",
+    requireNeural: true,
+    allowDeterministicFallback: false,
+  });
+}
+
 export function passageStillExists(passageId: string): boolean {
   return Boolean(getPassageById(passageId));
 }
 
-export { emptyBreakdown };
+export { emptyBreakdown, combineScores, hybridWeights };

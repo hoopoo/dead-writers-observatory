@@ -6,7 +6,11 @@ import {
 } from "@/lib/review/active";
 import { hashEmbeddingContent } from "@/lib/embeddings/content-hash";
 import { buildPassageEmbeddingPayload } from "@/lib/embeddings/payload";
-import { createEmbeddingProvider } from "@/lib/embeddings/provider";
+import {
+  createEmbeddingProvider,
+  resolveProviderKind,
+  type EmbeddingProviderKind,
+} from "@/lib/embeddings/provider";
 import { defaultSemanticIndex } from "@/lib/embeddings/store";
 import type { PassageEmbeddingRecord } from "@/types/embedding";
 import type { SourcePassage } from "@/types/source-passage";
@@ -23,6 +27,9 @@ export interface IndexReport {
   errors: number;
   provider: string;
   model?: string;
+  textCount: number;
+  requestCount: number;
+  success: number;
 }
 
 function isIndexEligible(passage: SourcePassage): {
@@ -62,8 +69,22 @@ function isIndexEligible(passage: SourcePassage): {
   return { ok: true };
 }
 
-export async function indexPassageEmbeddings(): Promise<IndexReport> {
-  const provider = createEmbeddingProvider();
+export async function indexPassageEmbeddings(options?: {
+  provider?: EmbeddingProviderKind | string;
+  requireNeural?: boolean;
+}): Promise<IndexReport> {
+  const kind = resolveProviderKind(options?.provider);
+  const requireNeural = options?.requireNeural ?? kind === "openai";
+
+  let provider;
+  try {
+    provider = createEmbeddingProvider(kind, { requireNeural });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "NEURAL PROVIDER UNAVAILABLE";
+    throw error instanceof Error ? error : new Error(message);
+  }
+
   const report: IndexReport = {
     eligible: 0,
     alreadyCurrent: 0,
@@ -76,6 +97,9 @@ export async function indexPassageEmbeddings(): Promise<IndexReport> {
     errors: 0,
     provider: provider.providerName,
     model: provider.modelName,
+    textCount: 0,
+    requestCount: 0,
+    success: 0,
   };
 
   const toEmbed: Array<{
@@ -99,12 +123,18 @@ export async function indexPassageEmbeddings(): Promise<IndexReport> {
 
     report.eligible += 1;
     const payload = buildPassageEmbeddingPayload(passage);
+    report.textCount += 1;
     const contentHash = hashEmbeddingContent(payload);
-    const existing = defaultSemanticIndex.get(passage.id);
+    const existing = defaultSemanticIndex.get(
+      passage.id,
+      provider.providerName,
+      provider.modelName,
+    );
     if (
       existing &&
       existing.contentHash === contentHash &&
-      existing.provider === provider.providerName
+      existing.provider === provider.providerName &&
+      (existing.model ?? "") === (provider.modelName ?? "")
     ) {
       report.alreadyCurrent += 1;
       continue;
@@ -115,7 +145,10 @@ export async function indexPassageEmbeddings(): Promise<IndexReport> {
   if (toEmbed.length === 0) return report;
 
   try {
-    const vectors = await provider.embedBatch(toEmbed.map((item) => item.payload));
+    report.requestCount = 1;
+    const vectors = await provider.embedBatch(
+      toEmbed.map((item) => item.payload),
+    );
     const records: PassageEmbeddingRecord[] = toEmbed.map((item, index) => ({
       passageId: item.passage.id,
       sourceId: item.passage.sourceId,
@@ -130,6 +163,7 @@ export async function indexPassageEmbeddings(): Promise<IndexReport> {
     }));
     await defaultSemanticIndex.upsert(records);
     report.embedded = records.length;
+    report.success = records.length;
   } catch {
     report.errors += toEmbed.length;
   }
@@ -137,21 +171,31 @@ export async function indexPassageEmbeddings(): Promise<IndexReport> {
   return report;
 }
 
-export async function pruneStaleEmbeddings(): Promise<{
-  removed: number;
-  kept: number;
-}> {
-  const all = defaultSemanticIndex.listAll();
-  const removeIds: string[] = [];
+export async function pruneStaleEmbeddings(options?: {
+  provider?: string;
+  model?: string;
+}): Promise<{ removed: number; kept: number }> {
+  const all = defaultSemanticIndex.listAll().filter((record) => {
+    if (!options?.provider) return true;
+    if (record.provider !== options.provider) return false;
+    if (options.model !== undefined) {
+      return (record.model ?? "") === (options.model ?? "");
+    }
+    return true;
+  });
+
+  let removed = 0;
   for (const record of all) {
     const passage = passages.find((p) => p.id === record.passageId);
-    if (!passage) {
-      removeIds.push(record.passageId);
-      continue;
+    const gate = passage ? isIndexEligible(passage) : { ok: false };
+    if (!gate.ok) {
+      await defaultSemanticIndex.removeRecord(
+        record.passageId,
+        record.provider,
+        record.model,
+      );
+      removed += 1;
     }
-    const gate = isIndexEligible(passage);
-    if (!gate.ok) removeIds.push(record.passageId);
   }
-  await defaultSemanticIndex.remove(removeIds);
-  return { removed: removeIds.length, kept: all.length - removeIds.length };
+  return { removed, kept: all.length - removed };
 }

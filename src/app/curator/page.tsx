@@ -141,6 +141,17 @@ export default function CuratorHomePage() {
       </section>
 
       <section className="panel">
+        <p className="eyebrow">HUMAN RETRIEVAL EVALUATION</p>
+        <p className="panel__lede">
+          Machine retrieval quality cannot replace human archival judgment.
+          Compare evidence sets before enabling generation.
+        </p>
+        <Link className="button-secondary" href="/curator/retrieval?candidate=neural-hybrid">
+          OPEN A/B RETRIEVAL EVAL
+        </Link>
+      </section>
+
+      <section className="panel">
         <p className="eyebrow">TEST QUESTIONS</p>
         <ul className="fixture-list">
           {FIXTURE_QUESTIONS.map((fixture, index) => (

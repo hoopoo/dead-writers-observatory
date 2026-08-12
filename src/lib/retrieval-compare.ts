@@ -12,10 +12,14 @@ import {
 import { detectOverclaimRisk } from "@/lib/overclaim";
 import { MockPerspectiveRetriever, scoreFragmentBreakdown } from "@/lib/retrieval";
 import {
+  createEvaluationRetriever,
   HybridPerspectiveRetriever,
   SemanticPerspectiveRetriever,
 } from "@/lib/semantic-retrieval";
-import type { RetrievalMode } from "@/types/embedding";
+import type {
+  RetrievalEvaluationMode,
+  RetrievalMode,
+} from "@/types/embedding";
 import type {
   EvidenceTrace,
   RetrievalFunnel,
@@ -25,16 +29,20 @@ import type {
 import type { ThoughtFragment } from "@/types/thought-fragment";
 
 export interface ModeComparisonResult {
-  mode: RetrievalMode;
+  mode: RetrievalMode | RetrievalEvaluationMode;
   selected: ThoughtFragment[];
   traces: EvidenceTrace[];
   quality: RetrievalQuality;
   funnel?: RetrievalFunnel;
   warnings: RetrievalWarning[];
   fallback?: string;
+  error?: string;
   singleSourceDominance: boolean;
   sourceDiversity: number;
   distanceDiversity: number;
+  themeDiversity: number;
+  provider?: string;
+  model?: string;
 }
 
 function integrityCounts(selected: ThoughtFragment[]) {
@@ -56,6 +64,10 @@ function integrityCounts(selected: ThoughtFragment[]) {
   return { approvedCount, rejectedLeak, needsReviewLeak, highOverclaimLeak };
 }
 
+function themeDiversityOf(selected: ThoughtFragment[]): number {
+  return new Set(selected.flatMap((f) => f.themes)).size;
+}
+
 function warningsFor(
   selected: ThoughtFragment[],
   diversity: ReturnType<typeof computePerspectiveDiversity>,
@@ -71,6 +83,95 @@ function warningsFor(
   return warnings;
 }
 
+function buildTraces(
+  selected: ThoughtFragment[],
+  analysis: ReturnType<typeof analyzeQuestion>,
+  personId: string,
+  matchedBy: EvidenceTrace["matchedBy"],
+  semanticByPassage?: Map<string, number>,
+): EvidenceTrace[] {
+  return selected.map((fragment) => {
+    const breakdown = scoreFragmentBreakdown(fragment, analysis, personId);
+    const passage = getPassageById(fragment.passageId);
+    return {
+      fragmentId: fragment.id,
+      passageId: fragment.passageId,
+      sourceTitle: getSourceById(fragment.sourceId)?.title ?? fragment.sourceId,
+      semanticSimilarity: semanticByPassage?.get(fragment.passageId),
+      deterministicRelevance: breakdown.total,
+      trustStatus:
+        getActivePassageReview(fragment.passageId)?.reviewStatus ?? "unknown",
+      authorialDistance: fragment.authorialDistance,
+      themeOverlap: fragment.themes.filter((t) =>
+        analysis.relevantThemes.includes(t),
+      ),
+      finalRerankScore: breakdown.total,
+      matchedBy,
+      passagePreview: passage?.text?.trim().slice(0, 180),
+      normalizedMeaning: fragment.normalizedMeaning,
+      voiceType: passage?.voiceType,
+      themes: fragment.themes,
+    };
+  });
+}
+
+async function evaluateSelected(args: {
+  mode: RetrievalMode | RetrievalEvaluationMode;
+  personId: string;
+  analysis: ReturnType<typeof analyzeQuestion>;
+  selected: ThoughtFragment[];
+  matchedBy: EvidenceTrace["matchedBy"];
+  funnel?: RetrievalFunnel;
+  fallback?: string;
+  error?: string;
+  provider?: string;
+  model?: string;
+  semanticByPassage?: Map<string, number>;
+  extraWarnings?: RetrievalWarning[];
+}): Promise<ModeComparisonResult> {
+  const diversity = computePerspectiveDiversity(args.personId, args.selected);
+  const integrity = integrityCounts(args.selected);
+  const avgRel =
+    args.selected.reduce(
+      (sum, fragment) =>
+        sum +
+        scoreFragmentBreakdown(fragment, args.analysis, args.personId).total,
+      0,
+    ) / Math.max(1, args.selected.length);
+  const quality = computeRetrievalQuality({
+    relevance: avgRel,
+    selected: args.selected,
+    ...integrity,
+  });
+  const warnings = [
+    ...warningsFor(args.selected, diversity),
+    ...(args.extraWarnings ?? []),
+  ];
+  return {
+    mode: args.mode,
+    selected: args.selected,
+    traces: buildTraces(
+      args.selected,
+      args.analysis,
+      args.personId,
+      args.matchedBy,
+      args.semanticByPassage,
+    ),
+    quality,
+    funnel: args.funnel,
+    warnings: Array.from(new Set(warnings)),
+    fallback: args.fallback,
+    error: args.error,
+    singleSourceDominance: diversity.singleSourceDominance,
+    sourceDiversity: diversity.sourceDiversity,
+    distanceDiversity: diversity.distanceDiversity,
+    themeDiversity: themeDiversityOf(args.selected),
+    provider: args.provider,
+    model: args.model,
+  };
+}
+
+/** Public production modes (deterministic / semantic / hybrid via env provider). */
 export async function compareRetrievalModes(args: {
   question: string;
   personId: string;
@@ -84,50 +185,15 @@ export async function compareRetrievalModes(args: {
     if (mode === "deterministic") {
       const retriever = new MockPerspectiveRetriever();
       const selected = await retriever.retrieve(args.personId, analysis);
-      const diversity = computePerspectiveDiversity(args.personId, selected);
-      const integrity = integrityCounts(selected);
-      const avgRel =
-        selected.reduce(
-          (sum, fragment) =>
-            sum + scoreFragmentBreakdown(fragment, analysis, args.personId).total,
-          0,
-        ) / Math.max(1, selected.length);
-      const quality = computeRetrievalQuality({
-        relevance: avgRel,
-        selected,
-        ...integrity,
-      });
-      results.push({
-        mode,
-        selected,
-        traces: selected.map((fragment) => {
-          const breakdown = scoreFragmentBreakdown(
-            fragment,
-            analysis,
-            args.personId,
-          );
-          return {
-            fragmentId: fragment.id,
-            passageId: fragment.passageId,
-            sourceTitle: getSourceById(fragment.sourceId)?.title ?? fragment.sourceId,
-            deterministicRelevance: breakdown.total,
-            trustStatus:
-              getActivePassageReview(fragment.passageId)?.reviewStatus ??
-              "unknown",
-            authorialDistance: fragment.authorialDistance,
-            themeOverlap: fragment.themes.filter((t) =>
-              analysis.relevantThemes.includes(t),
-            ),
-            finalRerankScore: breakdown.total,
-            matchedBy: "deterministic",
-          };
+      results.push(
+        await evaluateSelected({
+          mode,
+          personId: args.personId,
+          analysis,
+          selected,
+          matchedBy: "deterministic",
         }),
-        quality,
-        warnings: warningsFor(selected, diversity),
-        singleSourceDominance: diversity.singleSourceDominance,
-        sourceDiversity: diversity.sourceDiversity,
-        distanceDiversity: diversity.distanceDiversity,
-      });
+      );
       continue;
     }
 
@@ -137,68 +203,127 @@ export async function compareRetrievalModes(args: {
         : new HybridPerspectiveRetriever();
     const selected = await retriever.retrieve(args.personId, analysis);
     const trace = retriever.lastTrace;
-    const diversity = computePerspectiveDiversity(args.personId, selected);
-    const integrity = integrityCounts(selected);
-    const avgRel =
-      selected.reduce(
-        (sum, fragment) =>
-          sum + scoreFragmentBreakdown(fragment, analysis, args.personId).total,
-        0,
-      ) / Math.max(1, selected.length);
-    const quality = computeRetrievalQuality({
-      relevance: avgRel,
-      selected,
-      ...integrity,
-    });
-
-    const warnings = warningsFor(selected, diversity);
+    const extra: RetrievalWarning[] = [];
     if (trace?.trustRejected.some((r) => r.reasons.includes("HIGH OVERCLAIM RISK"))) {
-      warnings.push("SEMANTIC HIGH / OVERCLAIM RISK");
+      extra.push("SEMANTIC HIGH / OVERCLAIM RISK");
     }
     if (
       trace?.trustRejected.some((r) =>
         r.reasons.some((reason) => reason.includes("REVIEW STATUS")),
       )
     ) {
-      warnings.push("SEMANTIC HIGH / TRUST LOW");
+      extra.push("SEMANTIC HIGH / TRUST LOW");
+    }
+    results.push(
+      await evaluateSelected({
+        mode,
+        personId: args.personId,
+        analysis,
+        selected,
+        matchedBy: mode === "hybrid" ? "hybrid" : "semantic",
+        funnel: trace?.funnel,
+        fallback: trace?.fallback,
+        provider: trace?.provider,
+        model: trace?.model,
+        semanticByPassage: new Map(
+          (trace?.semanticCandidates ?? []).map((c) => [
+            c.passageId,
+            c.similarity,
+          ]),
+        ),
+        extraWarnings: extra,
+      }),
+    );
+  }
+
+  return results;
+}
+
+/**
+ * Curator / machine-eval modes.
+ * Neural modes never silently remap to local-bridge.
+ */
+export async function compareRetrievalEvaluationModes(args: {
+  question: string;
+  personId: string;
+  modes?: RetrievalEvaluationMode[];
+}): Promise<ModeComparisonResult[]> {
+  const modes: RetrievalEvaluationMode[] = args.modes ?? [
+    "deterministic",
+    "local-semantic",
+    "neural-semantic",
+    "neural-hybrid",
+  ];
+  const analysis = analyzeQuestion(args.question);
+  const results: ModeComparisonResult[] = [];
+
+  for (const mode of modes) {
+    if (mode === "deterministic") {
+      const selected = await new MockPerspectiveRetriever().retrieve(
+        args.personId,
+        analysis,
+      );
+      results.push(
+        await evaluateSelected({
+          mode,
+          personId: args.personId,
+          analysis,
+          selected,
+          matchedBy: "deterministic",
+        }),
+      );
+      continue;
     }
 
-    results.push({
-      mode,
-      selected,
-      traces: selected.map((fragment) => {
-        const breakdown = scoreFragmentBreakdown(
-          fragment,
+    try {
+      const retriever = createEvaluationRetriever(mode);
+      const selected = await retriever.retrieve(args.personId, analysis);
+      const trace = retriever.lastTrace;
+      results.push(
+        await evaluateSelected({
+          mode,
+          personId: args.personId,
           analysis,
-          args.personId,
-        );
-        const semantic = trace?.semanticCandidates.find(
-          (c) => c.passageId === fragment.passageId,
-        );
-        return {
-          fragmentId: fragment.id,
-          passageId: fragment.passageId,
-          sourceTitle: getSourceById(fragment.sourceId)?.title ?? fragment.sourceId,
-          semanticSimilarity: semantic?.similarity,
-          deterministicRelevance: breakdown.total,
-          trustStatus:
-            getActivePassageReview(fragment.passageId)?.reviewStatus ?? "unknown",
-          authorialDistance: fragment.authorialDistance,
-          themeOverlap: fragment.themes.filter((t) =>
-            analysis.relevantThemes.includes(t),
+          selected,
+          matchedBy: mode.includes("hybrid") ? "hybrid" : "semantic",
+          funnel: trace?.funnel,
+          fallback: trace?.fallback,
+          provider: trace?.provider,
+          model: trace?.model,
+          semanticByPassage: new Map(
+            (trace?.semanticCandidates ?? []).map((c) => [
+              c.passageId,
+              c.similarity,
+            ]),
           ),
-          finalRerankScore: breakdown.total,
-          matchedBy: mode === "hybrid" ? "hybrid" : "semantic",
-        };
-      }),
-      quality,
-      funnel: trace?.funnel,
-      warnings: Array.from(new Set(warnings)),
-      fallback: trace?.fallback,
-      singleSourceDominance: diversity.singleSourceDominance,
-      sourceDiversity: diversity.sourceDiversity,
-      distanceDiversity: diversity.distanceDiversity,
-    });
+        }),
+      );
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "NEURAL PROVIDER UNAVAILABLE";
+      results.push({
+        mode,
+        selected: [],
+        traces: [],
+        quality: {
+          total: 0,
+          relevance: 0,
+          provenance: 0,
+          reviewIntegrity: 0,
+          sourceDiversity: 0,
+          themeDiversity: 0,
+          authorialBalance: 0,
+        },
+        warnings: [],
+        error: message.includes("NEURAL PROVIDER UNAVAILABLE")
+          ? "NEURAL PROVIDER UNAVAILABLE"
+          : message,
+        singleSourceDominance: false,
+        sourceDiversity: 0,
+        distanceDiversity: 0,
+        themeDiversity: 0,
+      });
+    }
   }
 
   return results;

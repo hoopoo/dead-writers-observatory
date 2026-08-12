@@ -1,4 +1,19 @@
+import type { ReviewActor } from "@/types/review";
+
+/** Public observe path modes (env RETRIEVAL_MODE). */
 export type RetrievalMode = "deterministic" | "semantic" | "hybrid";
+
+/** Curator / eval comparison modes. */
+export type RetrievalEvaluationMode =
+  | "deterministic"
+  | "local-semantic"
+  | "neural-semantic"
+  | "neural-hybrid";
+
+export type CandidateEvaluationMode =
+  | "local-semantic"
+  | "neural-semantic"
+  | "neural-hybrid";
 
 export interface EmbeddingProvider {
   embedText(text: string): Promise<number[]>;
@@ -24,6 +39,8 @@ export interface PassageEmbeddingRecord {
 export interface SemanticSearchOptions {
   personId: string;
   topK: number;
+  provider: string;
+  model?: string;
 }
 
 export type SemanticMatchBy = "semantic" | "deterministic" | "hybrid";
@@ -52,10 +69,50 @@ export interface HybridScore {
   combinedScore: number;
 }
 
+export type RetrievalHumanVerdict = "better" | "same" | "worse" | "unclear";
+
+export type RetrievalHumanReasonTag =
+  | "more-relevant"
+  | "better-modern-connection"
+  | "better-source-diversity"
+  | "better-authorial-balance"
+  | "better-historical-fit"
+  | "better-context"
+  | "too-literal"
+  | "too-associative"
+  | "wrong-context"
+  | "source-collapse"
+  | "distance-collapse"
+  | "less-relevant"
+  | "other";
+
 export interface RetrievalHumanEvaluation {
+  id: string;
   fixtureId: string;
   personId: string;
-  mode: "semantic" | "hybrid";
-  verdict: "better" | "same" | "worse" | "unclear";
+  baselineMode: "deterministic";
+  candidateMode: CandidateEvaluationMode;
+  verdict: RetrievalHumanVerdict;
+  preferredPassageIds?: string[];
+  reasonTags?: RetrievalHumanReasonTag[];
   notes?: string;
+  reviewer: ReviewActor;
+  createdAt: string;
+  updatedAt?: string;
+  /** Blind UI mapping metadata (optional). */
+  blindLeftMode?: "deterministic" | CandidateEvaluationMode;
+  blindRightMode?: "deterministic" | CandidateEvaluationMode;
+}
+
+export interface RetrievalHumanEvaluationInput {
+  fixtureId: string;
+  personId: string;
+  candidateMode: CandidateEvaluationMode;
+  verdict: RetrievalHumanVerdict;
+  preferredPassageIds?: string[];
+  reasonTags?: RetrievalHumanReasonTag[];
+  notes?: string;
+  reviewer?: ReviewActor;
+  blindLeftMode?: "deterministic" | CandidateEvaluationMode;
+  blindRightMode?: "deterministic" | CandidateEvaluationMode;
 }

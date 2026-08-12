@@ -85,13 +85,18 @@ npm run snapshot:retrieval
 npm run eval:retrieval-regression
 npm run eval:review-persistence
 npm run embeddings:index
+npm run embeddings:index -- --provider=local-bridge
+npm run embeddings:index -- --provider=openai
 npm run eval:semantic-retrieval
+npm run eval:neural-retrieval
+npm run eval:retrieval-human
 ```
 
 - Archive content（原文・Source）は Git 管理
 - Curator decisions（review status / events）は SQLite（`data/curator-reviews.sqlite`）
 - Review history は append-only
 - Passage embeddings も同 DB の derived artifact（source of truth ではない）
+- Human retrieval verdicts も同 DB（`retrieval_human_evaluations`）
 
 ## Retrieval modes
 
@@ -103,12 +108,42 @@ RETRIEVAL_MODE=hybrid
 
 Public UI に mode selector は出さない。Curator `/curator/retrieval` で A/B 比較。
 
+Evaluation modes（Curator / scripts only）:
+
+```
+deterministic
+local-semantic
+neural-semantic
+neural-hybrid
+```
+
 Embedding provider:
 
 ```bash
 EMBEDDING_PROVIDER=local-bridge   # offline default
 # EMBEDDING_PROVIDER=openai
-# EMBEDDING_API_KEY=...
+# OPENAI_API_KEY=...
+# OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+```
+
+local-bridge と neural（openai）の embeddings は
+`passageId + provider + model` で namespace 分離する。
+
+## Human Retrieval Evaluation
+
+Machine retrieval quality cannot replace human archival judgment.
+
+Neural similarity is useful only when it improves the evidence set
+without damaging provenance or diversity.
+
+- Machine metrics（Retrieval Quality / diversity / trust）と Human Verdict は合成しない
+- Curator `/curator/retrieval` で side-by-side evidence set 比較
+- Blind mode（SET A / SET B）で mode 名バイアスを減らす
+- 30 cases = 10 fixtures × 3 writers
+- Staging candidate（neural-hybrid）は Better+Same ≥ 80% かつ critical WORSE なし、など条件を満たす場合のみ報告
+
+```bash
+npm run eval:retrieval-human
 ```
 
 ## Retrieval quality
@@ -125,3 +160,6 @@ Relevance
 
 `ArchiveTrustFilter` と `EvidenceDiversityReranker` は semantic / hybrid でも必須。
 Index-time gate と query-time gate の二重適用。Vector index は source of truth ではない。
+
+Do not ask whether neural retrieval is smarter.
+Ask whether it retrieves better evidence.

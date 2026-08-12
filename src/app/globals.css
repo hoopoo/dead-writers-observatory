@@ -1238,6 +1238,101 @@ main {
   .mode-compare-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .mode-compare-grid.ab-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.evidence-preview {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.evidence-meaning {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.human-verdict {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.verdict-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.verdict-buttons button,
+.curator-primary {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.55rem 0.9rem;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.verdict-buttons button.is-active,
+.curator-primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.reason-tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  font-size: 0.88rem;
+}
+
+.reason-tag-list label {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.notes-field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.notes-field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.6rem;
+  font: inherit;
+}
+
+.eval-matrix {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.eval-matrix__fixture h4 {
+  margin: 0 0 0.4rem;
+  font-family: var(--serif);
+  font-weight: 500;
+}
+
+.matrix-chip {
+  display: inline-block;
+  margin-right: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
 }
 
 .mode-compare-card {
