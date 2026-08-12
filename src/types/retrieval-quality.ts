@@ -1,4 +1,5 @@
 import type { AuthorialDistance, ThemeTag } from "@/types/thought-fragment";
+import type { SemanticMatchBy } from "@/types/embedding";
 
 export interface PerspectiveDiversityScore {
   personId: string;
@@ -11,14 +12,15 @@ export interface PerspectiveDiversityScore {
 
 /**
  * Similarity alone ≠ Retrieval Quality.
- * Semantic RAG must preserve these dimensions.
+ * Not a truth probability — an evidence-set health metric (0–100).
  */
 export interface RetrievalQuality {
   relevance: number;
   provenance: number;
-  diversity: number;
-  authorialBalance: number;
   reviewIntegrity: number;
+  sourceDiversity: number;
+  themeDiversity: number;
+  authorialBalance: number;
   total: number;
 }
 
@@ -49,3 +51,31 @@ export interface RetrievalSnapshotBundle {
   generatedAt: string;
   fixtures: RetrievalSnapshot[];
 }
+
+export interface RetrievalFunnel {
+  semanticCandidates: number;
+  trusted: number;
+  diversityReranked: number;
+  selected: number;
+}
+
+export interface EvidenceTrace {
+  fragmentId: string;
+  passageId: string;
+  sourceTitle: string;
+  semanticSimilarity?: number;
+  deterministicRelevance: number;
+  hybridCombined?: number;
+  trustStatus: string;
+  authorialDistance: AuthorialDistance;
+  themeOverlap: ThemeTag[];
+  finalRerankScore: number;
+  matchedBy: SemanticMatchBy;
+}
+
+export type RetrievalWarning =
+  | "SINGLE SOURCE DOMINANCE"
+  | "AUTHORIAL DISTANCE COLLAPSE"
+  | "LOW SOURCE DIVERSITY"
+  | "SEMANTIC HIGH / TRUST LOW"
+  | "SEMANTIC HIGH / OVERCLAIM RISK";

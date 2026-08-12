@@ -14,7 +14,10 @@
     "eval:retrieval-regression": "tsx scripts/eval-retrieval-regression.ts",
     "eval:review-persistence": "tsx scripts/eval-review-persistence.ts",
     "curator:seed": "tsx scripts/curator-seed.ts",
-    "snapshot:retrieval": "tsx scripts/snapshot-retrieval.ts"
+    "snapshot:retrieval": "tsx scripts/snapshot-retrieval.ts",
+    "embeddings:index": "tsx scripts/embeddings-index.ts",
+    "embeddings:prune": "tsx scripts/embeddings-prune.ts",
+    "eval:semantic-retrieval": "tsx scripts/eval-semantic-retrieval.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",

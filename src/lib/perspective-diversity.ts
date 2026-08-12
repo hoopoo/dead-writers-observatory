@@ -41,6 +41,14 @@ export function computePerspectiveDiversity(
   };
 }
 
+function clamp100(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+/**
+ * Retrieval Quality is NOT truth probability.
+ * It scores evidence-set health: relevance, provenance, integrity, diversity, distance.
+ */
 export function computeRetrievalQuality(args: {
   relevance: number;
   selected: ThoughtFragment[];
@@ -48,33 +56,51 @@ export function computeRetrievalQuality(args: {
   rejectedLeak: number;
   needsReviewLeak: number;
   highOverclaimLeak: number;
+  /** raw relevance scale hint; deterministic totals are often 0–20 */
+  relevanceScaleMax?: number;
 }): RetrievalQuality {
   const diversity = computePerspectiveDiversity("tmp", args.selected);
+  const scale = args.relevanceScaleMax ?? 20;
+  const relevance = clamp100((args.relevance / scale) * 35);
+
   const provenance =
     args.selected.length === 0
       ? 0
-      : (args.approvedCount / args.selected.length) * 5;
-  const reviewIntegrity =
-    5 -
-    args.rejectedLeak * 2 -
-    args.needsReviewLeak * 2 -
-    args.highOverclaimLeak * 2;
-  const authorialBalance = Math.min(5, diversity.distanceDiversity * 2);
-  const diversityScore = Math.min(5, diversity.sourceDiversity * 2);
+      : clamp100((args.approvedCount / args.selected.length) * 20);
 
-  const total =
-    args.relevance +
-    provenance +
-    diversityScore +
-    authorialBalance +
-    Math.max(0, reviewIntegrity);
+  const reviewIntegrity = clamp100(
+    20 -
+      args.rejectedLeak * 8 -
+      args.needsReviewLeak * 8 -
+      args.highOverclaimLeak * 8,
+  );
+
+  const sourceDiversity = clamp100(
+    (Math.min(3, diversity.sourceDiversity) / 3) * 15,
+  );
+  const themeDiversity = clamp100(
+    (Math.min(6, diversity.themeDiversity) / 6) * 10,
+  );
+  const authorialBalance = clamp100(
+    (Math.min(3, diversity.distanceDiversity) / 3) * 10,
+  );
+
+  const total = clamp100(
+    relevance +
+      provenance +
+      reviewIntegrity +
+      sourceDiversity +
+      themeDiversity +
+      authorialBalance,
+  );
 
   return {
-    relevance: args.relevance,
+    relevance,
     provenance,
-    diversity: diversityScore,
+    reviewIntegrity,
+    sourceDiversity,
+    themeDiversity,
     authorialBalance,
-    reviewIntegrity: Math.max(0, reviewIntegrity),
     total,
   };
 }

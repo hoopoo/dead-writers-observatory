@@ -266,3 +266,4 @@ export class MockPerspectiveRetriever implements PerspectiveRetriever {
 }
 
 export const defaultRetriever = new MockPerspectiveRetriever();
+export const deterministicRetriever = defaultRetriever;

@@ -1,9 +1,7 @@
 import { people } from "@/data/people";
 import { analyzeQuestion } from "@/lib/question-analysis";
-import {
-  defaultRetriever,
-  type PerspectiveRetriever,
-} from "@/lib/retrieval";
+import { type PerspectiveRetriever } from "@/lib/retrieval";
+import { createRetriever } from "@/lib/retrieval-mode";
 import { generatePerspective } from "@/lib/perspective-generator";
 import { comparePerspectives } from "@/lib/comparison";
 import type { ObservationResult } from "@/types/observation";
@@ -13,7 +11,7 @@ const SAFETY_NOTICE =
 
 export async function observeQuestion(
   rawQuestion: string,
-  retriever: PerspectiveRetriever = defaultRetriever,
+  retriever: PerspectiveRetriever = createRetriever().retriever,
 ): Promise<ObservationResult> {
   const analysis = analyzeQuestion(rawQuestion);
 

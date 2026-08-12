@@ -1217,6 +1217,75 @@ main {
   color: var(--caution);
 }
 
+.retrieval-controls {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.fixture-tabs a.is-active {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.mode-compare-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 960px) {
+  .mode-compare-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.mode-compare-card {
+  display: grid;
+  gap: 0.65rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.mode-compare-card h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.funnel {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.mode-rank-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.mode-rank-list li {
+  display: grid;
+  gap: 0.1rem;
+  font-size: 0.9rem;
+}
+
+.warning-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--caution);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
 .curator-login {
   display: grid;
   gap: 0.85rem;

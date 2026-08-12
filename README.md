@@ -42,10 +42,14 @@ Verified novel passages use `SOURCE TEXT — WORK VOICE` when narrator/character
 ```
 Question
   → QuestionAnalysis
-  → PerspectiveRetriever (per person)
-  → ThoughtFragment[]  (via SourcePassage)
-  → WriterPerspective + Evidence + Archival Distance
-  → ThreeVoicesAnalysis + Historical Distance
+  → Query Embedding (optional)
+  → Semantic Candidate Retrieval (person-scoped)
+  → Archive Trust Filter
+  → Evidence Diversity Reranker
+  → Retrieval Quality Evaluation
+  → Selected Evidence
+  → Perspective Generator (unchanged in RAG v0.1)
+  → Comparison Layer
   → UI (provenance-labeled)
 ```
 
@@ -58,7 +62,11 @@ Source → SourcePassage → ThoughtFragment → WriterPerspective
 `DIRECT SOURCE` は `verificationStatus === "verified"` の passage のみ。
 placeholder は `SOURCE REFERENCE` / `ARCHIVE INTERPRETATION`。
 
-RAG 接続時は `src/lib/retrieval.ts` の `PerspectiveRetriever` 実装を差し替える。
+**Vector similarity is nomination, not authority.**
+
+Semantic search may discover connections. The archive + curator review state
+decide whether those connections deserve to survive.
+
 
 ## Curator Console (internal)
 
@@ -76,17 +84,36 @@ npm run curator:seed
 npm run snapshot:retrieval
 npm run eval:retrieval-regression
 npm run eval:review-persistence
+npm run embeddings:index
+npm run eval:semantic-retrieval
 ```
 
 - Archive content（原文・Source）は Git 管理
 - Curator decisions（review status / events）は SQLite（`data/curator-reviews.sqlite`）
 - Review history は append-only
+- Passage embeddings も同 DB の derived artifact（source of truth ではない）
 
-## Retrieval quality (before semantic RAG)
+## Retrieval modes
+
+```bash
+RETRIEVAL_MODE=deterministic   # default / production-safe
+RETRIEVAL_MODE=semantic
+RETRIEVAL_MODE=hybrid
+```
+
+Public UI に mode selector は出さない。Curator `/curator/retrieval` で A/B 比較。
+
+Embedding provider:
+
+```bash
+EMBEDDING_PROVIDER=local-bridge   # offline default
+# EMBEDDING_PROVIDER=openai
+# EMBEDDING_API_KEY=...
+```
+
+## Retrieval quality
 
 Similarity alone ≠ Retrieval Quality.
-
-Dead Writers Observatory treats search quality as:
 
 ```
 Relevance
@@ -96,5 +123,5 @@ Relevance
 × Authorial Distance
 ```
 
-Semantic retrieval 導入後も、似ている文章を選ぶだけでは品質を担保しない。
-`ArchiveTrustFilter` と `EvidenceDiversityReranker` が trust / diversity を先に守る。
+`ArchiveTrustFilter` と `EvidenceDiversityReranker` は semantic / hybrid でも必須。
+Index-time gate と query-time gate の二重適用。Vector index は source of truth ではない。

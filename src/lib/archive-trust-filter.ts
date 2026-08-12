@@ -11,18 +11,31 @@ import type {
   TrustedRetrievalCandidate,
 } from "@/types/archive-trust";
 
+export interface TrustFilterResult {
+  trusted: TrustedRetrievalCandidate[];
+  rejected: Array<RetrievalCandidate & { excludeReasons: string[] }>;
+}
+
 /**
- * Archive Trust Filter — prep for semantic RAG.
+ * Archive Trust Filter — mandatory after semantic nomination.
  * Similarity alone never bypasses these rules.
  */
 export class DefaultArchiveTrustFilter implements ArchiveTrustFilter {
   async filter(
     candidates: RetrievalCandidate[],
   ): Promise<TrustedRetrievalCandidate[]> {
+    const { trusted } = await this.filterWithReasons(candidates);
+    return trusted;
+  }
+
+  async filterWithReasons(
+    candidates: RetrievalCandidate[],
+  ): Promise<TrustFilterResult> {
     const trusted: TrustedRetrievalCandidate[] = [];
+    const rejected: TrustFilterResult["rejected"] = [];
 
     for (const candidate of candidates) {
-      const reasons: string[] = [];
+      const excludeReasons: string[] = [];
       const passage = getPassageById(candidate.fragment.passageId);
       const review = getActivePassageReview(candidate.fragment.passageId);
       const fragReview = getActiveFragmentReview(candidate.fragment.id);
@@ -32,32 +45,52 @@ export class DefaultArchiveTrustFilter implements ArchiveTrustFilter {
       const risk =
         riskRank[auto.risk] >= riskRank[reviewed] ? auto.risk : reviewed;
 
-      if (!passage) {
-        continue;
+      if (!passage) excludeReasons.push("passage missing");
+      if (passage && passage.verificationStatus !== "verified") {
+        excludeReasons.push("not verified");
       }
-      if (passage.verificationStatus !== "verified") {
-        continue;
+      if (passage && !passage.text?.trim()) {
+        excludeReasons.push("text missing");
       }
       if (!review || review.reviewStatus !== "approved") {
+        if (review?.reviewStatus === "rejected") {
+          excludeReasons.push("REVIEW STATUS REJECTED");
+        } else if (review?.reviewStatus === "needs-review") {
+          excludeReasons.push("REVIEW STATUS NEEDS REVIEW");
+        } else {
+          excludeReasons.push("unapproved");
+        }
+      }
+      if (risk === "high") {
+        excludeReasons.push("HIGH OVERCLAIM RISK");
+      }
+      if (!isFragmentPrimaryEligible(fragReview)) {
+        excludeReasons.push("fragment support insufficient");
+      }
+      if (passage && !passage.voiceType) {
+        excludeReasons.push("voice metadata incomplete");
+      }
+      if (!candidate.fragment.authorialDistance) {
+        excludeReasons.push("authorial distance incomplete");
+      }
+
+      if (excludeReasons.length > 0) {
+        rejected.push({ ...candidate, excludeReasons });
         continue;
       }
-      if (risk === "high") continue;
-      if (!isFragmentPrimaryEligible(fragReview)) continue;
-      if (!passage.voiceType) continue;
-      if (!candidate.fragment.authorialDistance) continue;
-
-      reasons.push("verified");
-      reasons.push("approved");
-      reasons.push(`support=${fragReview?.meaningSupportedByPassage}`);
-      reasons.push(`distance=${candidate.fragment.authorialDistance}`);
 
       trusted.push({
         ...candidate,
-        trustReasons: reasons,
+        trustReasons: [
+          "verified",
+          "approved",
+          `support=${fragReview?.meaningSupportedByPassage}`,
+          `distance=${candidate.fragment.authorialDistance}`,
+        ],
       });
     }
 
-    return trusted;
+    return { trusted, rejected };
   }
 }
 
