@@ -163,3 +163,58 @@ Index-time gate と query-time gate の二重適用。Vector index は source of
 
 Do not ask whether neural retrieval is smarter.
 Ask whether it retrieves better evidence.
+
+## Retrieval evaluation scripts
+
+```bash
+npx tsx scripts/dump-blind-cases.ts
+npx tsx scripts/persist-neural-human-evals.ts
+```
+
+- `dump-blind-cases.ts` — blind SET A/B dump for reproducible human comparison
+- `persist-neural-human-evals.ts` — rebuild / re-apply neural human verdicts with provenance notes
+
+## Claim Layer (Evidence-Bounded Generation prep)
+
+```
+Selected Evidence
+  → Evidence Packet
+  → Perspective Claims
+  → Claim Validation
+  → Approved Claims
+  → [future] Prose Generation
+```
+
+```bash
+npm run eval:claims
+npm run eval:claim-regression
+npm run snapshot:claims
+```
+
+Curator: `/curator/claims`
+
+```
+RETRIEVAL
+
+Vector proposes.
+Archive decides.
+
+GENERATION
+
+Generator proposes.
+Evidence decides.
+```
+
+```
+YOU ARE NOT SOSEKI.
+YOU ARE NOT AKUTAGAWA.
+YOU ARE NOT DAZAI.
+
+You are an archival interpretation engine.
+You may propose claims.
+Evidence decides whether those claims survive.
+```
+
+Default generation mode: `deterministic-claims`.
+LLM claim / prose generators are not connected yet.
+`/observe` user prose is unchanged.

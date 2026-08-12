@@ -19,7 +19,10 @@
     "embeddings:prune": "tsx scripts/embeddings-prune.ts",
     "eval:semantic-retrieval": "tsx scripts/eval-semantic-retrieval.ts",
     "eval:neural-retrieval": "tsx scripts/eval-neural-retrieval.ts",
-    "eval:retrieval-human": "tsx scripts/eval-retrieval-human.ts"
+    "eval:retrieval-human": "tsx scripts/eval-retrieval-human.ts",
+    "eval:claims": "tsx scripts/eval-claims.ts",
+    "eval:claim-regression": "tsx scripts/eval-claim-regression.ts",
+    "snapshot:claims": "tsx scripts/snapshot-claims.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",

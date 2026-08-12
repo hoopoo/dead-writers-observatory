@@ -1,0 +1,1895 @@
+{
+  "version": "claims-v1",
+  "generatedAt": "2026-08-12T07:44:03.383Z",
+  "generationMode": "deterministic-claims",
+  "cases": [
+    {
+      "fixtureId": "q1",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-df5ed93b",
+        "claim-obs-7e4fa5f0",
+        "claim-obs-32248b91",
+        "claim-wp-eb71bcd3",
+        "claim-xes-e575681d",
+        "claim-tension-24a1e701",
+        "claim-mt-29103807",
+        "claim-rq-398f0cf0"
+      ],
+      "claimTexts": [
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "『こころ』には、作品内では、財産の始末が人間関係の面倒を生む、という助言が登場人物の口から語られる。金銭は近代的関係の緊張を媒介する要素として描かれるという視点が作品内の声として現れる。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "夏目漱石の残した資料からは、money・work・society・independenceといった観点を、この相談へ接続できる。",
+        "『私の個人主義』と『こころ』と『硝子戸の中』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるwork・independence・moneyという観点を、現在の相談へ限定的に接続できる。",
+        "失いたくないのは収入そのものか、それによって保たれている自己像なのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q1",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-a21cc830",
+        "claim-obs-0f817795",
+        "claim-obs-58a81635",
+        "claim-wp-d9cba438",
+        "claim-xes-41fd80c8",
+        "claim-tension-9da64879",
+        "claim-mt-999b4942",
+        "claim-rq-62ea202f"
+      ],
+      "claimTexts": [
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章では、書棚に並ぶ西洋の名が「世紀末それ自身」として眺められる。近代の精神風景が、蔵書の視線を通して前景化するという観測が読み取れる。",
+        "芥川龍之介の残した資料からは、anxiety・fear・fatigue・observationといった観点を、この相談へ接続できる。",
+        "『歯車』と『侏儒の言葉』と『或阿呆の一生』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られるwork・independence・moneyという観点を、現在の相談へ限定的に接続できる。",
+        "失いたくないのは収入そのものか、それによって保たれている自己像なのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q1",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-f5ed4925",
+        "claim-obs-f00b3935",
+        "claim-obs-a9eb3cc7",
+        "claim-wp-2733c831",
+        "claim-xes-3dfeb2f0",
+        "claim-mt-bb23945e",
+        "claim-rq-afda29f0"
+      ],
+      "claimTexts": [
+        "『津軽』の資料からは、金銭的不安や生活の失敗は、愛される資格への疑いに接続しやすい、という解釈上の仮説という観測が読み取れる。",
+        "『人間失格』には、語り手は、人間を極度に恐れながらも思い切れず、「道化」によって他者とつながろうとする。他者の前で自己を演じる感覚が強く描かれているという視点が作品内の声として現れる。",
+        "『富嶽百景』の資料からは、日常の観察の中に、他者評価への敏感さと自己演出の疲労が混在しうる、という読み（部分的支持）という観測が読み取れる。",
+        "太宰治の残した資料からは、money・work・shame・loveといった観点を、この相談へ接続できる。",
+        "『津軽』と『人間失格』と『富嶽百景』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られるwork・independence・moneyという観点を、現在の相談へ限定的に接続できる。",
+        "失いたくないのは収入そのものか、それによって保たれている自己像なのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-6181cf32",
+        "claim-obs-dbcf493d",
+        "claim-obs-bf7a109a",
+        "claim-wp-e3a3208f",
+        "claim-xes-434e9dd5",
+        "claim-tension-bdd4e086",
+        "claim-mt-7c793c51",
+        "claim-rq-b3d6a9b2"
+      ],
+      "claimTexts": [
+        "『こころ』には、語り手は、ある人物を本名ではなく「先生」と呼ぶことが自然だと述べる。親密さと距離が、名前の呼び方そのものに現れる——作品内の視点という視点が作品内の声として現れる。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "夏目漱石の残した資料からは、loneliness・self・intimacy・societyといった観点を、この相談へ接続できる。",
+        "『こころ』と『硝子戸の中』と『私の個人主義』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるintimacy・lonelinessという観点を、現在の相談へ限定的に接続できる。",
+        "求めているのは人数としての同伴か、分かってもらえる感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-69283fc9",
+        "claim-obs-c02110b2",
+        "claim-obs-87f99eec",
+        "claim-wp-cf6967c2",
+        "claim-xes-54328454",
+        "claim-tension-4aad36f7",
+        "claim-mt-ce17e9e7",
+        "claim-rq-00851c97"
+      ],
+      "claimTexts": [
+        "『或阿呆の一生』の資料からは、孤独は人数の不足だけでなく、意味の共有ができない状態としても現れる、という読み（部分的支持）という観測が読み取れる。",
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、loneliness・society・self・anxietyといった観点を、この相談へ接続できる。",
+        "『或阿呆の一生』と『侏儒の言葉』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られるintimacy・lonelinessという観点を、現在の相談へ限定的に接続できる。",
+        "求めているのは人数としての同伴か、分かってもらえる感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-f6d9c0c5",
+        "claim-obs-ed8c5ce9",
+        "claim-obs-c85dada7",
+        "claim-wp-7150e5c5",
+        "claim-xes-fefcf421",
+        "claim-mt-cae4f532",
+        "claim-rq-28f3a40f"
+      ],
+      "claimTexts": [
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
+        "太宰治の残した資料からは、family・intimacy・loneliness・selfといった観点を、この相談へ接続できる。",
+        "『津軽』と『人間失格』と『富嶽百景』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られるintimacy・lonelinessという観点を、現在の相談へ限定的に接続できる。",
+        "求めているのは人数としての同伴か、分かってもらえる感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-da7199ea",
+        "claim-obs-4cbba207",
+        "claim-obs-acaaba40",
+        "claim-wp-b58a1df3",
+        "claim-xes-0f3ad1b3",
+        "claim-tension-0473164c",
+        "claim-mt-ef7d00de",
+        "claim-rq-2fb11dd3"
+      ],
+      "claimTexts": [
+        "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
+        "『こころ』には、作品内では、財産の始末が人間関係の面倒を生む、という助言が登場人物の口から語られる。金銭は近代的関係の緊張を媒介する要素として描かれるという視点が作品内の声として現れる。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "夏目漱石の残した資料からは、money・obligation・happiness・societyといった観点を、この相談へ接続できる。",
+        "『私の個人主義』と『こころ』と『硝子戸の中』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られる自己観察・他者の視線・自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することはできる。",
+        "見続けることで埋めようとしているのは、退屈でしょうか。承認でしょうか。それとも、取り残される恐れでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-e9d6eed3",
+        "claim-obs-2e12427e",
+        "claim-obs-aa9f3064",
+        "claim-wp-02ac1d85",
+        "claim-xes-0c571166",
+        "claim-tension-9e8ca741",
+        "claim-mt-d936f4f7",
+        "claim-rq-3d38bf0d"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章では、書棚に並ぶ西洋の名が「世紀末それ自身」として眺められる。近代の精神風景が、蔵書の視線を通して前景化するという観測が読み取れる。",
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、happiness・self・observation・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『或阿呆の一生』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られる自己観察・他者の視線・自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することはできる。",
+        "見続けることで埋めようとしているのは、退屈でしょうか。承認でしょうか。それとも、取り残される恐れでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-4c1454dc",
+        "claim-obs-34c500c8",
+        "claim-obs-ef0e8588",
+        "claim-wp-edbe98ab",
+        "claim-xes-161d9a7d",
+        "claim-mt-5c5ac3ef",
+        "claim-rq-b10da999"
+      ],
+      "claimTexts": [
+        "『人間失格』には、語り手は、人間を極度に恐れながらも思い切れず、「道化」によって他者とつながろうとする。他者の前で自己を演じる感覚が強く描かれているという視点が作品内の声として現れる。",
+        "『富嶽百景』の資料からは、日常の観察の中に、他者評価への敏感さと自己演出の疲労が混在しうる、という読み（部分的支持）という観測が読み取れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "太宰治の残した資料からは、fear・intimacy・performance・shameといった観点を、この相談へ接続できる。",
+        "『人間失格』と『富嶽百景』と『津軽』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られる自己観察・他者の視線・自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することはできる。",
+        "見続けることで埋めようとしているのは、退屈でしょうか。承認でしょうか。それとも、取り残される恐れでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-601748b1",
+        "claim-obs-f178635a",
+        "claim-obs-fecff5c9",
+        "claim-wp-2cab829c",
+        "claim-xes-5a7b68bb",
+        "claim-tension-f6d91fc1",
+        "claim-mt-fcc2ca7a",
+        "claim-rq-1e7564c8"
+      ],
+      "claimTexts": [
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『こころ』には、作品内では、財産の始末が人間関係の面倒を生む、という助言が登場人物の口から語られる。金銭は近代的関係の緊張を媒介する要素として描かれるという視点が作品内の声として現れる。",
+        "夏目漱石の残した資料からは、money・work・society・independenceといった観点を、この相談へ接続できる。",
+        "『私の個人主義』と『硝子戸の中』と『こころ』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、AIという語彙そのものではなく、資料に見られる仕事や独立や社会的役割や自己像や金銭と生活という観点を、現在の職業変化へ接続できる。",
+        "あなたが恐れているのは、収入の喪失と、社会的自己像の喪失のどちらに近いでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-92c28272",
+        "claim-obs-32bbe59d",
+        "claim-obs-c3fa5929",
+        "claim-wp-84d6d169",
+        "claim-xes-d63edb32",
+        "claim-tension-45de2528",
+        "claim-mt-4c03d50a",
+        "claim-rq-66c6a594"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章では、書棚に並ぶ西洋の名が「世紀末それ自身」として眺められる。近代の精神風景が、蔵書の視線を通して前景化するという観測が読み取れる。",
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、creativity・observation・self・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『或阿呆の一生』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、AIという語彙そのものではなく、資料に見られる社会的役割や自己像という観点を、現在の職業変化へ接続できる。",
+        "あなたが恐れているのは、収入の喪失と、社会的自己像の喪失のどちらに近いでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-b3928511",
+        "claim-obs-74b08741",
+        "claim-obs-bc7586e1",
+        "claim-wp-d2a027b6",
+        "claim-xes-5894711a",
+        "claim-mt-eca75260",
+        "claim-rq-d4dc6a31"
+      ],
+      "claimTexts": [
+        "『津軽』の資料からは、津軽半島を一周した旅が、三十幾年の生涯でかなり重要な事件だった、と自伝的に記されている。故郷・帰属の再確認が主題化されるという観測が読み取れる。",
+        "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "太宰治の残した資料からは、family・loneliness・intimacy・selfといった観点を、この相談へ接続できる。",
+        "『津軽』と『富嶽百景』と『人間失格』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、AIという語彙そのものではなく、資料に見られる仕事や独立や社会的役割や自己像や金銭と生活という観点を、現在の職業変化へ接続できる。",
+        "あなたが恐れているのは、収入の喪失と、社会的自己像の喪失のどちらに近いでしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-7fca672e",
+        "claim-obs-ca7c850d",
+        "claim-obs-d3fb034a",
+        "claim-wp-8147ed3f",
+        "claim-xes-4f13f96b",
+        "claim-tension-c972507e",
+        "claim-mt-906e8bc5",
+        "claim-rq-1a7c1fd6"
+      ],
+      "claimTexts": [
+        "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『こころ』には、語り手は、ある人物を本名ではなく「先生」と呼ぶことが自然だと述べる。親密さと距離が、名前の呼び方そのものに現れる——作品内の視点という視点が作品内の声として現れる。",
+        "夏目漱石の残した資料からは、money・obligation・happiness・societyといった観点を、この相談へ接続できる。",
+        "『私の個人主義』と『硝子戸の中』と『こころ』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られる承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+        "「成功」の定義を誰から借りていますか。あなた自身の幸福の定義は、どこにありますか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "insufficient-source-diversity"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-87f89085",
+        "claim-obs-a2bd1ebc",
+        "claim-obs-317be762",
+        "claim-wp-fcff0a3c",
+        "claim-xes-daa72f95",
+        "claim-tension-87d9f534",
+        "claim-mt-88abb350",
+        "claim-rq-828a593b"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
+        "『或阿呆の一生』の資料からは、孤独は人数の不足だけでなく、意味の共有ができない状態としても現れる、という読み（部分的支持）という観測が読み取れる。",
+        "『歯車』には、語り手は、良心ではなく神経だけを持つ、と自ら記した言葉を回想する。不安と自己観察が、倫理的自己像の欠落として現れる——作品内の視点という視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、happiness・self・observation・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『或阿呆の一生』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られる承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+        "「成功」の定義を誰から借りていますか。あなた自身の幸福の定義は、どこにありますか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-4c388b74",
+        "claim-obs-0d0676ff",
+        "claim-obs-a0b7d237",
+        "claim-wp-4821cd12",
+        "claim-xes-4dd33cec",
+        "claim-tension-c294246d",
+        "claim-mt-966a2737",
+        "claim-rq-c96a77c8"
+      ],
+      "claimTexts": [
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "太宰治の残した資料からは、shame・intimacy・loneliness・approvalといった観点を、この相談へ接続できる。",
+        "『人間失格』と『富嶽百景』と『津軽』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られる承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+        "「成功」の定義を誰から借りていますか。あなた自身の幸福の定義は、どこにありますか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-65893104",
+        "claim-obs-f00054f3",
+        "claim-obs-eacc1305",
+        "claim-wp-3ef5a67b",
+        "claim-xes-b292d17a",
+        "claim-tension-9a1e73ef",
+        "claim-mt-2f39da24",
+        "claim-rq-37be25ca"
+      ],
+      "claimTexts": [
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "『こころ』には、『こころ』には、罪責と他者との関係をめぐる視点が現れる。登場人物「先生」は、恋を罪悪と呼ぶ。作者本人の一般思想への直結はしないという視点が作品内の声として現れる。",
+        "夏目漱石の残した資料からは、loneliness・self・society・observationといった観点を、この相談へ接続できる。",
+        "『硝子戸の中』と『私の個人主義』と『こころ』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+        "歳を取ること自体が怖いのでしょうか。それとも、まだ生きていない自分の物語が残っている感覚でしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "insufficient-source-diversity"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-dc043f33",
+        "claim-obs-5a211213",
+        "claim-obs-b7c21b15",
+        "claim-wp-6ca90d3f",
+        "claim-xes-708d80c5",
+        "claim-tension-8150ec45",
+        "claim-mt-ca2fc85f",
+        "claim-rq-5a753e01"
+      ],
+      "claimTexts": [
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章には、「人生は一行のボオドレエルにも若かない」という一文が現れる。生きることより文学的強度を優先する視線の疲労が示唆されるという観測が読み取れる。",
+        "芥川龍之介の残した資料からは、anxiety・fear・fatigue・observationといった観点を、この相談へ接続できる。",
+        "『歯車』と『侏儒の言葉』と『或阿呆の一生』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+        "歳を取ること自体が怖いのでしょうか。それとも、まだ生きていない自分の物語が残っている感覚でしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-4e7c0a90",
+        "claim-obs-b7337e13",
+        "claim-obs-a924660b",
+        "claim-wp-8e18259e",
+        "claim-xes-14df5f27",
+        "claim-tension-ba077485",
+        "claim-mt-e4542310",
+        "claim-rq-0705ac58"
+      ],
+      "claimTexts": [
+        "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
+        "『人間失格』には、語り手は、人間を極度に恐れながらも思い切れず、「道化」によって他者とつながろうとする。他者の前で自己を演じる感覚が強く描かれているという視点が作品内の声として現れる。",
+        "『津軽』の資料からは、金銭的不安や生活の失敗は、愛される資格への疑いに接続しやすい、という解釈上の仮説という観測が読み取れる。",
+        "太宰治の残した資料からは、love・family・approval・happinessといった観点を、この相談へ接続できる。",
+        "『富嶽百景』と『人間失格』と『津軽』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+        "歳を取ること自体が怖いのでしょうか。それとも、まだ生きていない自分の物語が残っている感覚でしょうか。"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q7",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-d167c6e2",
+        "claim-obs-1d1d1ee9",
+        "claim-obs-2e7c5c08",
+        "claim-wp-006dc79b",
+        "claim-xes-eed4b892",
+        "claim-tension-a5ba7fa2",
+        "claim-mt-49781bba",
+        "claim-rq-b009fde6"
+      ],
+      "claimTexts": [
+        "『硝子戸の中』の資料からは、自伝的記述では、母の記憶がいくら辿っても老いた姿としてしか呼び起せない、と記されている。老いと記憶の非対称が、観察者自身の年齢とともに前景化するという観測が読み取れる。",
+        "『こころ』には、『こころ』には、罪責と他者との関係をめぐる視点が現れる。登場人物「先生」は、恋を罪悪と呼ぶ。作者本人の一般思想への直結はしないという視点が作品内の声として現れる。",
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "夏目漱石の残した資料からは、aging・self・loneliness・familyといった観点を、この相談へ接続できる。",
+        "『硝子戸の中』と『こころ』と『私の個人主義』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるaging・love・familyという観点を、現在の相談へ限定的に接続できる。",
+        "恐れているのは身体の変化か、役割の縮小か、物語の未完成か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "insufficient-source-diversity"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q7",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-d76375e3",
+        "claim-obs-42e55a10",
+        "claim-obs-9a6b5f7a",
+        "claim-wp-ec46c666",
+        "claim-xes-eed52a20",
+        "claim-tension-f6eca656",
+        "claim-mt-5fb326a6",
+        "claim-rq-161fd277"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章には、「人生は一行のボオドレエルにも若かない」という一文が現れる。生きることより文学的強度を優先する視線の疲労が示唆されるという観測が読み取れる。",
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、creativity・observation・self・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『或阿呆の一生』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られるaging・love・familyという観点を、現在の相談へ限定的に接続できる。",
+        "恐れているのは身体の変化か、役割の縮小か、物語の未完成か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q7",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-df5ae9e4",
+        "claim-obs-ebaccfd8",
+        "claim-obs-0c07c6a1",
+        "claim-wp-68ac3617",
+        "claim-xes-f15e2b87",
+        "claim-tension-fb730bdb",
+        "claim-mt-f5e21496",
+        "claim-rq-5d607520"
+      ],
+      "claimTexts": [
+        "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "太宰治の残した資料からは、love・family・approval・happinessといった観点を、この相談へ接続できる。",
+        "『富嶽百景』と『津軽』と『人間失格』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られるaging・love・familyという観点を、現在の相談へ限定的に接続できる。",
+        "恐れているのは身体の変化か、役割の縮小か、物語の未完成か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q8",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-a28fe165",
+        "claim-obs-429e98a0",
+        "claim-obs-d8a8bcf5",
+        "claim-wp-670ba719",
+        "claim-xes-f2e2eb5f",
+        "claim-tension-844a8003",
+        "claim-mt-71540784",
+        "claim-rq-60b72319"
+      ],
+      "claimTexts": [
+        "『私の個人主義』の記述では、講演では、金力には責任がついて廻らなければならないと述べられ、富の使い方が人心や徳義に影響しうると警告されている。幸福や成功の外部指標を、責任なき所有へ還元…と述べられている。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『こころ』には、『こころ』には、罪責と他者との関係をめぐる視点が現れる。登場人物「先生」は、恋を罪悪と呼ぶ。作者本人の一般思想への直結はしないという視点が作品内の声として現れる。",
+        "夏目漱石の残した資料からは、money・obligation・happiness・societyといった観点を、この相談へ接続できる。",
+        "『私の個人主義』と『硝子戸の中』と『こころ』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるapproval・shame・anxietyという観点を、現在の相談へ限定的に接続できる。",
+        "気になる視線は、具体的な誰かの評価か、自分の中の監視者か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "insufficient-source-diversity"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q8",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-2753e55d",
+        "claim-obs-ed08f0b8",
+        "claim-obs-2870ff18",
+        "claim-wp-2be35a96",
+        "claim-xes-e8751cd2",
+        "claim-tension-f6862c50",
+        "claim-mt-d9ff297c",
+        "claim-rq-9b34790a"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、グッドセンスを欠いた幸福は、痩せ我慢の幸福に過ぎない、というアフォリズムがある。幸福を外部の誇示や我慢と取り違えない観点と述べられている。",
+        "『歯車』には、語り手は、良心ではなく神経だけを持つ、と自ら記した言葉を回想する。不安と自己観察が、倫理的自己像の欠落として現れる——作品内の視点という視点が作品内の声として現れる。",
+        "『或阿呆の一生』の資料からは、自伝的断章には、「人生は一行のボオドレエルにも若かない」という一文が現れる。生きることより文学的強度を優先する視線の疲労が示唆されるという観測が読み取れる。",
+        "芥川龍之介の残した資料からは、happiness・self・observation・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『歯車』と『或阿呆の一生』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られるapproval・shame・anxietyという観点を、現在の相談へ限定的に接続できる。",
+        "気になる視線は、具体的な誰かの評価か、自分の中の監視者か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q8",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-d3513fb7",
+        "claim-obs-ec29cfe7",
+        "claim-obs-9c3dcfb7",
+        "claim-wp-be56cfad",
+        "claim-xes-0ccf5e28",
+        "claim-mt-0a4b000e",
+        "claim-rq-16bbc4f7"
+      ],
+      "claimTexts": [
+        "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "太宰治の残した資料からは、creativity・approval・shame・selfといった観点を、この相談へ接続できる。",
+        "『富嶽百景』と『人間失格』と『津軽』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られるapproval・shame・anxietyという観点を、現在の相談へ限定的に接続できる。",
+        "気になる視線は、具体的な誰かの評価か、自分の中の監視者か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q9",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-54e23c14",
+        "claim-obs-995efe52",
+        "claim-obs-d57e3b95",
+        "claim-wp-d1277a68",
+        "claim-xes-a321386e",
+        "claim-tension-1e6f755a",
+        "claim-mt-fdc4be37",
+        "claim-rq-615df829"
+      ],
+      "claimTexts": [
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "『こころ』には、語り手は、ある人物を本名ではなく「先生」と呼ぶことが自然だと述べる。親密さと距離が、名前の呼び方そのものに現れる——作品内の視点という視点が作品内の声として現れる。",
+        "夏目漱石の残した資料からは、loneliness・self・society・observationといった観点を、この相談へ接続できる。",
+        "『硝子戸の中』と『私の個人主義』と『こころ』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるcreativity・anxiety・selfという観点を、現在の相談へ限定的に接続できる。",
+        "作りたい衝動は残っているのに、何に対して意味を証明しようとしているのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "insufficient-source-diversity"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q9",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-d4e900ac",
+        "claim-obs-56ef5907",
+        "claim-obs-c21681bf",
+        "claim-wp-1269dec9",
+        "claim-xes-22811161",
+        "claim-tension-32da5004",
+        "claim-mt-1c74f684",
+        "claim-rq-9be8262a"
+      ],
+      "claimTexts": [
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章には、「人生は一行のボオドレエルにも若かない」という一文が現れる。生きることより文学的強度を優先する視線の疲労が示唆されるという観測が読み取れる。",
+        "『歯車』には、語り手は、良心ではなく神経だけを持つ、と自ら記した言葉を回想する。不安と自己観察が、倫理的自己像の欠落として現れる——作品内の視点という視点が作品内の声として現れる。",
+        "芥川龍之介の残した資料からは、creativity・observation・self・anxietyといった観点を、この相談へ接続できる。",
+        "『侏儒の言葉』と『或阿呆の一生』と『歯車』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+        "この問いには、資料に見られるcreativity・anxiety・selfという観点を、現在の相談へ限定的に接続できる。",
+        "作りたい衝動は残っているのに、何に対して意味を証明しようとしているのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q9",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-535a54f8",
+        "claim-obs-42382780",
+        "claim-obs-bc50089e",
+        "claim-wp-c047a1aa",
+        "claim-xes-6635d93d",
+        "claim-mt-72b50572",
+        "claim-rq-0d38852a"
+      ],
+      "claimTexts": [
+        "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "『人間失格』には、『人間失格』の語り手は「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる。羞恥と生活理解の不全が作品冒頭に置かれる——作品内の声という視点が作品内の声として現れる。",
+        "太宰治の残した資料からは、creativity・approval・shame・selfといった観点を、この相談へ接続できる。",
+        "『富嶽百景』と『津軽』と『人間失格』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られるcreativity・anxiety・selfという観点を、現在の相談へ限定的に接続できる。",
+        "作りたい衝動は残っているのに、何に対して意味を証明しようとしているのか"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-soseki",
+      "claimIds": [
+        "claim-obs-df92cbb1",
+        "claim-obs-d179a0cb",
+        "claim-obs-0203f917",
+        "claim-wp-1e119a56",
+        "claim-xes-221c5a96",
+        "claim-tension-430a50f3",
+        "claim-mt-f4f8bbc1",
+        "claim-rq-d90a0c36"
+      ],
+      "claimTexts": [
+        "『こころ』には、死を思うことは、関係と責任の未解決が残っている印としても読める——作品内の構図としての仮説という視点が作品内の声として現れる。",
+        "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し…という観測が読み取れる。",
+        "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められていると述べられている。",
+        "夏目漱石の残した資料からは、death・self・intimacy・obligationといった観点を、この相談へ接続できる。",
+        "『こころ』と『硝子戸の中』と『私の個人主義』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+        "この問いには、資料に見られるdeath・self・observationという観点を、現在の相談へ限定的に接続できる。",
+        "問われているのは死そのものか、いまの生き方に根拠を持てない感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-akutagawa",
+      "claimIds": [
+        "claim-obs-27742296",
+        "claim-obs-4d193ad4",
+        "claim-obs-3d7ecd68",
+        "claim-wp-a4d4eb63",
+        "claim-xes-baf95932",
+        "claim-tension-3f9d9b7d",
+        "claim-mt-3974c40c",
+        "claim-rq-6967f4d0"
+      ],
+      "claimTexts": [
+        "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+        "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+        "『或阿呆の一生』の資料からは、自伝的断章には、「人生は一行のボオドレエルにも若かない」という一文が現れる。生きることより文学的強度を優先する視線の疲労が示唆されるという観測が読み取れる。",
+        "芥川龍之介の残した資料からは、anxiety・fear・fatigue・observationといった観点を、この相談へ接続できる。",
+        "『歯車』と『侏儒の言葉』と『或阿呆の一生』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+        "この問いには、資料に見られるdeath・self・observationという観点を、現在の相談へ限定的に接続できる。",
+        "問われているのは死そのものか、いまの生き方に根拠を持てない感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-dazai",
+      "claimIds": [
+        "claim-obs-9c09c8dd",
+        "claim-obs-c12a24c2",
+        "claim-obs-c520edea",
+        "claim-wp-1fa81e76",
+        "claim-xes-1084a1fd",
+        "claim-mt-9f66a023",
+        "claim-rq-aec3c002"
+      ],
+      "claimTexts": [
+        "『人間失格』には、死を思うことは、作品内では羞恥と疲労の地点としても読まれうる。作者の死と相談者を同一化しないという視点が作品内の声として現れる。",
+        "『富嶽百景』の資料からは、御坂峠の富士を「註文どおり」すぎると感じ、恥づかしくてならなかった、と記す。自己像や美意識が、社会的に期待される景色への違和として現れるという観測が読み取れる。",
+        "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+        "太宰治の残した資料からは、death・shame・fatigue・lonelinessといった観点を、この相談へ接続できる。",
+        "『人間失格』と『富嶽百景』と『津軽』を並べると、社会的な位置づけと内面的な距離の双方が、この問いに関係しているように見える。",
+        "この問いには、資料に見られるdeath・self・observationという観点を、現在の相談へ限定的に接続できる。",
+        "問われているのは死そのものか、いまの生き方に根拠を持てない感覚か"
+      ],
+      "claimTypes": [
+        "archive-observation",
+        "archive-observation",
+        "archive-observation",
+        "writer-perspective",
+        "cross-evidence-synthesis",
+        "modern-transfer",
+        "returned-question"
+      ],
+      "supportStatuses": [
+        "supported",
+        "supported",
+        "supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported",
+        "partially-supported"
+      ],
+      "allowedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "validationIssues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    }
+  ]
+}

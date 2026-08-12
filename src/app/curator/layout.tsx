@@ -39,6 +39,7 @@ export default function CuratorLayout({ children }: { children: ReactNode }) {
         <nav className="curator-nav">
           <Link href="/curator">Overview</Link>
           <Link href="/curator/retrieval">Retrieval</Link>
+          <Link href="/curator/claims">Claims</Link>
           <Link href="/">Observatory</Link>
         </nav>
       </header>

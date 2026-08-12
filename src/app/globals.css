@@ -1335,6 +1335,30 @@ main {
   color: var(--ink-soft);
 }
 
+.claim-card-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.claim-card {
+  display: grid;
+  gap: 0.65rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.claim-card--blocked {
+  opacity: 0.92;
+}
+
+.claim-card h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
 .mode-compare-card {
   display: grid;
   gap: 0.65rem;
