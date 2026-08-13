@@ -1,10 +1,10 @@
 # Dead Writers Observatory
 
-**Status: v0.1 Public Beta**
+**Status: v0.1.1 Public Beta**
 
 死者は答えない。言葉が残っている。AI は、その言葉と現在の問いを再接続する。
 
-Public version: **Dead Writers Observatory v0.1 Public Beta** (`0.1.0`)
+Public version: **Dead Writers Observatory v0.1.1 Public Beta** (`0.1.1`)
 
 詳細: [`RELEASE_NOTES.md`](./RELEASE_NOTES.md)
 
@@ -51,7 +51,7 @@ Priority: `PUBLIC_PERSPECTIVE_MODE` > deprecated `PUBLIC_BETA_PROSE` > default `
 Production must leave `STAGING_MODE_OVERRIDE` unset.
 Research query params (`?prose=1`, `?experiment=C`, `?stagingClaims=1`, `?skeleton=1`) are ignored unless staging override is on.
 
-## Deploy (v0.1 Public Beta)
+## Deploy (v0.1.1 Public Beta)
 
 Vercel / Node. Freeze artifact is in git: `src/data/release/approved-public-beta-v0.1.json`.
 Do not rely on `data/curator-reviews.sqlite` at runtime.

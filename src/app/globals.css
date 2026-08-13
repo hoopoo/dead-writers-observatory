@@ -1722,6 +1722,25 @@ main {
   color: var(--ink-soft);
 }
 
+.public-compare__silence {
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.public-query-trace {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed color-mix(in srgb, var(--ink-soft) 45%, transparent);
+  font-size: 0.8rem;
+}
+
+.public-query-trace pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--ink-soft);
+}
+
 .public-loading h1 {
   font-family: var(--serif);
   font-weight: 500;

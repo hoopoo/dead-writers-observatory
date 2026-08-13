@@ -1,12 +1,12 @@
 {
   "total": 23,
-  "pass": 18,
-  "needsReview": 5,
+  "pass": 14,
+  "needsReview": 9,
   "fail": 0,
   "messy": [
     {
       "id": "qa-messy-work",
-      "result": "pass"
+      "result": "needs-review"
     },
     {
       "id": "qa-messy-lonely",
@@ -44,9 +44,11 @@
     {
       "id": "qa-resign",
       "category": "work-money",
-      "result": "pass",
+      "result": "needs-review",
       "blocker": false,
-      "issues": []
+      "issues": [
+        "all writers insufficient"
+      ]
     },
     {
       "id": "qa-lonely-friends",
@@ -86,9 +88,11 @@
     {
       "id": "qa-marriage",
       "category": "marriage",
-      "result": "pass",
+      "result": "needs-review",
       "blocker": false,
-      "issues": []
+      "issues": [
+        "all writers insufficient"
+      ]
     },
     {
       "id": "qa-gaze",
@@ -102,9 +106,11 @@
     {
       "id": "qa-create",
       "category": "creativity",
-      "result": "pass",
+      "result": "needs-review",
       "blocker": false,
-      "issues": []
+      "issues": [
+        "all writers insufficient"
+      ]
     },
     {
       "id": "qa-death",
@@ -116,9 +122,11 @@
     {
       "id": "qa-messy-work",
       "category": "messy-work",
-      "result": "pass",
+      "result": "needs-review",
       "blocker": false,
-      "issues": []
+      "issues": [
+        "all writers insufficient"
+      ]
     },
     {
       "id": "qa-messy-lonely",

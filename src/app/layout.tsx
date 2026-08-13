@@ -39,7 +39,7 @@ export default function RootLayout({
           <header className="site-header">
             <Link href="/" className="brand">
               Dead Writers Observatory
-              <span>v0.1 Public Beta</span>
+              <span>v0.1.1 Public Beta</span>
             </Link>
             <ConditionalPublicChrome>
               <nav className="site-nav" aria-label="Public">

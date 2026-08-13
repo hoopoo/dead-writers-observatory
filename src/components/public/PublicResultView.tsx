@@ -2,6 +2,8 @@ import Link from "next/link";
 import { people } from "@/data/people";
 import { PublicWriterCard } from "@/components/public/PublicWriterCard";
 import { PublicCompareView } from "@/components/public/PublicCompareView";
+import { PublicQueryResolutionTrace } from "@/components/public/PublicQueryResolutionTrace";
+import { isStagingModeOverrideEnabled } from "@/lib/public/mode";
 import type { PublicObservation } from "@/types/public";
 
 export function PublicResultView(props: {
@@ -28,11 +30,18 @@ export function PublicResultView(props: {
 
       <header className="public-result__header">
         <p className="eyebrow">あなたの問い</p>
-        <h1>「{result.observation.analysis.surfaceQuestion}」</h1>
+        <h1>「{result.question}」</h1>
         <p className="public-result__lede">
           3つの資料群から、この問いを読み直します。
         </p>
       </header>
+
+      {process.env.NODE_ENV !== "production" || isStagingModeOverrideEnabled() ? (
+        <PublicQueryResolutionTrace
+          question={result.question}
+          resolution={result.queryResolution}
+        />
+      ) : null}
 
       <nav className="public-writer-nav" aria-label="資料群">
         {people.map((person, index) => {

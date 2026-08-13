@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <>
       <section className="hero public-home-hero">
-        <p className="eyebrow">v0.1 Public Beta</p>
+        <p className="eyebrow">v0.1.1 Public Beta</p>
         <h1 className="hero__principle hero__principle--lead">
           死者は答えない。
           <br />

@@ -1,6 +1,6 @@
 {
   "name": "dead-writers-observatory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -35,6 +35,7 @@
     "eval:prose-blind": "tsx scripts/eval-prose-blind.ts",
     "eval:release-qa": "tsx scripts/eval-release-qa.ts",
     "eval:release-readiness": "tsx scripts/eval-release-readiness.ts",
+    "eval:public-query-resolution": "tsx scripts/eval-public-query-resolution.ts",
     "release:freeze": "tsx scripts/release-freeze.ts",
     "snapshot:release": "tsx scripts/snapshot-release.ts",
     "snapshot:claims": "tsx scripts/snapshot-claims.ts",

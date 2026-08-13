@@ -107,6 +107,19 @@ async function main() {
   assert(!home.includes("/curator"), "public home has no curator link");
   console.log("3. curator hidden from public chrome: PASS");
 
+  const variant = await observePublicBeta(
+    "AIに仕事を奪われる気がしてすごく不安です。",
+    "skeleton",
+  );
+  assert(variant.queryResolution.familyId === "ai-job-loss", "variant resolves ai-job-loss");
+  assert(
+    variant.writers.every((w) => w.availability === "available"),
+    "variant freeze availability",
+  );
+  assert(variant.question.includes("すごく不安"), "user wording preserved");
+  assert(!variant.summary.allInsufficient, "variant comparison available");
+  console.log("4a. public query resolution hotfix (AI variant): PASS");
+
   const sample = await observePublicBeta(
     "AIに自分の仕事を奪われる気がします。",
     "skeleton",
@@ -182,6 +195,13 @@ async function main() {
       (w.archiveParagraphs.length === 0 && w.connectionParagraphs.length === 0),
   );
   assert(silenceOk || emptyish.writers.length === 3, "insufficient can remain silent");
+  assert(emptyish.summary.allInsufficient, "all-insufficient comparison suppressed");
+  assert(
+    ![...emptyish.summary.whereTheyLook, ...emptyish.summary.different].some((row) =>
+      /社会の中での位置|不安を見る知性|他者から見られる自己/.test(row.text),
+    ),
+    "insufficient comparison must not use lens fallback",
+  );
   console.log("7. insufficient/silence path: PASS");
 
   const qaResults: ReleaseQACase[] = [];

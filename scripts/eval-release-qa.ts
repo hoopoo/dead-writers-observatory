@@ -9,6 +9,8 @@ import { analyzeQuestion } from "../src/lib/question-analysis";
 import { analyzeCrossWriterDistinctiveness } from "../src/lib/claims/distinctiveness";
 import { observePublicBeta } from "../src/lib/public/observe";
 import { getPublicPerspectiveMode } from "../src/lib/public/mode";
+import { PUBLIC_LENS_JA } from "../src/lib/public/labels";
+import { resolvePublicQuery } from "../src/lib/public/query-resolver";
 import { lookupFrozenSkeletons } from "../src/lib/release/freeze";
 import type { ReleaseQACase } from "../src/types/public";
 import type { ReleaseBlockerType } from "../src/types/release";
@@ -68,7 +70,10 @@ async function main() {
       question: fixture.question,
       claimsByPerson,
     });
-    const frozen = Boolean(lookupFrozenSkeletons(fixture.question));
+    const resolution = resolvePublicQuery(fixture.question, analysis);
+    const frozen = Boolean(
+      lookupFrozenSkeletons(fixture.question, resolution.canonicalFixtureId),
+    );
     if (cross.convergenceRisk === "high") {
       issues.push("writer-collapse / high convergence");
       if (frozen) blockerType = "writer-collapse";
@@ -187,6 +192,39 @@ async function main() {
     )}\n`,
     "utf8",
   );
+
+  const hotfix = await observePublicBeta(
+    "AIに仕事を奪われる気がしてすごく不安です。",
+    mode,
+  );
+  assert(
+    hotfix.queryResolution.familyId === "ai-job-loss" &&
+      hotfix.writers.every((w) => w.availability === "available"),
+    "hotfix meaning-equivalent variant",
+  );
+  const negative = resolvePublicQuery(
+    "AIで小説を書きたい",
+    analyzeQuestion("AIで小説を書きたい"),
+  );
+  assert(
+    negative.familyId !== "ai-job-loss" || negative.status !== "matched",
+    "hotfix negative overmatch",
+  );
+  const silence = await observePublicBeta("あ", mode);
+  const lensLeak = Object.values(PUBLIC_LENS_JA).flatMap((lens) => [
+    lens.short,
+    lens.where,
+  ]);
+  assert(silence.summary.allInsufficient, "hotfix comparison insufficient");
+  assert(
+    ![...silence.summary.whereTheyLook, ...silence.summary.different].some((row) =>
+      lensLeak.includes(row.text),
+    ),
+    "hotfix comparison lens leak",
+  );
+  console.log("meaning-equivalent variants: PASS");
+  console.log("negative overmatch: PASS");
+  console.log("comparison insufficient: PASS");
 
   assert(fail === 0, `Release QA FAIL=${fail}`);
   console.log("\nRELEASE QA GATE PASSED");

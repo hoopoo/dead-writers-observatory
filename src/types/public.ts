@@ -2,6 +2,7 @@ import type { ReviewActor } from "@/types/review";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
 import type { EvidenceBoundedProseOutput } from "@/types/prose";
 import type { ObservationResult } from "@/types/observation";
+import type { PublicQueryResolution } from "@/types/public-query";
 
 export type PublicPerspectiveMode = "skeleton" | "prose";
 
@@ -59,10 +60,19 @@ export interface PublicWriterView {
   sourceCount: number;
 }
 
+export interface PublicSummaryWriterRow {
+  personId: string;
+  personName: string;
+  text: string;
+  availability: EvidenceBoundedPerspectiveSkeleton["availability"];
+}
+
 export interface PublicThreeWriterSummary {
-  whereTheyLook: Array<{ personId: string; personName: string; text: string }>;
+  allInsufficient: boolean;
+  insufficientNotice?: string;
+  whereTheyLook: PublicSummaryWriterRow[];
   shared: string[];
-  different: Array<{ personId: string; personName: string; text: string }>;
+  different: PublicSummaryWriterRow[];
 }
 
 export interface PublicObservation {
@@ -71,6 +81,7 @@ export interface PublicObservation {
   observation: ObservationResult;
   writers: PublicWriterView[];
   summary: PublicThreeWriterSummary;
+  queryResolution: PublicQueryResolution;
   proseErrorFallback: boolean;
   skeleton: EvidenceBoundedPerspectiveSkeleton[];
   proseByPerson: Record<string, EvidenceBoundedProseOutput | undefined>;

@@ -6,10 +6,12 @@ import {
   buildPublicProvenance,
   skeletonHasModernTransfer,
 } from "@/lib/public/provenance";
+import { normalizePublicQuestion } from "@/lib/public/query-normalize";
+import { resolvePublicQuery } from "@/lib/public/query-resolver";
 import { buildPublicThreeWriterSummary } from "@/lib/public/summary";
 import {
   lookupFrozenProse,
-  lookupFrozenSkeletons,
+  lookupFrozenSkeletonsByFixtureId,
 } from "@/lib/release/freeze";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
 import type { EvidenceBoundedProseOutput } from "@/types/prose";
@@ -32,7 +34,17 @@ export function choosePublicSurface(args: {
 }
 
 export function fixtureIdForQuestion(question: string): string {
-  return FIXTURE_QUESTIONS.find((f) => f.question === question)?.id ?? "adhoc";
+  const analysis = analyzeQuestion(question);
+  const resolution = resolvePublicQuery(question, analysis);
+  if (resolution.status === "matched" && resolution.canonicalFixtureId) {
+    return resolution.canonicalFixtureId;
+  }
+  const normalized = normalizePublicQuestion(question);
+  return (
+    FIXTURE_QUESTIONS.find(
+      (f) => normalizePublicQuestion(f.question) === normalized,
+    )?.id ?? "adhoc"
+  );
 }
 
 function paragraphsFromProse(
@@ -147,14 +159,18 @@ function insufficientSkeletons(
 
 /**
  * Public Beta observe: freeze JSON only. No Curator review database.
- * Unknown questions remain silent (insufficient).
+ * Resolver routes wording variants to approved families. Unknown questions remain silent.
  */
 export async function observePublicBeta(
   question: string,
   mode: PublicPerspectiveMode,
 ): Promise<PublicObservation> {
   const observation = publicObservationShell(question);
-  const frozen = lookupFrozenSkeletons(question);
+  const queryResolution = resolvePublicQuery(question, observation.analysis);
+  const frozen =
+    queryResolution.status === "matched" && queryResolution.canonicalFixtureId
+      ? lookupFrozenSkeletonsByFixtureId(queryResolution.canonicalFixtureId)
+      : null;
   const skeletons = frozen ?? insufficientSkeletons(question);
   const proseByPerson: Record<string, EvidenceBoundedProseOutput | undefined> =
     {};
@@ -163,7 +179,11 @@ export async function observePublicBeta(
 
   if (mode === "prose") {
     for (const person of people) {
-      const frozenProse = lookupFrozenProse(question, person.id);
+      const frozenProse = lookupFrozenProse(
+        question,
+        person.id,
+        queryResolution.canonicalFixtureId,
+      );
       if (frozenProse) {
         proseByPerson[person.id] = frozenProse;
         continue;
@@ -187,6 +207,7 @@ export async function observePublicBeta(
     observation,
     writers,
     summary: buildPublicThreeWriterSummary(skeletons),
+    queryResolution,
     proseErrorFallback,
     skeleton: skeletons,
     proseByPerson,

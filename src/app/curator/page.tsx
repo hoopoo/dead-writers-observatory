@@ -143,7 +143,7 @@ export default function CuratorHomePage() {
       </section>
 
       <section className="panel">
-        <p className="eyebrow">PUBLIC BETA v0.1</p>
+        <p className="eyebrow">PUBLIC BETA v0.1.1</p>
         <p className="panel__lede">
           PUBLIC MODE {readiness.publicMode.toUpperCase()} · {readiness.status}
         </p>

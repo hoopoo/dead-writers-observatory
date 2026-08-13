@@ -1,3 +1,17 @@
+# Dead Writers Observatory v0.1.1 Public Beta
+
+## v0.1.1
+
+- improved public query resolution
+- similar wording now maps to approved observation families
+- fixed comparison summary for insufficient results
+
+Public Query Resolution is routing, not interpretation.
+It may decide that a question belongs to an approved family.
+It may not invent what a writer believes.
+
+---
+
 # Dead Writers Observatory v0.1 Public Beta
 
 死者は答えない。言葉が残っている。

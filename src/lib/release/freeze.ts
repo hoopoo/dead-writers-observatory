@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import freezeArtifact from "@/data/release/approved-public-beta-v0.1.json";
+import { people } from "@/data/people";
 import type {
   FrozenPublicBetaCase,
   PublicBetaFreezeArtifact,
@@ -10,7 +11,10 @@ import type { EvidenceBoundedProseOutput } from "@/types/prose";
 export const PUBLIC_BETA_FREEZE_PATH =
   "src/data/release/approved-public-beta-v0.1.json";
 
+/** Freeze artifact SoT — approved claims unchanged in the v0.1.1 hotfix. */
 export const PUBLIC_BETA_VERSION = "0.1.0";
+export const PUBLIC_HOTFIX_VERSION = "0.1.1";
+export const PUBLIC_BETA_LABEL = "v0.1.1 Public Beta";
 
 function normalizeQuestion(question: string): string {
   return question.replace(/\s+/g, " ").trim();
@@ -88,9 +92,28 @@ export function lookupFrozenCase(args: {
   );
 }
 
+export function lookupFrozenSkeletonsByFixtureId(
+  fixtureId: string,
+): EvidenceBoundedPerspectiveSkeleton[] | null {
+  if (!fixtureId || fixtureId === "adhoc") return null;
+  const freeze = loadPublicBetaFreeze();
+  const matched = freeze.cases.filter((c) => c.fixtureId === fixtureId);
+  const byPerson = new Map(matched.map((c) => [c.personId, c.skeleton]));
+  const ordered = people
+    .map((person) => byPerson.get(person.id))
+    .filter((item): item is EvidenceBoundedPerspectiveSkeleton => Boolean(item));
+  if (ordered.length < 3) return null;
+  return ordered;
+}
+
 export function lookupFrozenSkeletons(
   question: string,
+  fixtureId?: string,
 ): EvidenceBoundedPerspectiveSkeleton[] | null {
+  const byFixture = fixtureId
+    ? lookupFrozenSkeletonsByFixtureId(fixtureId)
+    : null;
+  if (byFixture) return byFixture;
   const freeze = loadPublicBetaFreeze();
   const q = normalizeQuestion(question);
   const matched = freeze.cases.filter((c) => normalizeQuestion(c.question) === q);
@@ -101,8 +124,9 @@ export function lookupFrozenSkeletons(
 export function lookupFrozenProse(
   question: string,
   personId: string,
+  fixtureId?: string,
 ): EvidenceBoundedProseOutput | undefined {
-  const hit = lookupFrozenCase({ question, personId });
+  const hit = lookupFrozenCase({ question, personId, fixtureId });
   if (!hit?.proseAllowed) return undefined;
   return hit.prose;
 }
