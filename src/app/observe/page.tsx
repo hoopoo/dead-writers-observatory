@@ -14,7 +14,10 @@ import {
   observeQuestionWithSkeleton,
   observeQuestionWithStagingClaims,
 } from "@/lib/observe";
-import { getPublicPerspectiveMode } from "@/lib/public/mode";
+import {
+  getPublicPerspectiveMode,
+  isStagingModeOverrideEnabled,
+} from "@/lib/public/mode";
 import { observePublicBeta } from "@/lib/public/observe";
 
 export default async function ObservePage({
@@ -34,17 +37,22 @@ export default async function ObservePage({
 }) {
   const params = await searchParams;
   const question = params.q?.trim() ?? "";
-  const experimentC = isExperimentCEnabled({
-    experiment: params.experiment,
-    retrieval: params.retrieval,
-  });
+  const allowResearch = isStagingModeOverrideEnabled();
+  const experimentC =
+    allowResearch &&
+    isExperimentCEnabled({
+      experiment: params.experiment,
+      retrieval: params.retrieval,
+    });
   const researchProse =
-    !experimentC && isStagingProseEnabled(params.prose);
+    allowResearch && !experimentC && isStagingProseEnabled(params.prose);
   const staging =
+    allowResearch &&
     !experimentC &&
     !researchProse &&
     isStagingClaimsEnabled(params.stagingClaims);
   const skeletonRequested =
+    allowResearch &&
     !staging &&
     !researchProse &&
     !experimentC &&

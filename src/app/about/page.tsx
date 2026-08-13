@@ -26,6 +26,8 @@ export default function AboutPage() {
 
       <section>
         <h2>What this is not</h2>
+        <p>作家本人を再現するものではありません。</p>
+        <p>AIが作家になりきって答えるサービスではありません。</p>
         <ul>
           <li>dead writer chatbot</li>
           <li>降霊やセッション</li>
@@ -53,7 +55,7 @@ export default function AboutPage() {
           <li>太宰治</li>
         </ul>
         <p>
-          まだ限られた資料です。すべての著作を網羅しているわけではありません。Archiveは今後、資料の検証とともに少しずつ拡張されます。
+          現在のArchiveは、漱石・芥川・太宰の検証済み資料の一部から構成されています。すべての著作を網羅しているわけではありません。Archiveは今後、資料の検証とともに少しずつ拡張されます。
         </p>
       </section>
 

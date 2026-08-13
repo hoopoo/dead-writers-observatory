@@ -3,11 +3,8 @@
  */
 import { PRIORITY_CLAIM_FIXTURES } from "../src/lib/claims/approved";
 import { people } from "../src/data/people";
-import {
-  blindAssignmentFor,
-  listIndependentProseBlindEvaluations,
-  summarizeBlindGate,
-} from "../src/lib/prose/blind";
+import { blindAssignmentFor } from "../src/lib/prose/blind";
+import { decideBlindGate, decidePublicMode } from "../src/lib/release/decision";
 import { closeReviewDb } from "../src/lib/review/db";
 import { loadLocalEnv } from "./load-env";
 
@@ -19,51 +16,38 @@ async function main() {
   loadLocalEnv();
   console.log("Dead Writers Observatory — independent prose blind check\n");
 
-  const assignmentHidden = blindAssignmentFor("q4", "person-soseki");
+  const assignment = blindAssignmentFor("q4", "person-soseki");
+  assert(assignment.a !== assignment.b, "A/B differ");
   assert(
-    (assignmentHidden.a === "skeleton" && assignmentHidden.b === "prose") ||
-      (assignmentHidden.a === "prose" && assignmentHidden.b === "skeleton"),
+    (assignment.a === "skeleton" || assignment.a === "prose") &&
+      (assignment.b === "skeleton" || assignment.b === "prose"),
     "assignment is skeleton vs prose",
   );
-  assert(assignmentHidden.a !== assignmentHidden.b, "A/B differ");
-  console.log("1. A/B assignment hidden identity: PASS");
+  console.log("1. A/B sides are distinct: PASS");
 
-  const all = listIndependentProseBlindEvaluations();
-  const latestByCase = new Map<string, (typeof all)[number]>();
-  for (const row of all) {
-    const key = `${row.fixtureId}:${row.personId}`;
-    if (!latestByCase.has(key)) latestByCase.set(key, row);
-  }
+  const expected = PRIORITY_CLAIM_FIXTURES.length * people.length;
+  const gate = decideBlindGate();
+  const mode = decidePublicMode();
 
-  let expected = 0;
-  for (const fixtureId of PRIORITY_CLAIM_FIXTURES) {
-    for (const person of people) {
-      expected += 1;
-      const row = latestByCase.get(`${fixtureId}:${person.id}`);
-      console.log(
-        `${fixtureId} ${person.id}: ${row ? row.preferred : "PENDING"}`,
-      );
-    }
-  }
-
-  const gate = summarizeBlindGate(Array.from(latestByCase.values()));
-  console.log("\n--- gate ---");
+  console.log("\n--- PROSE RELEASE DECISION ---");
   console.log(`reviewed: ${gate.reviewed} / ${expected}`);
   console.log(`material meaning: ${gate.materialMeaning}`);
   console.log(`attribution unsafe: ${gate.attributionUnsafe}`);
+  console.log(`prose preferred: ${gate.prosePreferred}`);
+  console.log(`skeleton preferred: ${gate.skeletonPreferred}`);
+  console.log(`same: ${gate.same}`);
   console.log(
-    `prose readability better+same: ${gate.proseReadabilityBetterOrSame}/${gate.reviewed}`,
+    `readability better/same/worse: ${gate.readabilityBetter}/${gate.readabilitySame}/${gate.readabilityWorse}`,
   );
   console.log(
-    `prose usefulness better+same: ${gate.proseUsefulnessBetterOrSame}/${gate.reviewed}`,
+    `usefulness better/same/worse: ${gate.usefulnessBetter}/${gate.usefulnessSame}/${gate.usefulnessWorse}`,
   );
+  console.log(`decision: ${gate.decision}`);
+  console.log(`recommended mode: ${mode.recommendedMode}`);
+  console.log(`reason: ${mode.reason}`);
   console.log(
-    `gate: ${gate.gatePass === null ? "PENDING" : gate.gatePass ? "PASS" : "FAIL"}`,
+    `\nPublic Beta can ship with ${mode.recommendedMode} (fallback always skeleton).`,
   );
-
-  if (gate.materialMeaning > 0 || gate.attributionUnsafe > 0) {
-    throw new Error("Independent blind check failed safety/meaning gate");
-  }
 
   closeReviewDb();
 }

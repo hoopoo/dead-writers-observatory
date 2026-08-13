@@ -1,23 +1,33 @@
 import { people } from "@/data/people";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
 import { generateClaimsForQuestion } from "@/lib/claims";
-import { buildStagingPerspectiveSkeleton } from "@/lib/claims/approved";
+import {
+  buildStagingPerspectiveSkeleton,
+  buildValidatorBoundedSkeleton,
+} from "@/lib/claims/approved";
 import { listProposedClaims } from "@/lib/claims/llm/store";
-import { observeQuestion } from "@/lib/observe";
-import { generateProse } from "@/lib/prose/generate";
+import { analyzeQuestion } from "@/lib/question-analysis";
 import { PUBLIC_LENS_JA } from "@/lib/public/labels";
 import {
   buildPublicProvenance,
   skeletonHasModernTransfer,
 } from "@/lib/public/provenance";
 import { buildPublicThreeWriterSummary } from "@/lib/public/summary";
+import {
+  lookupFrozenProse,
+  lookupFrozenSkeletons,
+} from "@/lib/release/freeze";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
 import type { EvidenceBoundedProseOutput } from "@/types/prose";
+import type { ObservationResult } from "@/types/observation";
 import type {
   PublicObservation,
   PublicPerspectiveMode,
   PublicWriterView,
 } from "@/types/public";
+
+const SAFETY_NOTICE =
+  "この観測は文学資料に基づく視点の再接続であり、医療・法律・投資・危機介入の助言ではありません。死や自傷に関する苦痛が強い場合は、専門の相談窓口や周囲の信頼できる人につながってください。死者は答えません。言葉が残っているだけです。";
 
 export function choosePublicSurface(args: {
   proseAllowed: boolean;
@@ -113,43 +123,87 @@ function writerViewFromSkeleton(
   };
 }
 
+function publicObservationShell(question: string): ObservationResult {
+  const analysis = analyzeQuestion(question);
+  const needsSafety =
+    analysis.safetyFlags.includes("death_theme") ||
+    analysis.safetyFlags.includes("self_harm_adjacent");
+  return {
+    analysis,
+    perspectives: [],
+    comparison: {
+      sharedConcerns: [],
+      differentFocuses: [],
+      tensionsBetweenVoices: [],
+      blindSpots: [],
+      historicalDistance: {
+        timelessHumanThemes: [],
+        historicallySpecificUnknowns: [],
+        transferRisks: [],
+        presentDayFactsRequired: [],
+        interpretationBeginsNote: "",
+        provenanceMap: {
+          timelessHumanThemes: "AI INFERENCE",
+          historicallySpecificUnknowns: "AI INFERENCE",
+          transferRisks: "AI INFERENCE",
+          presentDayFactsRequired: "AI INFERENCE",
+          interpretationBeginsNote: "AI INFERENCE",
+        },
+      },
+      returnedQuestion: "",
+      provenanceMap: {
+        sharedConcerns: "AI INFERENCE",
+        differentFocuses: "AI INFERENCE",
+        tensionsBetweenVoices: "AI INFERENCE",
+        blindSpots: "AI INFERENCE",
+        returnedQuestion: "AI INFERENCE",
+      },
+    },
+    safetyNotice: needsSafety ? SAFETY_NOTICE : undefined,
+  };
+}
+
+async function buildAdhocPublicSkeletons(
+  question: string,
+): Promise<EvidenceBoundedPerspectiveSkeleton[]> {
+  return Promise.all(
+    people.map(async (person) => {
+      const result = await generateClaimsForQuestion({
+        question,
+        personId: person.id,
+        retrievalMode: "deterministic",
+      });
+      return buildValidatorBoundedSkeleton({
+        personId: person.id,
+        question,
+        claims: result.claims,
+      });
+    }),
+  );
+}
+
 export async function observePublicBeta(
   question: string,
   mode: PublicPerspectiveMode,
 ): Promise<PublicObservation> {
-  const observation = await observeQuestion(question);
-  const skeletons = await buildExperimentBSkeletons(question);
-  const fixtureId = fixtureIdForQuestion(question);
+  const observation = publicObservationShell(question);
+  const frozen = lookupFrozenSkeletons(question);
+  const skeletons = frozen ?? (await buildAdhocPublicSkeletons(question));
   const proseByPerson: Record<string, EvidenceBoundedProseOutput | undefined> =
     {};
   let proseErrorFallback = false;
   const fallbackByPerson = new Set<string>();
 
   if (mode === "prose") {
-    await Promise.all(
-      people.map(async (person) => {
-        try {
-          const result = await generateProse({
-            question,
-            personId: person.id,
-            fixtureId,
-            allowRepair: true,
-          });
-          const allowed =
-            result.record.validation.allowed &&
-            result.userFacing.sections.some((s) => s.sentences.length > 0);
-          if (allowed) {
-            proseByPerson[person.id] = result.userFacing;
-          } else {
-            fallbackByPerson.add(person.id);
-            proseErrorFallback = true;
-          }
-        } catch {
-          fallbackByPerson.add(person.id);
-          proseErrorFallback = true;
-        }
-      }),
-    );
+    for (const person of people) {
+      const frozenProse = lookupFrozenProse(question, person.id);
+      if (frozenProse) {
+        proseByPerson[person.id] = frozenProse;
+        continue;
+      }
+      fallbackByPerson.add(person.id);
+      proseErrorFallback = true;
+    }
   }
 
   const writers = skeletons.map((skeleton) =>

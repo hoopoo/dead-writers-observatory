@@ -67,7 +67,7 @@ export function PublicResultView(props: {
 
       {result.proseErrorFallback ? (
         <p className="public-result__fallback">
-          現在、文章表示を生成できませんでした。資料ベースの表示に切り替えます。
+          文章表示を生成できなかったため、資料ベースの表示に切り替えました。
         </p>
       ) : null}
 

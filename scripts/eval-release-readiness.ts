@@ -16,6 +16,16 @@ import {
 import { isStagingProseEnabled, isPublicBetaProseEnabled } from "../src/lib/prose";
 import { createRetriever } from "../src/lib/retrieval-mode";
 import { closeReviewDb } from "../src/lib/review/db";
+import { validateReleaseConfig } from "../src/lib/release/config";
+import {
+  loadPublicBetaFreeze,
+  validateFreezeArtifact,
+} from "../src/lib/release/freeze";
+import {
+  computePublicBetaReadiness,
+  decideBlindGate,
+  decidePublicMode,
+} from "../src/lib/release/decision";
 import type { ReleaseQACase } from "../src/types/public";
 import { loadLocalEnv } from "./load-env";
 
@@ -31,6 +41,9 @@ async function main() {
   delete process.env.PUBLIC_BETA_PROSE;
   delete process.env.STAGING_PROSE;
   delete process.env.STAGING_MODE_OVERRIDE;
+  delete process.env.EXPERIMENT_C;
+  delete process.env.STAGING_CLAIMS;
+  delete process.env.EVIDENCE_BOUNDED_SKELETON;
   assert(getPublicPerspectiveMode() === "skeleton", "default mode skeleton");
   assert(getPublicPerspectiveMode("prose") === "skeleton", "public ignores ?mode=");
   assert(isStagingModeOverrideEnabled() === false, "staging override off");
@@ -39,6 +52,39 @@ async function main() {
   process.env.STAGING_MODE_OVERRIDE = "true";
   assert(getPublicPerspectiveMode("prose") === "prose", "staging ?mode=prose");
   delete process.env.STAGING_MODE_OVERRIDE;
+  const observeSrc = readFileSync("src/app/observe/page.tsx", "utf8");
+  assert(
+    observeSrc.includes("isStagingModeOverrideEnabled"),
+    "research observe surfaces require staging override",
+  );
+  const productionOk = validateReleaseConfig({
+    NODE_ENV: "production",
+    PUBLIC_RELEASE: "true",
+    PUBLIC_PERSPECTIVE_MODE: "skeleton",
+    RETRIEVAL_MODE: "deterministic",
+    CURATOR_ENABLED: "true",
+    CURATOR_TOKEN: "deploy-token",
+  } as NodeJS.ProcessEnv);
+  assert(productionOk.ok, `production env invalid: ${productionOk.issues.join("; ")}`);
+  assert(productionOk.mode === "skeleton", "production mode skeleton");
+  const productionBadStaging = validateReleaseConfig({
+    NODE_ENV: "production",
+    PUBLIC_PERSPECTIVE_MODE: "skeleton",
+    STAGING_MODE_OVERRIDE: "true",
+  } as NodeJS.ProcessEnv);
+  assert(!productionBadStaging.ok, "staging override must fail production validation");
+  const productionBadCurator = validateReleaseConfig({
+    NODE_ENV: "production",
+    PUBLIC_PERSPECTIVE_MODE: "skeleton",
+    CURATOR_ENABLED: "true",
+  } as NodeJS.ProcessEnv);
+  assert(!productionBadCurator.ok, "curator without token must fail production validation");
+  const productionBadResearch = validateReleaseConfig({
+    NODE_ENV: "production",
+    PUBLIC_PERSPECTIVE_MODE: "skeleton",
+    EXPERIMENT_C: "true",
+  } as NodeJS.ProcessEnv);
+  assert(!productionBadResearch.ok, "EXPERIMENT_C must fail production validation");
   console.log("1. public flags isolated / ENV default skeleton: PASS");
 
   assert(createRetriever().mode === "deterministic", "retrieval deterministic");
@@ -218,7 +264,43 @@ async function main() {
   console.log(`fail: ${failed.length}`);
   console.log(`messy inputs: ${messy.length}`);
   assert(failed.length === 0, `release QA fail: ${failed.map((f) => f.id).join(",")}`);
+  console.log("\n8. release QA FAIL=0: PASS");
+
+  const config = validateReleaseConfig();
+  assert(config.ok, `release config: ${config.issues.join("; ")}`);
+  console.log("9. release config: PASS");
+
+  const freeze = loadPublicBetaFreeze();
+  assert(Boolean(freeze), "freeze artifact missing");
+  const freezeCheck = validateFreezeArtifact(freeze!);
+  assert(freezeCheck.ok, `freeze invalid: ${freezeCheck.issues.join("; ")}`);
+  assert(
+    freeze!.contentHash ===
+      "7c4e1076ecbfbb9576a4a2a46ebd77435def3a4d4c44008feaee6b86f0fab476",
+    `unexpected freeze hash ${freeze!.contentHash}`,
+  );
+  console.log(`10. freeze artifact: PASS (${freeze!.cases.length} cases)`);
+
+  const blind = decideBlindGate();
+  const mode = decidePublicMode();
+  const readiness = computePublicBetaReadiness({
+    qa: {
+      pass: qaResults.filter((r) => r.result === "pass").length,
+      needsReview: qaResults.filter((r) => r.result === "needs-review").length,
+      fail: failed.length,
+      total: qaResults.length,
+    },
+    buildOk: true,
+  });
+  console.log(`11. blind gate: ${blind.decision} (${blind.reviewed}/18)`);
+  console.log(`12. recommended public mode: ${mode.recommendedMode}`);
+  console.log(`13. readiness: ${readiness.status}`);
+  assert(
+    readiness.readyForPublicBeta,
+    `not ready: ${readiness.blockers.join("; ")}`,
+  );
   console.log("\nRELEASE READINESS CHECKS PASSED");
+  console.log(readiness.status);
 
   closeReviewDb();
 }

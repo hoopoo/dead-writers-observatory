@@ -1,22 +1,19 @@
-import { listIndependentProseBlindEvaluations, summarizeBlindGate } from "@/lib/prose/blind";
-import type { PublicBetaReadiness } from "@/types/public";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { computePublicBetaReadiness } from "@/lib/release/decision";
+import type { PublicBetaReadinessV01 } from "@/types/release";
 
-export function getPublicBetaReadiness(): PublicBetaReadiness {
-  const gate = summarizeBlindGate(listIndependentProseBlindEvaluations());
-  let independentBlindCheck: PublicBetaReadiness["independentBlindCheck"] =
-    "PENDING";
-  if (gate.reviewed > 0) {
-    independentBlindCheck = gate.gatePass ? "PASS" : "FAIL";
+export function getPublicBetaReadiness(): PublicBetaReadinessV01 {
+  const qaPath = path.join(
+    process.cwd(),
+    "src",
+    "data",
+    "release",
+    "release-qa-v0.1.json",
+  );
+  let qa: { pass: number; needsReview: number; fail: number; total: number } | undefined;
+  if (existsSync(qaPath)) {
+    qa = JSON.parse(readFileSync(qaPath, "utf8")) as typeof qa;
   }
-
-  return {
-    archive: "READY",
-    retrieval: "READY",
-    claims: "READY",
-    distinctiveness: "READY",
-    prose: "P1 READY",
-    independentBlindCheck,
-    publicUx: "READY",
-    releaseQa: "PENDING",
-  };
+  return computePublicBetaReadiness({ buildOk: true, qa });
 }

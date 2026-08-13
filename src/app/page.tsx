@@ -17,7 +17,8 @@ export default function HomePage() {
           あなたの問いを通してみる。
         </p>
         <p className="hero__explain">
-          このサイトは、亡くなった作家をAIで再現するものではありません。
+          作家本人を再現するものではありません。
+          AIが作家になりきって答えるサービスではありません。
           残された文章を読み直し、現在の問いに接続できる視点を探す実験です。
         </p>
       </section>
@@ -42,7 +43,7 @@ export default function HomePage() {
           </li>
         </ul>
         <p className="public-home-note">
-          まだ限られた資料です。すべての著作を網羅しているわけではありません。
+          現在のArchiveは、漱石・芥川・太宰の検証済み資料の一部から構成されています。
         </p>
       </section>
 

@@ -1,8 +1,12 @@
 # Dead Writers Observatory
 
-SHIRO & Co. Observatory の MVP。
+**Status: v0.1 Public Beta**
 
 死者は答えない。言葉が残っている。AI は、その言葉と現在の問いを再接続する。
+
+Public version: **Dead Writers Observatory v0.1 Public Beta** (`0.1.0`)
+
+詳細: [`RELEASE_NOTES.md`](./RELEASE_NOTES.md)
 
 夏目漱石 / 芥川龍之介 / 太宰治の公開著作・随筆・日記・書簡等を参照し、いまの悩みを三人それぞれの観測軸から読み直す **Archive-based Perspective Engine**。
 
@@ -19,6 +23,79 @@ SHIRO & Co. Observatory の MVP。
 - Next.js (App Router)
 - TypeScript
 - Deterministic mock engine（OpenAI API 未接続）
+
+## Public Beta flags
+
+Source of truth:
+
+```bash
+PUBLIC_PERSPECTIVE_MODE=skeleton   # or prose after independent blind PASS
+```
+
+Staging override only:
+
+```bash
+STAGING_MODE_OVERRIDE=true
+# then /observe?q=...&mode=skeleton|prose
+```
+
+Deprecated research flags (not public default):
+
+```
+PUBLIC_BETA_PROSE
+STAGING_PROSE
+/observe?q=...&prose=1
+```
+
+Priority: `PUBLIC_PERSPECTIVE_MODE` > deprecated `PUBLIC_BETA_PROSE` > default `skeleton`.
+Production must leave `STAGING_MODE_OVERRIDE` unset.
+Research query params (`?prose=1`, `?experiment=C`, `?stagingClaims=1`, `?skeleton=1`) are ignored unless staging override is on.
+
+## Deploy (v0.1 Public Beta)
+
+Vercel / Node. Freeze artifact is in git: `src/data/release/approved-public-beta-v0.1.json`.
+Do not rely on `data/curator-reviews.sqlite` at runtime.
+
+```bash
+npm ci
+PUBLIC_PERSPECTIVE_MODE=skeleton \
+RETRIEVAL_MODE=deterministic \
+NEXT_PUBLIC_SITE_URL=https://your-domain.example \
+npm run build
+npm start
+```
+
+If Curator is enabled:
+
+```bash
+CURATOR_ENABLED=true
+CURATOR_TOKEN=<secret>
+```
+
+Do not set `STAGING_MODE_OVERRIDE`, `STAGING_PROSE`, `PUBLIC_BETA_PROSE`, `EXPERIMENT_C`, `STAGING_CLAIMS`, or `EVIDENCE_BOUNDED_SKELETON`.
+
+Public rendering uses freeze artifact `src/data/release/approved-public-beta-v0.1.json`.
+Curator SQLite (`data/curator-reviews.sqlite`) is review/experiment only — do not delete it, and do not depend on it at Vercel runtime.
+
+```bash
+npm run release:freeze
+npm run eval:prose-blind
+npm run eval:release-qa
+npm run eval:release-readiness
+npm run snapshot:release
+```
+
+Final regression:
+
+```bash
+npm run eval:claim-regression
+npm run eval:retrieval-regression
+npm run eval:perspective-distinctiveness
+npm run eval:prose-regression
+npm run eval:release-qa
+npm run eval:release-readiness
+npm run build
+```
 
 ## Develop
 
@@ -250,7 +327,7 @@ npm run snapshot:perspectives
 - Curator: `/curator/perspectives` (3-writer set + distinctiveness)
 - Staging observe only: `/observe?q=...&stagingClaims=1`
 - Production default unchanged (`stagingClaims=false`)
-- No LLM prose yet
+- Public Beta prose is freeze-only (no live LLM on public observe)
 
 ```
 Three archives in.

@@ -143,44 +143,73 @@ export default function CuratorHomePage() {
       </section>
 
       <section className="panel">
-        <p className="eyebrow">PUBLIC BETA READINESS</p>
+        <p className="eyebrow">PUBLIC BETA v0.1</p>
+        <p className="panel__lede">
+          PUBLIC MODE {readiness.publicMode.toUpperCase()} · {readiness.status}
+        </p>
         <dl className="stat-grid stat-grid--wide">
           <div>
             <dt>ARCHIVE</dt>
-            <dd>{readiness.archive}</dd>
+            <dd>{readiness.archive.toUpperCase()}</dd>
           </div>
           <div>
             <dt>RETRIEVAL</dt>
-            <dd>{readiness.retrieval}</dd>
+            <dd>{readiness.retrieval.toUpperCase()}</dd>
           </div>
           <div>
             <dt>CLAIMS</dt>
-            <dd>{readiness.claims}</dd>
+            <dd>{readiness.claims.toUpperCase()}</dd>
           </div>
           <div>
             <dt>DISTINCTIVENESS</dt>
-            <dd>{readiness.distinctiveness}</dd>
+            <dd>{readiness.distinctiveness.toUpperCase()}</dd>
           </div>
           <div>
             <dt>PROSE</dt>
-            <dd>{readiness.prose}</dd>
+            <dd>{readiness.prose.toUpperCase()}</dd>
           </div>
           <div>
-            <dt>INDEPENDENT BLIND CHECK</dt>
-            <dd>{readiness.independentBlindCheck}</dd>
+            <dt>INDEPENDENT BLIND</dt>
+            <dd>{readiness.blindCheck.toUpperCase()}</dd>
           </div>
           <div>
             <dt>PUBLIC UX</dt>
-            <dd>{readiness.publicUx}</dd>
+            <dd>{readiness.publicUX.toUpperCase()}</dd>
           </div>
           <div>
             <dt>RELEASE QA</dt>
-            <dd>{readiness.releaseQa}</dd>
+            <dd>{readiness.releaseQA.toUpperCase()}</dd>
+          </div>
+          <div>
+            <dt>BUILD</dt>
+            <dd>{readiness.build.toUpperCase()}</dd>
           </div>
         </dl>
+        {readiness.blockers.length > 0 ? (
+          <ul className="warning-list">
+            {readiness.blockers.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
+        ) : null}
         <Link className="button-secondary" href="/curator/prose-blind">
           OPEN INDEPENDENT BLIND CHECK
         </Link>
+      </section>
+
+      <section className="panel">
+        <p className="eyebrow">FINAL HUMAN RELEASE CHECKLIST</p>
+        <ul>
+          <li>[ ] Hero copy correct</li>
+          <li>[ ] Question form works</li>
+          <li>[ ] Soseki / Akutagawa / Dazai results work</li>
+          <li>[ ] Provenance / work voice / modern transfer</li>
+          <li>[ ] Insufficient + safety states</li>
+          <li>[ ] Mobile / About / Method</li>
+          <li>[ ] Curator hidden</li>
+          <li>[ ] Blind complete or Skeleton selected</li>
+          <li>[ ] Release QA + build</li>
+        </ul>
       </section>
 
       <section className="panel">

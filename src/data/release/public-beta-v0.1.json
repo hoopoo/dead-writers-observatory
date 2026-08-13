@@ -1,0 +1,262 @@
+{
+  "version": "0.1.0",
+  "generatedAt": "2026-08-13T06:43:59.887Z",
+  "archiveStats": {
+    "writers": [
+      "夏目漱石",
+      "芥川龍之介",
+      "太宰治"
+    ],
+    "passageCount": 20,
+    "sourceCount": 9
+  },
+  "retrievalMode": "deterministic",
+  "publicPerspectiveMode": "skeleton",
+  "blind": {
+    "reviewed": 18,
+    "expected": 18,
+    "decision": "FAIL",
+    "materialMeaning": 0,
+    "attributionUnsafe": 0,
+    "prosePreferred": 8,
+    "skeletonPreferred": 4,
+    "same": 6,
+    "readabilityBetterOrSame": 14,
+    "usefulnessBetterOrSame": 17
+  },
+  "releaseQa": {
+    "total": 23,
+    "pass": 18,
+    "needsReview": 5,
+    "fail": 0,
+    "messy": [
+      {
+        "id": "qa-messy-work",
+        "result": "pass"
+      },
+      {
+        "id": "qa-messy-lonely",
+        "result": "pass"
+      },
+      {
+        "id": "qa-messy-ai",
+        "result": "pass"
+      }
+    ],
+    "byGroup": {
+      "work-money": 1,
+      "loneliness": 1,
+      "sns": 1,
+      "ai-work": 1,
+      "success": 1,
+      "aging": 1,
+      "marriage": 1,
+      "gaze": 1,
+      "creativity": 1,
+      "death": 1,
+      "messy-input": 3,
+      "fixture-q1": 1,
+      "fixture-q2": 1,
+      "fixture-q3": 1,
+      "fixture-q4": 1,
+      "fixture-q5": 1,
+      "fixture-q6": 1,
+      "fixture-q7": 1,
+      "fixture-q8": 1,
+      "fixture-q9": 1,
+      "fixture-q10": 1
+    },
+    "cases": [
+      {
+        "id": "qa-resign",
+        "category": "work-money",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-lonely-friends",
+        "category": "loneliness",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-sns",
+        "category": "sns",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-ai-job",
+        "category": "ai-work",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-success",
+        "category": "success",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-aging",
+        "category": "aging",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-marriage",
+        "category": "marriage",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-gaze",
+        "category": "gaze",
+        "result": "needs-review",
+        "blocker": false,
+        "issues": [
+          "all writers insufficient"
+        ]
+      },
+      {
+        "id": "qa-create",
+        "category": "creativity",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-death",
+        "category": "death",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-messy-work",
+        "category": "messy-work",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-messy-lonely",
+        "category": "messy-loneliness",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-messy-ai",
+        "category": "messy-ai",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q1",
+        "category": "fixture-q1",
+        "result": "needs-review",
+        "blocker": false,
+        "issues": [
+          "all writers insufficient"
+        ]
+      },
+      {
+        "id": "qa-fixture-q2",
+        "category": "fixture-q2",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q3",
+        "category": "fixture-q3",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q4",
+        "category": "fixture-q4",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q5",
+        "category": "fixture-q5",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q6",
+        "category": "fixture-q6",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      },
+      {
+        "id": "qa-fixture-q7",
+        "category": "fixture-q7",
+        "result": "needs-review",
+        "blocker": false,
+        "issues": [
+          "all writers insufficient"
+        ]
+      },
+      {
+        "id": "qa-fixture-q8",
+        "category": "fixture-q8",
+        "result": "needs-review",
+        "blocker": false,
+        "issues": [
+          "all writers insufficient"
+        ]
+      },
+      {
+        "id": "qa-fixture-q9",
+        "category": "fixture-q9",
+        "result": "needs-review",
+        "blocker": false,
+        "issues": [
+          "all writers insufficient"
+        ]
+      },
+      {
+        "id": "qa-fixture-q10",
+        "category": "fixture-q10",
+        "result": "pass",
+        "blocker": false,
+        "issues": []
+      }
+    ]
+  },
+  "regression": {
+    "eval:claim-regression": "PASS",
+    "eval:retrieval-regression": "PASS",
+    "eval:perspective-distinctiveness": "PASS",
+    "eval:prose-regression": "PASS",
+    "eval:release-qa": "PASS",
+    "eval:release-readiness": "PASS",
+    "build": "PASS"
+  },
+  "freezeHash": "7c4e1076ecbfbb9576a4a2a46ebd77435def3a4d4c44008feaee6b86f0fab476",
+  "knownDebt": [
+    "portrait missing",
+    "share missing",
+    "archive limited",
+    "some non-priority fixtures insufficient",
+    "Experiment C shelved",
+    "router not implemented"
+  ],
+  "readyToDeploy": true
+}

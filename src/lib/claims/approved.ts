@@ -112,6 +112,47 @@ function skeletonFromOrdered(args: {
 }
 
 /**
+ * Public adhoc path: validator-allowed deterministic claims only.
+ * Does not read Curator SQLite human evaluations.
+ */
+export function buildValidatorBoundedSkeleton(args: {
+  personId: string;
+  question: string;
+  claims: PerspectiveClaim[];
+}): EvidenceBoundedPerspectiveSkeleton {
+  const allowed = args.claims.filter((c) => c.allowedInFinalPerspective);
+  const set: ApprovedClaimSet = {
+    personId: args.personId,
+    archiveObservations: allowed.filter((c) => c.claimType === "archive-observation"),
+    writerPerspectives: allowed.filter((c) => c.claimType === "writer-perspective"),
+    syntheses: allowed.filter((c) => c.claimType === "cross-evidence-synthesis"),
+    modernTransfers: allowed.filter((c) => c.claimType === "modern-transfer"),
+    returnedQuestions: allowed.filter((c) => c.claimType === "returned-question"),
+  };
+  const ordered = [
+    ...set.archiveObservations.slice(0, 1),
+    ...set.writerPerspectives.slice(0, 1),
+    ...set.syntheses.slice(0, 2),
+    ...set.modernTransfers.slice(0, 1),
+    ...set.returnedQuestions.slice(0, 1),
+  ];
+  return skeletonFromOrdered({
+    personId: args.personId,
+    question: args.question,
+    ordered,
+    set: {
+      ...set,
+      archiveObservations: ordered.filter((c) => c.claimType === "archive-observation"),
+      writerPerspectives: ordered.filter((c) => c.claimType === "writer-perspective"),
+      syntheses: ordered.filter((c) => c.claimType === "cross-evidence-synthesis"),
+      modernTransfers: ordered.filter((c) => c.claimType === "modern-transfer"),
+      returnedQuestions: ordered.filter((c) => c.claimType === "returned-question"),
+    },
+    staging: false,
+  });
+}
+
+/**
  * Production / Experiment A skeleton: deterministic approved claims only.
  * Places Approved Claim.text only — no new prose synthesis.
  */
