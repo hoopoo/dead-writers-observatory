@@ -152,6 +152,17 @@ export default function CuratorHomePage() {
       </section>
 
       <section className="panel">
+        <p className="eyebrow">EVIDENCE-BOUNDED PROSE</p>
+        <p className="panel__lede">
+          Do not create meaning. Preserve it while making it readable.
+          Experiment B skeleton only · staging <code>?prose=1</code>
+        </p>
+        <Link className="button-secondary" href="/curator/prose">
+          OPEN PROSE REVIEW
+        </Link>
+      </section>
+
+      <section className="panel">
         <p className="eyebrow">TEST QUESTIONS</p>
         <ul className="fixture-list">
           {FIXTURE_QUESTIONS.map((fixture, index) => (

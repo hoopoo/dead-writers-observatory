@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { ObservationResultView } from "@/components/ObservationResultView";
 import { PerspectiveSkeletonCard } from "@/components/PerspectiveSkeletonView";
+import { PerspectiveProseCard } from "@/components/PerspectiveProseView";
 import { QuestionForm } from "@/components/QuestionForm";
+import { people } from "@/data/people";
 import {
   isEvidenceBoundedSkeletonEnabled,
   isExperimentCEnabled,
   isStagingClaimsEnabled,
+  isStagingProseEnabled,
   observeQuestion,
   observeQuestionWithExperimentC,
+  observeQuestionWithProse,
   observeQuestionWithSkeleton,
   observeQuestionWithStagingClaims,
 } from "@/lib/observe";
@@ -21,6 +25,7 @@ export default async function ObservePage({
     stagingClaims?: string;
     experiment?: string;
     retrieval?: string;
+    prose?: string;
   }>;
 }) {
   const params = await searchParams;
@@ -29,10 +34,13 @@ export default async function ObservePage({
     experiment: params.experiment,
     retrieval: params.retrieval,
   });
+  const prose =
+    !experimentC && isStagingProseEnabled(params.prose);
   const staging =
-    !experimentC && isStagingClaimsEnabled(params.stagingClaims);
+    !experimentC && !prose && isStagingClaimsEnabled(params.stagingClaims);
   const skeletonRequested =
     !staging &&
+    !prose &&
     !experimentC &&
     (params.skeleton === "1" || isEvidenceBoundedSkeletonEnabled());
 
@@ -94,6 +102,67 @@ export default async function ObservePage({
     );
   }
 
+  if (prose) {
+    const { observation, cases } = await observeQuestionWithProse(question);
+    return (
+      <>
+        {observation.safetyNotice ? (
+          <aside className="safety-notice" role="note">
+            {observation.safetyNotice}
+          </aside>
+        ) : null}
+        <section className="panel question-panel">
+          <p className="eyebrow">Staging prose · Experiment B editor</p>
+          <h1 className="question-panel__text">
+            {observation.analysis.surfaceQuestion}
+          </h1>
+          <p className="panel__lede">
+            Meaning-preserving prose from approved claims（not writer voice）
+          </p>
+        </section>
+        <section className="voices-section">
+          <div className="section-heading">
+            <p className="eyebrow">Three archives</p>
+            <h2>読みやすさのための文章化（staging）</h2>
+          </div>
+          <div className="voices-grid">
+            {cases.map((item) => {
+              const name =
+                people.find((p) => p.id === item.input.personId)?.name ??
+                item.input.personId;
+              return (
+                <PerspectiveProseCard
+                  key={item.input.personId}
+                  personName={name}
+                  prose={item.userFacing}
+                  skeleton={item.skeleton}
+                  showProvenance
+                />
+              );
+            })}
+          </div>
+        </section>
+        <div className="result-actions">
+          <Link href="/" className="button-secondary">
+            別の問いを置く
+          </Link>
+          <Link
+            href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
+            className="button-secondary"
+          >
+            Skeleton (B)
+          </Link>
+          <Link
+            href={`/observe?q=${encodeURIComponent(question)}`}
+            className="button-secondary"
+          >
+            Production表示
+          </Link>
+        </div>
+      </>
+    );
+  }
+
   if (staging) {
     const { observation, skeletons } =
       await observeQuestionWithStagingClaims(question);
@@ -136,6 +205,12 @@ export default async function ObservePage({
             className="button-secondary"
           >
             Production表示
+          </Link>
+          <Link
+            href={`/observe?q=${encodeURIComponent(question)}&prose=1`}
+            className="button-secondary"
+          >
+            Staging Prose
           </Link>
           <Link
             href={`/observe?q=${encodeURIComponent(question)}&experiment=C`}

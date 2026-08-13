@@ -1,0 +1,1694 @@
+{
+  "version": "prose-v1",
+  "generatedAt": "2026-08-13T00:31:28.561Z",
+  "experimentId": "B",
+  "promptVersion": "v1",
+  "cases": [
+    {
+      "fixtureId": "q4",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "76a11cc6c5247ede51daebb8",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-7fe5f8d6",
+        "claim-28e3e6b6",
+        "claim-a899f386",
+        "claim-7e2afb93",
+        "claim-6f73c0e8"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『私の個人主義』の記述では、権力に次ぐものとして金力が挙げられ、個性を拡張する道具になると同時に、他人の上に押し被せる危険な利器としても眺められている。",
+              "claimIds": [
+                "claim-7fe5f8d6"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『私の個人主義』と『こころ』には、個人の独立と社会的責任の緊張が描かれており、特に金銭が人間関係や社会的義務に影響を与える要素として機能している。",
+              "claimIds": [
+                "claim-28e3e6b6"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れており、また作者本人に近い記述と作品内の声が併存しているため、一つの人物像へ平坦化しない。",
+              "claimIds": [
+                "claim-a899f386"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『私の個人主義』における自己本位の概念は、現代における自己の価値や独立性の探求と関連しており、特にAIの影響を受ける職業環境においても重要な視点を提供する。",
+              "claimIds": [
+                "claim-7e2afb93"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "この問いには、AIという語彙そのものではなく、資料に見られる仕事や独立や社会的役割や自己像や金銭と生活という観点を、現在の職業変化へ接続できる。",
+              "claimIds": [
+                "claim-6f73c0e8"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "6a28af6a8f28efe1eb45c7b2",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-70e653aa",
+        "claim-6c11a114",
+        "claim-3e4131b2",
+        "claim-17451edf",
+        "claim-6ece962e"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "1",
+              "text": "『侏儒の言葉』の記述では、創作について、作品の美醜の一半（あるいは大半）は芸術家の意識を超えた領域に存する、と述べられている。自己観察と創作の緊張が主題化されると述べられている。",
+              "claimIds": [
+                "claim-70e653aa"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "2",
+              "text": "『侏儒の言葉』と『歯車』には、創作や自己観察に伴う不安が描かれており、特に社会との摩擦や自己の価値に対する恐れが共通して現れる。",
+              "claimIds": [
+                "claim-6c11a114"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "3",
+              "text": "『侏儒の言葉』の道徳観と『或阿呆の一生』の近代的な精神風景が共存しており、道徳の便宜性と近代化の影響が対立する。",
+              "claimIds": [
+                "claim-3e4131b2"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "4",
+              "text": "『侏儒の言葉』に見られる道徳の便宜性は、現代の労働環境における倫理観や社会的役割の変化に関連して考察できる。",
+              "claimIds": [
+                "claim-17451edf"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "5",
+              "text": "この問いには、AIという語彙そのものではなく、資料に見られる社会的役割や自己像という観点を、現在の職業変化へ接続できる。",
+              "claimIds": [
+                "claim-6ece962e"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q4",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "6c621bdd767ff838fd698ac2",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-6e6e3d1c",
+        "claim-36cebca2",
+        "claim-75c043d4",
+        "claim-d8caf867",
+        "claim-711e743a"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『津軽』の資料からは、津軽半島を一周した旅が、三十幾年の生涯でかなり重要な事件だった、と自伝的に記されている。故郷・帰属の再確認が主題化されるという観測が読み取れる。",
+              "claimIds": [
+                "claim-6e6e3d1c"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『津軽』の資料からは、津軽半島を一周した旅が、三十幾年の生涯でかなり重要な事件だった、と自伝的に記されている。故郷・帰属の再確認が主題化されるという観測が読み取れる。",
+              "claimIds": [
+                "claim-6e6e3d1c"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-3",
+              "text": "『津軽』と『人間失格』には、自己像や社会的役割に対する不安が共通して現れる。特に、自己の価値や恥の感覚が、社会との摩擦を通じて強調されている。",
+              "claimIds": [
+                "claim-36cebca2"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-4",
+              "text": "『津軽』と『人間失格』には、自己像や社会的役割に対する不安が共通して現れる。特に、自己の価値や恥の感覚が、社会との摩擦を通じて強調されている。",
+              "claimIds": [
+                "claim-36cebca2"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "『津軽』と『人間失格』における金銭的不安や生活の失敗は、愛される資格への疑いと結びついている。",
+              "claimIds": [
+                "claim-75c043d4"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-6",
+              "text": "『富嶽百景』に見られる自己像や美意識の違和感は、現代におけるAIや自動化による職業の変化に対する恐れと関連付けられる可能性がある。",
+              "claimIds": [
+                "claim-d8caf867"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-7",
+              "text": "この問いには、AIという語彙そのものではなく、資料に見られる仕事や独立や社会的役割や自己像や金銭と生活という観点を、現在の職業変化へ接続できる。",
+              "claimIds": [
+                "claim-711e743a"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 7,
+        "supportedSentences": 5,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": true
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "1aaa1099bfdd083073cf5864",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-f056906",
+        "claim-e2f0211a",
+        "claim-ab8a347e",
+        "claim-7e78a56b",
+        "claim-8a6d04d5"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『私の個人主義』の記述では、講演において金力には責任が伴うべきであり、富の使い方が人心や徳義に影響を与える可能性があると警告されている。",
+              "claimIds": [
+                "claim-f056906"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『私の個人主義』と『こころ』には、個人の独立と社会的責任の緊張が描かれており、金銭が人間関係や社会的役割に影響を与える要素として機能している。",
+              "claimIds": [
+                "claim-e2f0211a"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "この問いには、資料に見られる自己観察・他者の視線・自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することはできる。",
+              "claimIds": [
+                "claim-8a6d04d5"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『私の個人主義』と『こころ』では、個人の独立と社会的責任の間に緊張が存在し、金銭の扱いがその緊張を媒介する要素として描かれている。",
+              "claimIds": [
+                "claim-ab8a347e"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "現代のSNSにおける承認欲求や自己演出の問題は、夏目漱石の作品に見られる自己本位や社会的責任のテーマと関連している。",
+              "claimIds": [
+                "claim-7e78a56b"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-6",
+              "text": "この観点を現在の問いへ接続すると、SNSを通じた自己演出や承認欲求は、漱石が描いた個人と社会の関係における緊張を反映している。",
+              "claimIds": [
+                "claim-7e78a56b",
+                "claim-8a6d04d5"
+              ],
+              "transformationType": "transition"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "a3c95ae71057f3c5eb149b76",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-b437498f",
+        "claim-ae87d0b5",
+        "claim-599230c0",
+        "claim-662f85f3",
+        "claim-2416305c"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "1",
+              "text": "『侏儒の言葉』には、グッドセンスを欠いた幸福は痩せ我慢の幸福に過ぎないというアフォリズムがある。",
+              "claimIds": [
+                "claim-b437498f"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "2",
+              "text": "この作品では、幸福を外部の誇示や我慢と取り違えない観点が述べられている。",
+              "claimIds": [
+                "claim-b437498f"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "3",
+              "text": "『侏儒の言葉』と『或阿呆の一生』には、自己演出や承認欲求が現代の社会における不安と結びついている視点が示されている。",
+              "claimIds": [
+                "claim-ae87d0b5"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "4",
+              "text": "また、『侏儒の言葉』の自己観察と『歯車』の不安描写は、作者の個人的な視点と作品内の声が異なることを示しており、統一的な解釈を避ける必要がある。",
+              "claimIds": [
+                "claim-599230c0"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "5",
+              "text": "この観点を現在の問いへ接続すると、SNSにおける自己演出や承認のメカニズムは、『侏儒の言葉』における道徳の便宜性と類似している。",
+              "claimIds": [
+                "claim-662f85f3"
+              ],
+              "transformationType": "light-edit"
+            },
+            {
+              "id": "6",
+              "text": "さらに、自己観察や他者の視線、自己演出といった観点を、SNSを見続けてしまう現在の感覚へ接続することもできる。",
+              "claimIds": [
+                "claim-2416305c"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q3",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "be5e987a9b20d4888a1c3f3c",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-672c0843",
+        "claim-a85837ec",
+        "claim-2fe9df5e",
+        "claim-6cf3fc94",
+        "claim-9ce88ad5"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『人間失格』には、語り手が人間を極度に恐れながらも思い切れず、「道化」によって他者とつながろうとする様子が描かれている。",
+              "claimIds": [
+                "claim-672c0843"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "他者の前で自己を演じる感覚が強く描かれているという視点が作品内の声として現れる。",
+              "claimIds": [
+                "claim-672c0843"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-3",
+              "text": "『人間失格』と『富嶽百景』には、他者の評価に対する敏感さと自己演出の疲労が描かれており、現代のSNSにおける承認欲求と自己表現の葛藤と共鳴する。",
+              "claimIds": [
+                "claim-a85837ec"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『人間失格』の語り手が抱える羞恥や孤独感は、現代のSNSにおける自己演出や他者とのつながりの難しさに通じる。",
+              "claimIds": [
+                "claim-2fe9df5e"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "また、『富嶽百景』における自己像や美意識の葛藤は、現代のプラットフォーム経済における自己表現の期待と現実の乖離に通じる。",
+              "claimIds": [
+                "claim-6cf3fc94"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "returned-question",
+          "sentences": [
+            {
+              "id": "sentence-6",
+              "text": "現代のSNSにおける自己演出や承認欲求は、どのようにして人々の孤独感や不安を増幅させるのか？",
+              "claimIds": [
+                "claim-9ce88ad5"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "796d9ea7068bdcd24f61515f",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-28f49833",
+        "claim-29b93b3",
+        "claim-2a3b970d",
+        "claim-905b88d0",
+        "claim-dbeac8d9"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『私の個人主義』の記述では、金力には責任が伴うべきであり、富の使い方が人心や徳義に影響を与えると警告されている。",
+              "claimIds": [
+                "claim-28f49833"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『私の個人主義』では金力の責任が強調され、幸福や成功の外部指標を責任なき所有へ還元しない視点が示されている。",
+              "claimIds": [
+                "claim-29b93b3"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "資料の中では、個人の独立と社会的責任・義務の緊張関係が描かれている。",
+              "claimIds": [
+                "claim-2a3b970d"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『硝子戸の中』では、書斎からの狭い視界が孤独や社会との距離を示し、自己の幸福の定義に対する疑問を投げかけている。",
+              "claimIds": [
+                "claim-29b93b3"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "『私の個人主義』と『硝子戸の中』の両方で、幸福の定義に対する異なる視点が提示されている。",
+              "claimIds": [
+                "claim-2a3b970d"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-6",
+              "text": "この問いには、承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-905b88d0"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "returned-question",
+          "sentences": [
+            {
+              "id": "sentence-7",
+              "text": "「成功」の定義を誰から借りていますか。あなた自身の幸福の定義は、どこにありますか。",
+              "claimIds": [
+                "claim-dbeac8d9"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 7,
+        "supportedSentences": 6,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "ce35856b29d03d3ecf33c4fc",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-7774fc8c",
+        "claim-26d48372",
+        "claim-73df1996",
+        "claim-5ec16a75",
+        "claim-b7f3d1eb"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『侏儒の言葉』には、グッドセンスを欠いた幸福は痩せ我慢の幸福に過ぎないというアフォリズムがあり、幸福を外部の誇示や我慢と取り違えない観点が述べられている。",
+              "claimIds": [
+                "claim-7774fc8c"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『侏儒の言葉』には、幸福が外部の承認や誇示と混同されることへの警告があり、同時に『或阿呆の一生』では孤独が意味の共有の欠如として描かれている。",
+              "claimIds": [
+                "claim-26d48372"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+              "claimIds": [
+                "claim-73df1996"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『侏儒の言葉』における幸福の定義は、現代においても他者の承認や社会的期待に影響されることが多いという点で、現代の自己評価や幸福感に関する議論に関連している。",
+              "claimIds": [
+                "claim-5ec16a75"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "この問いには、資料に見られる承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-b7f3d1eb"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q5",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "6454ccdc9035a9c3843762d0",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-56f9af4f",
+        "claim-b5f31008",
+        "claim-f33119c",
+        "claim-b4d39c79",
+        "claim-626fdf6f"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『人間失格』には、語り手が「恥の多い生涯を送って来ました」と書き出し、人間の生活が見当つかないと述べる部分がある。",
+              "claimIds": [
+                "claim-56f9af4f"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "この作品の冒頭には、羞恥と生活理解の不全が置かれている。",
+              "claimIds": [
+                "claim-56f9af4f"
+              ],
+              "transformationType": "light-edit"
+            },
+            {
+              "id": "sentence-3",
+              "text": "『人間失格』と『富嶽百景』には、幸福や承認の追求と同時に、羞恥や自己不全の感情が描かれている。",
+              "claimIds": [
+                "claim-b5f31008"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-4",
+              "text": "資料の中では、幸福や承認の語りと、羞恥・自己不全の語りが並存している。",
+              "claimIds": [
+                "claim-f33119c"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-5",
+              "text": "この観点を現在の問いへ接続すると、成功と幸福の関係は複雑であり、社会的承認を求めることが自己価値に影響を与える可能性がある。",
+              "claimIds": [
+                "claim-b4d39c79"
+              ],
+              "transformationType": "light-edit"
+            },
+            {
+              "id": "sentence-6",
+              "text": "また、承認・自己像・幸福の定義といった観点を、成功と幸福の乖離という現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-626fdf6f"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "665c899f95d224f0124e45b2",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-d46ba3f7",
+        "claim-254bd123",
+        "claim-69e51b5e",
+        "claim-47eeb9fd",
+        "claim-15b08dcb"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『硝子戸の中』の資料からは、書斎から見る世界は単調で狭く、日常の観察範囲そのものが限られている、という自伝的記述がある。",
+              "claimIds": [
+                "claim-d46ba3f7"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "孤独や社会との距離を、大げさな断定ではなく生活の視野として記録し、という観測が読み取れる。",
+              "claimIds": [
+                "claim-d46ba3f7"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-3",
+              "text": "『硝子戸の中』と『私の個人主義』には、個人の孤独と社会的責任の緊張が現れており、老いに対する不安が個人のアイデンティティに影響を与える様子が示されている。",
+              "claimIds": [
+                "claim-254bd123"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-4",
+              "text": "『こころ』における罪責と他者との関係の視点は、老いに伴う孤独や承認の喪失に対する恐れと関連している。",
+              "claimIds": [
+                "claim-69e51b5e"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-5",
+              "text": "老いに対する不安は、現代においても多くの人々が直面するテーマであり、特に社会的役割の変化や承認の喪失に関連している。",
+              "claimIds": [
+                "claim-47eeb9fd"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-6",
+              "text": "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-15b08dcb"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "28494a9013c754f3cefbf4a7",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-264cad0a",
+        "claim-4801c74",
+        "claim-2555a3cf",
+        "claim-19ea2aeb",
+        "claim-1654c5c7"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "1",
+              "text": "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。",
+              "claimIds": [
+                "claim-264cad0a"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "2",
+              "text": "『侏儒の言葉』と『或阿呆の一生』には、自己観察と創作の緊張が描かれ、老いに対する不安が表現されている。",
+              "claimIds": [
+                "claim-4801c74"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "3",
+              "text": "『侏儒の言葉』における道徳の観察と『歯車』における不安描写は、作者の自己観察と作品内の声が異なる視点を提供している。",
+              "claimIds": [
+                "claim-2555a3cf"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "4",
+              "text": "『侏儒の言葉』における道徳の便宜性の考察は、現代の社会的役割や承認に対する不安を考える上での示唆を与える。",
+              "claimIds": [
+                "claim-19ea2aeb"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "5",
+              "text": "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-1654c5c7"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q6",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "77faef5990dd0a80e3467149",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-ba1363ce",
+        "claim-89affaee",
+        "claim-17535238",
+        "claim-b4f96896",
+        "claim-5deb1a0d"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『富嶽百景』の資料からは、将来の制度選択への動揺は、誰かに正しいと認めてもらいたい欲求を含みうる、という仮説という観測が読み取れる。",
+              "claimIds": [
+                "claim-ba1363ce"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-2",
+              "text": "『人間失格』と『津軽』には、他者との関係における恐れや羞恥が描かれ、自己像の不安が表現されている。",
+              "claimIds": [
+                "claim-89affaee"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "『富嶽百景』では他者評価への敏感さと自己演出の疲労が描かれ、一方で『人間失格』では恐れと親密さの間での葛藤が存在する。",
+              "claimIds": [
+                "claim-17535238"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "老いに対する不安は、現代においても多くの人々が直面するテーマであり、特に社会的役割の変化に伴う恐れが共通している。",
+              "claimIds": [
+                "claim-b4f96896"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "この問いには、資料に見られる時間・帰属・自己像の変化といった観点を、歳を取ることへの恐れという現在の感覚へ接続できる。",
+              "claimIds": [
+                "claim-5deb1a0d"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "767ac8689fab660cc747a711",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-df06e75c",
+        "claim-aae39267",
+        "claim-4ea8ec5e",
+        "claim-f54bd1d8",
+        "claim-220304c7"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "1",
+              "text": "『こころ』には、語り手は、ある人物を本名ではなく「先生」と呼ぶことが自然だと述べる。親密さと距離が、名前の呼び方そのものに現れる——作品内の視点という視点が作品内の声として現れる。",
+              "claimIds": [
+                "claim-df06e75c"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "2",
+              "text": "『こころ』と『硝子戸の中』には、親密さと孤独の緊張が描かれており、特に名前の呼び方や視界の狭さを通じて、個人の内面と社会との関係が浮かび上がる。",
+              "claimIds": [
+                "claim-aae39267"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "3",
+              "text": "資料の中では、個人の独立と社会的責任・義務の双方が緊張関係として現れている。",
+              "claimIds": [
+                "claim-4ea8ec5e"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "5",
+              "text": "この問いには、資料に見られるintimacy・lonelinessという観点を、現在の相談へ限定的に接続できる。",
+              "claimIds": [
+                "claim-220304c7"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "repair-claim-f54bd1d8",
+              "text": "この観点を現在の問いへ接続すると、現代においても、親密さを求める一方で孤独を感じる人々の状況は、夏目漱石の作品に見られるテーマと共鳴する。",
+              "claimIds": [
+                "claim-f54bd1d8"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": true
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "a7d34a7b5ad91d3640df824f",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-99a784c",
+        "claim-a779c712",
+        "claim-1649a2b6",
+        "claim-327ba7d3",
+        "claim-d52dbdc4"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『或阿呆の一生』の資料からは、孤独は人数の不足だけでなく、意味の共有ができない状態としても現れるという観測が読み取れる。",
+              "claimIds": [
+                "claim-99a784c"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-2",
+              "text": "『侏儒の言葉』には、道徳が便宜の異名であり、良心の麻痺を引き起こす可能性があるという視点が示されており、社会的役割と自己像の緊張を反映している。",
+              "claimIds": [
+                "claim-a779c712"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。",
+              "claimIds": [
+                "claim-1649a2b6"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "現代において、孤独感は友人の有無にかかわらず、意味の共有の欠如としても認識されることがある。",
+              "claimIds": [
+                "claim-327ba7d3"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "道徳の便宜性と良心の麻痺は、現代の社会においても依然として重要なテーマであり、個人の倫理観に影響を与える。",
+              "claimIds": [
+                "claim-d52dbdc4"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q2",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "0307a3634cc29a8a2e284d5b",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-b11bf9c2",
+        "claim-96776a39",
+        "claim-97be3b2c",
+        "claim-a47999d3",
+        "claim-847b9ab5"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+              "claimIds": [
+                "claim-b11bf9c2"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『津軽』の資料からは、幼少期に生みの母よりも叔母を慕い、五所川原の家へ通った、という記述がある。親密さと帰属は、血縁の形式だけでは測れないという観測が読み取れる。",
+              "claimIds": [
+                "claim-b11bf9c2"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-3",
+              "text": "『人間失格』と『津軽』には、他者との親密さを求めながらも孤独を感じる内面的葛藤が現れる。",
+              "claimIds": [
+                "claim-96776a39"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-4",
+              "text": "『人間失格』では、道化として他者とつながろうとする一方で、内心では恐れを抱いているという矛盾が描かれている。",
+              "claimIds": [
+                "claim-97be3b2c"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-5",
+              "text": "現代においても、友人がいるにもかかわらず孤独を感じる人々の経験は普遍的であり、社会的なつながりの重要性が再認識されている。",
+              "claimIds": [
+                "claim-a47999d3"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "repair-claim-847b9ab5",
+              "text": "この問いには、資料に見られるintimacy・lonelinessという観点を、現在の相談へ限定的に接続できる。",
+              "claimIds": [
+                "claim-847b9ab5"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": true
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-soseki",
+      "experimentId": "B",
+      "inputHash": "9f9b09ea654fde780b211a74",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-c0f61cb4",
+        "claim-7dbd1f9f",
+        "claim-9f95b6f1",
+        "claim-e90693af",
+        "claim-53292d8e"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "1",
+              "text": "『こころ』には、死を思うことは、関係と責任の未解決が残っている印としても読める。",
+              "claimIds": [
+                "claim-c0f61cb4"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "2",
+              "text": "『こころ』には、死を思うことが関係と責任の未解決を示す印として描かれ、同時に『私の個人主義』では、自己本位を立脚地として独立を語ることで、個人の内面的な葛藤と社会的責任の緊張が浮かび上がる。",
+              "claimIds": [
+                "claim-7dbd1f9f"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "3",
+              "text": "『硝子戸の中』では、孤独や社会との距離が日常の観察として描かれ、同時に『私の個人主義』では、自己本位を通じて外部基準からの独立が語られ、個人の内面と社会的役割の関係が示されている。",
+              "claimIds": [
+                "claim-9f95b6f1"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "4",
+              "text": "死や孤独に対する問いは、現代においても自己観察や社会的役割に関する不安として存在し、文学を通じてその感情を探求することができる。",
+              "claimIds": [
+                "claim-e90693af"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "5",
+              "text": "『私の個人主義』における自己本位の概念は、現代の個人主義や自己実現の考え方に関連し、自己の位置を定めることの重要性を示唆している。",
+              "claimIds": [
+                "claim-53292d8e"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 5,
+        "supportedSentences": 3,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": false
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-akutagawa",
+      "experimentId": "B",
+      "inputHash": "ee70b4d7d6ae713dd1c35534",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-4df9554d",
+        "claim-5420d9ab",
+        "claim-dba55b8e",
+        "claim-c44f7584",
+        "claim-8a52e646"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『歯車』には、語り手の視野に半透明の歯車が現れ、消えたあとに頭痛が残る、という知覚の変調が描かれる。作者人生への還元ではなく、作品内の不安描写として読むという視点が作品内の声として現れる。",
+              "claimIds": [
+                "claim-4df9554d"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『侏儒の言葉』には、自己観察と創作の緊張が主題化されており、また『或阿呆の一生』では生きることよりも文学的強度を優先する視線の疲労が示唆されている。これらの作品から、自己の存在や生き方に対する不安が、創作活動を通じて表現されていることが読み取れる。",
+              "claimIds": [
+                "claim-5420d9ab"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "『侏儒の言葉』と『或阿呆の一生』では、作者本人に近い記述と作品内の声が併存しており、一つの人物像へ平坦化しない。特に、道徳に対する批判と生きることへの疲労感が異なる視点から描かれている。",
+              "claimIds": [
+                "claim-dba55b8e"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "across-sources",
+          "sentences": [
+            {
+              "id": "sentence-4",
+              "text": "『侏儒の言葉』における道徳の便宜性の視点は、現代においても自己の価値や社会的役割に対する不安を考える際に重要な示唆を与える。特に、道徳が個人の自由や創造性に与える影響を考えることは、現代の倫理的ジレンマに関連している。",
+              "claimIds": [
+                "claim-c44f7584"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-5",
+              "text": "この問いには、資料に見られるdeath・self・observationという観点を、現在の相談へ限定的に接続できる。",
+              "claimIds": [
+                "claim-8a52e646"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "sentence-6",
+              "text": "これらの作品から、自己の存在や生き方に対する不安が、創作活動を通じて表現されていることが読み取れる。",
+              "claimIds": [
+                "claim-5420d9ab"
+              ],
+              "transformationType": "transition"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": true
+    },
+    {
+      "fixtureId": "q10",
+      "personId": "person-dazai",
+      "experimentId": "B",
+      "inputHash": "22abf3021b9ad97262aede01",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "promptVersion": "v1",
+      "claimIds": [
+        "claim-6edbcab6",
+        "claim-bd4d411d",
+        "claim-ca90165d",
+        "claim-43a8825",
+        "claim-f9a00b54"
+      ],
+      "sections": [
+        {
+          "type": "archive",
+          "sentences": [
+            {
+              "id": "sentence-1",
+              "text": "『人間失格』には、死を思うことは、作品内では羞恥と疲労の地点としても読まれうる。作者の死と相談者を同一化しないという視点が作品内の声として現れる。",
+              "claimIds": [
+                "claim-6edbcab6"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-2",
+              "text": "『人間失格』には、死を思うことは、作品内では羞恥と疲労の地点としても読まれうる。作者の死と相談者を同一化しないという視点が作品内の声として現れる。",
+              "claimIds": [
+                "claim-6edbcab6"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-3",
+              "text": "『人間失格』と『富嶽百景』には、自己観察と他者評価への敏感さが共通して現れ、自己の生き方に対する疑問が示されている。",
+              "claimIds": [
+                "claim-bd4d411d"
+              ],
+              "transformationType": "verbatim-claim"
+            },
+            {
+              "id": "sentence-4",
+              "text": "『津軽』と『人間失格』には、帰属や親密さに対する複雑な感情が描かれ、自己の存在意義に対する問いが浮かび上がる。",
+              "claimIds": [
+                "claim-ca90165d"
+              ],
+              "transformationType": "verbatim-claim"
+            }
+          ]
+        },
+        {
+          "type": "connection",
+          "sentences": [
+            {
+              "id": "repair-claim-43a8825",
+              "text": "この観点を現在の問いへ接続すると、現代においても、自己観察や他者評価に対する敏感さは、個人の生き方や価値観に影響を与える要素として重要である。",
+              "claimIds": [
+                "claim-43a8825"
+              ],
+              "transformationType": "light-edit"
+            },
+            {
+              "id": "repair-claim-f9a00b54",
+              "text": "この観点を現在の問いへ接続すると、現代においても、帰属や親密さに対する感情は、個人のアイデンティティや生き方に影響を与える重要な要素である。",
+              "claimIds": [
+                "claim-f9a00b54"
+              ],
+              "transformationType": "light-edit"
+            }
+          ]
+        }
+      ],
+      "validation": {
+        "totalSentences": 6,
+        "supportedSentences": 4,
+        "unsupportedSentences": 0,
+        "claimCoverageRate": 1,
+        "semanticPreservationRate": 1,
+        "attributionViolations": 0,
+        "historicalTransferViolations": 0,
+        "workVoiceViolations": 0,
+        "newMeaningViolations": 0,
+        "allowed": true
+      },
+      "repaired": true
+    }
+  ],
+  "distinctiveness": [
+    {
+      "fixtureId": "q4",
+      "skeletonDistinctiveness": 0.919,
+      "proseDistinctiveness": 0.924,
+      "delta": 0.005,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    },
+    {
+      "fixtureId": "q3",
+      "skeletonDistinctiveness": 0.929,
+      "proseDistinctiveness": 0.938,
+      "delta": 0.009,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    },
+    {
+      "fixtureId": "q5",
+      "skeletonDistinctiveness": 0.891,
+      "proseDistinctiveness": 0.918,
+      "delta": 0.027,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    },
+    {
+      "fixtureId": "q6",
+      "skeletonDistinctiveness": 0.903,
+      "proseDistinctiveness": 0.912,
+      "delta": 0.009,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    },
+    {
+      "fixtureId": "q2",
+      "skeletonDistinctiveness": 0.947,
+      "proseDistinctiveness": 0.947,
+      "delta": 0,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    },
+    {
+      "fixtureId": "q10",
+      "skeletonDistinctiveness": 0.941,
+      "proseDistinctiveness": 0.94,
+      "delta": -0.001,
+      "convergenceRisk": "low",
+      "returnedQuestionOverlap": 0,
+      "issues": []
+    }
+  ]
+}

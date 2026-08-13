@@ -29,9 +29,13 @@
     "eval:perspective-distinctiveness": "tsx scripts/eval-perspective-distinctiveness.ts",
     "eval:perspective-human": "tsx scripts/eval-perspective-human.ts",
     "eval:experiment-c": "tsx scripts/eval-experiment-c.ts",
+    "eval:prose": "tsx scripts/eval-prose.ts",
+    "eval:prose-human": "tsx scripts/eval-prose-human.ts",
+    "eval:prose-regression": "tsx scripts/eval-prose-regression.ts",
     "snapshot:claims": "tsx scripts/snapshot-claims.ts",
     "snapshot:perspectives": "tsx scripts/snapshot-perspectives.ts",
-    "snapshot:perspectives:c": "tsx scripts/snapshot-perspectives-c.ts"
+    "snapshot:perspectives:c": "tsx scripts/snapshot-perspectives-c.ts",
+    "snapshot:prose": "tsx scripts/snapshot-prose.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",

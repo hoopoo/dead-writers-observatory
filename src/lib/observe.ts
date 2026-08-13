@@ -12,8 +12,16 @@ import {
 import { listProposedClaims } from "@/lib/claims/llm/store";
 import { buildExperimentClaimPool } from "@/lib/claims/experiment-c/build";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
+import { generateProse, isStagingProseEnabled } from "@/lib/prose";
 import type { ObservationResult } from "@/types/observation";
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
+import type {
+  EvidenceBoundedProseInput,
+  EvidenceBoundedProseOutput,
+  ProseGenerationRecord,
+} from "@/types/prose";
+
+export { isStagingProseEnabled };
 
 const SAFETY_NOTICE =
   "この観測は文学資料に基づく視点の再接続であり、医療・法律・投資・危機介入の助言ではありません。死や自傷に関する苦痛が強い場合は、専門の相談窓口や周囲の信頼できる人につながってください。死者は答えません。言葉が残っているだけです。";
@@ -153,4 +161,38 @@ export async function observeQuestionWithExperimentC(
     }),
   );
   return { observation, skeletons };
+}
+
+/**
+ * Staging prose: Experiment B skeleton → meaning-preserving editor.
+ * Production default remains false (`?prose=1` or STAGING_PROSE / PUBLIC_BETA_PROSE).
+ */
+export async function observeQuestionWithProse(rawQuestion: string): Promise<{
+  observation: ObservationResult;
+  cases: Array<{
+    skeleton: EvidenceBoundedPerspectiveSkeleton;
+    input: EvidenceBoundedProseInput;
+    record: ProseGenerationRecord;
+    userFacing: EvidenceBoundedProseOutput;
+  }>;
+}> {
+  const observation = await observeQuestion(rawQuestion);
+  const fixtureId = fixtureIdForQuestion(rawQuestion) ?? "adhoc";
+  const cases = await Promise.all(
+    people.map(async (person) => {
+      const result = await generateProse({
+        question: rawQuestion,
+        personId: person.id,
+        fixtureId,
+        allowRepair: true,
+      });
+      return {
+        skeleton: result.input.skeleton,
+        input: result.input,
+        record: result.record,
+        userFacing: result.userFacing,
+      };
+    }),
+  );
+  return { observation, cases };
 }

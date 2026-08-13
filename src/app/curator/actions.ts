@@ -24,6 +24,8 @@ import type {
   ClaimHumanEvaluation,
   ClaimHumanEvaluationInput,
 } from "@/types/perspective-claim";
+import type { ProseHumanEvaluation } from "@/types/prose";
+import { saveProseHumanEvaluation } from "@/lib/prose/store";
 
 export async function loginCurator(token: string, nextPath: string) {
   if (!isCuratorEnabled()) {
@@ -208,6 +210,56 @@ export async function saveClaimHumanEvaluationAction(
     revalidatePath("/curator/claim-experiments");
     revalidatePath("/curator/perspectives");
     revalidatePath("/curator");
+    return { ok: true, evaluation };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Save failed",
+    };
+  }
+}
+
+export async function saveProseHumanEvaluationAction(input: {
+  proseId: string;
+  fixtureId: string;
+  personId: string;
+  fidelity: ProseHumanEvaluation["fidelity"];
+  readability: ProseHumanEvaluation["readability"];
+  usefulness: ProseHumanEvaluation["usefulness"];
+  distinctiveness: ProseHumanEvaluation["distinctiveness"];
+  notes?: string;
+}): Promise<
+  | { ok: true; evaluation: ProseHumanEvaluation }
+  | { ok: false; error: string }
+> {
+  if (!isCuratorEnabled()) {
+    return { ok: false, error: "Curator is disabled" };
+  }
+  const fidelityOk = [
+    "preserved",
+    "minor-drift",
+    "major-drift",
+    "unclear",
+  ].includes(input.fidelity);
+  const triOk = (v: string) =>
+    ["better", "same", "worse", "unclear"].includes(v);
+  const distOk = ["preserved", "weakened", "lost", "unclear"].includes(
+    input.distinctiveness,
+  );
+  if (
+    !fidelityOk ||
+    !triOk(input.readability) ||
+    !triOk(input.usefulness) ||
+    !distOk
+  ) {
+    return { ok: false, error: "Invalid prose evaluation values" };
+  }
+  try {
+    const evaluation = saveProseHumanEvaluation({
+      ...input,
+      reviewer: DEFAULT_REVIEW_ACTOR,
+    });
+    revalidatePath("/curator/prose");
     return { ok: true, evaluation };
   } catch (error) {
     return {

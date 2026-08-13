@@ -1404,6 +1404,16 @@ main {
   line-height: 1.65;
 }
 
+.prose-sentence-blocked {
+  border: 1px solid #b33;
+  background: rgba(180, 40, 40, 0.08);
+  padding: 0.5rem 0.75rem;
+}
+
+.prose-provenance {
+  margin-top: 0.75rem;
+}
+
 .mode-compare-card {
   display: grid;
   gap: 0.65rem;
