@@ -32,6 +32,8 @@
     "eval:prose": "tsx scripts/eval-prose.ts",
     "eval:prose-human": "tsx scripts/eval-prose-human.ts",
     "eval:prose-regression": "tsx scripts/eval-prose-regression.ts",
+    "eval:prose-blind": "tsx scripts/eval-prose-blind.ts",
+    "eval:release-readiness": "tsx scripts/eval-release-readiness.ts",
     "snapshot:claims": "tsx scripts/snapshot-claims.ts",
     "snapshot:perspectives": "tsx scripts/snapshot-perspectives.ts",
     "snapshot:perspectives:c": "tsx scripts/snapshot-perspectives-c.ts",

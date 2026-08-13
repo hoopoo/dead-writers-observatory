@@ -26,6 +26,11 @@ import type {
 } from "@/types/perspective-claim";
 import type { ProseHumanEvaluation } from "@/types/prose";
 import { saveProseHumanEvaluation } from "@/lib/prose/store";
+import type { IndependentProseBlindEvaluation } from "@/types/public";
+import {
+  blindAssignmentFor,
+  saveIndependentProseBlindEvaluation,
+} from "@/lib/prose/blind";
 
 export async function loginCurator(token: string, nextPath: string) {
   if (!isCuratorEnabled()) {
@@ -260,6 +265,54 @@ export async function saveProseHumanEvaluationAction(input: {
       reviewer: DEFAULT_REVIEW_ACTOR,
     });
     revalidatePath("/curator/prose");
+    return { ok: true, evaluation };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Save failed",
+    };
+  }
+}
+
+export async function saveProseBlindEvaluationAction(input: {
+  fixtureId: string;
+  personId: string;
+  preferred: IndependentProseBlindEvaluation["preferred"];
+  meaningDifference: IndependentProseBlindEvaluation["meaningDifference"];
+  attributionSafe: IndependentProseBlindEvaluation["attributionSafe"];
+  feelsMoreReadable: IndependentProseBlindEvaluation["feelsMoreReadable"];
+  feelsMoreUseful: IndependentProseBlindEvaluation["feelsMoreUseful"];
+  notes?: string;
+}): Promise<
+  | { ok: true; evaluation: IndependentProseBlindEvaluation }
+  | { ok: false; error: string }
+> {
+  if (!isCuratorEnabled()) {
+    return { ok: false, error: "Curator is disabled" };
+  }
+  const preferredOk = ["a", "b", "same", "unclear"].includes(input.preferred);
+  const meaningOk = ["none", "minor", "material", "unclear"].includes(
+    input.meaningDifference,
+  );
+  const safeOk = ["yes", "no", "unclear"].includes(input.attributionSafe);
+  const triOk = (v: string) => ["a", "b", "same"].includes(v);
+  if (
+    !preferredOk ||
+    !meaningOk ||
+    !safeOk ||
+    !triOk(input.feelsMoreReadable) ||
+    !triOk(input.feelsMoreUseful)
+  ) {
+    return { ok: false, error: "Invalid blind evaluation values" };
+  }
+  try {
+    const evaluation = saveIndependentProseBlindEvaluation({
+      ...input,
+      assignment: blindAssignmentFor(input.fixtureId, input.personId),
+      reviewer: DEFAULT_REVIEW_ACTOR,
+    });
+    revalidatePath("/curator/prose-blind");
+    revalidatePath("/curator");
     return { ok: true, evaluation };
   } catch (error) {
     return {

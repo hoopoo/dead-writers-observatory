@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ObservationResultView } from "@/components/ObservationResultView";
 import { PerspectiveSkeletonCard } from "@/components/PerspectiveSkeletonView";
 import { PerspectiveProseCard } from "@/components/PerspectiveProseView";
+import { PublicResultView } from "@/components/public/PublicResultView";
 import { QuestionForm } from "@/components/QuestionForm";
 import { people } from "@/data/people";
 import {
@@ -9,12 +9,13 @@ import {
   isExperimentCEnabled,
   isStagingClaimsEnabled,
   isStagingProseEnabled,
-  observeQuestion,
   observeQuestionWithExperimentC,
   observeQuestionWithProse,
   observeQuestionWithSkeleton,
   observeQuestionWithStagingClaims,
 } from "@/lib/observe";
+import { getPublicPerspectiveMode } from "@/lib/public/mode";
+import { observePublicBeta } from "@/lib/public/observe";
 
 export default async function ObservePage({
   searchParams,
@@ -26,6 +27,9 @@ export default async function ObservePage({
     experiment?: string;
     retrieval?: string;
     prose?: string;
+    mode?: string;
+    writer?: string;
+    view?: string;
   }>;
 }) {
   const params = await searchParams;
@@ -34,13 +38,15 @@ export default async function ObservePage({
     experiment: params.experiment,
     retrieval: params.retrieval,
   });
-  const prose =
+  const researchProse =
     !experimentC && isStagingProseEnabled(params.prose);
   const staging =
-    !experimentC && !prose && isStagingClaimsEnabled(params.stagingClaims);
+    !experimentC &&
+    !researchProse &&
+    isStagingClaimsEnabled(params.stagingClaims);
   const skeletonRequested =
     !staging &&
-    !prose &&
+    !researchProse &&
     !experimentC &&
     (params.skeleton === "1" || isEvidenceBoundedSkeletonEnabled());
 
@@ -70,14 +76,10 @@ export default async function ObservePage({
             {observation.analysis.surfaceQuestion}
           </h1>
           <p className="panel__lede">
-            Change the retrieval. Keep the perspective intact.（no free-form prose）
+            Change the retrieval. Keep the perspective intact.（research）
           </p>
         </section>
         <section className="voices-section">
-          <div className="section-heading">
-            <p className="eyebrow">Three archives</p>
-            <h2>資料から組み立てた視点（Experiment C）</h2>
-          </div>
           <div className="voices-grid">
             {skeletons.map((skeleton) => (
               <PerspectiveSkeletonCard
@@ -91,18 +93,12 @@ export default async function ObservePage({
           <Link href="/" className="button-secondary">
             別の問いを置く
           </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
-            className="button-secondary"
-          >
-            Experiment B
-          </Link>
         </div>
       </>
     );
   }
 
-  if (prose) {
+  if (researchProse) {
     const { observation, cases } = await observeQuestionWithProse(question);
     return (
       <>
@@ -112,19 +108,12 @@ export default async function ObservePage({
           </aside>
         ) : null}
         <section className="panel question-panel">
-          <p className="eyebrow">Staging prose · Experiment B editor</p>
+          <p className="eyebrow">Research prose · Experiment B</p>
           <h1 className="question-panel__text">
             {observation.analysis.surfaceQuestion}
           </h1>
-          <p className="panel__lede">
-            Meaning-preserving prose from approved claims（not writer voice）
-          </p>
         </section>
         <section className="voices-section">
-          <div className="section-heading">
-            <p className="eyebrow">Three archives</p>
-            <h2>読みやすさのための文章化（staging）</h2>
-          </div>
           <div className="voices-grid">
             {cases.map((item) => {
               const name =
@@ -146,18 +135,6 @@ export default async function ObservePage({
           <Link href="/" className="button-secondary">
             別の問いを置く
           </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
-            className="button-secondary"
-          >
-            Skeleton (B)
-          </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}`}
-            className="button-secondary"
-          >
-            Production表示
-          </Link>
         </div>
       </>
     );
@@ -178,15 +155,8 @@ export default async function ObservePage({
           <h1 className="question-panel__text">
             {observation.analysis.surfaceQuestion}
           </h1>
-          <p className="panel__lede">
-            Deterministic + human-approved LLM claims（no free-form prose）
-          </p>
         </section>
         <section className="voices-section">
-          <div className="section-heading">
-            <p className="eyebrow">Three archives</p>
-            <h2>資料から組み立てた視点（staging）</h2>
-          </div>
           <div className="voices-grid">
             {skeletons.map((skeleton) => (
               <PerspectiveSkeletonCard
@@ -199,24 +169,6 @@ export default async function ObservePage({
         <div className="result-actions">
           <Link href="/" className="button-secondary">
             別の問いを置く
-          </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}`}
-            className="button-secondary"
-          >
-            Production表示
-          </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}&prose=1`}
-            className="button-secondary"
-          >
-            Staging Prose
-          </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}&experiment=C`}
-            className="button-secondary"
-          >
-            Experiment C
           </Link>
         </div>
       </>
@@ -234,19 +186,12 @@ export default async function ObservePage({
           </aside>
         ) : null}
         <section className="panel question-panel">
-          <p className="eyebrow">Your question</p>
+          <p className="eyebrow">Research skeleton</p>
           <h1 className="question-panel__text">
             {observation.analysis.surfaceQuestion}
           </h1>
-          <p className="panel__lede">
-            Evidence-Bounded Skeleton（Approved Claims only / no free-form prose）
-          </p>
         </section>
         <section className="voices-section">
-          <div className="section-heading">
-            <p className="eyebrow">Three archives</p>
-            <h2>資料から組み立てた視点</h2>
-          </div>
           <div className="voices-grid">
             {skeletons.map((skeleton) => (
               <PerspectiveSkeletonCard
@@ -260,39 +205,19 @@ export default async function ObservePage({
           <Link href="/" className="button-secondary">
             別の問いを置く
           </Link>
-          <Link
-            href={`/observe?q=${encodeURIComponent(question)}`}
-            className="button-secondary"
-          >
-            既存Perspective表示
-          </Link>
         </div>
       </>
     );
   }
 
-  const result = await observeQuestion(question);
+  const mode = getPublicPerspectiveMode(params.mode);
+  const publicResult = await observePublicBeta(question, mode);
 
   return (
-    <>
-      <ObservationResultView result={result} />
-      <div className="result-actions">
-        <Link href="/" className="button-secondary">
-          別の問いを置く
-        </Link>
-        <Link
-          href={`/observe?q=${encodeURIComponent(question)}&skeleton=1`}
-          className="button-secondary"
-        >
-          Claim Skeleton表示
-        </Link>
-        <Link
-          href={`/observe?q=${encodeURIComponent(question)}&stagingClaims=1`}
-          className="button-secondary"
-        >
-          Staging Claims (B)
-        </Link>
-      </div>
-    </>
+    <PublicResultView
+      result={publicResult}
+      writerSlug={params.writer}
+      view={params.view}
+    />
   );
 }

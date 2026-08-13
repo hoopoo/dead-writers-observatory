@@ -1,11 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ConditionalPublicChrome } from "@/components/public/ConditionalPublicChrome";
+import { SiteFooter } from "@/components/public/SiteFooter";
 import "./globals.css";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const DESCRIPTION =
+  "漱石、芥川、太宰が残した資料に、現代の問いを通して読み直す実験。";
+
 export const metadata: Metadata = {
-  title: "Dead Writers Observatory",
-  description:
-    "死者は答えない。言葉が残っている。漱石・芥川・太宰の残した言葉から、いまの問いを読み直す Observatory。",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Dead Writers Observatory",
+    template: "%s · Dead Writers Observatory",
+  },
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Dead Writers Observatory",
+    description: DESCRIPTION,
+    locale: "ja_JP",
+    type: "website",
+    siteName: "Dead Writers Observatory",
+  },
 };
 
 export default function RootLayout({
@@ -20,11 +39,19 @@ export default function RootLayout({
           <header className="site-header">
             <Link href="/" className="brand">
               Dead Writers Observatory
-              <span>SHIRO & Co. Observatory</span>
+              <span>v0.1 Public Beta</span>
             </Link>
-            <p className="nav-note">Archive-based Perspective Engine</p>
+            <ConditionalPublicChrome>
+              <nav className="site-nav" aria-label="Public">
+                <Link href="/about">About</Link>
+                <Link href="/method">Method</Link>
+              </nav>
+            </ConditionalPublicChrome>
           </header>
           {children}
+          <ConditionalPublicChrome>
+            <SiteFooter />
+          </ConditionalPublicChrome>
         </main>
       </body>
     </html>

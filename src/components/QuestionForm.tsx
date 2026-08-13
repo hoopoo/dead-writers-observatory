@@ -4,12 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
 const PLACEHOLDERS = [
-  "会社を辞めたい。でも怖い。",
-  "友達はいるのに孤独です。",
-  "成功しているはずなのに、幸福だと思えません。",
-  "SNSを見るのをやめられません。",
-  "AIに仕事を奪われるのが怖いです。",
-  "歳を取ることが怖いです。",
+  "仕事を辞めたいけれど、収入がなくなるのが怖い。",
+  "友達はいるのに、なぜか孤独です。",
+  "SNSを見るのをやめたいのに、つい見てしまいます。",
+  "AIに自分の仕事を奪われる気がします。",
 ];
 
 export function QuestionForm({
@@ -20,18 +18,20 @@ export function QuestionForm({
   const router = useRouter();
   const [value, setValue] = useState(initialValue);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
     const trimmed = value.trim();
-    if (!trimmed) return;
+    if (!trimmed || submitting) return;
+    setSubmitting(true);
     router.push(`/observe?q=${encodeURIComponent(trimmed)}`);
   }
 
   return (
     <form className="question-form" onSubmit={onSubmit}>
       <label htmlFor="question" className="question-form__label">
-        いま、何を考えていますか？
+        いま、何が気になっていますか？
       </label>
       <textarea
         id="question"
@@ -47,8 +47,8 @@ export function QuestionForm({
         required
       />
       <div className="question-form__actions">
-        <button type="submit" className="button-primary">
-          三人の視点で読む
+        <button type="submit" className="button-primary" disabled={submitting}>
+          {submitting ? "資料を探しています" : "3つの資料群で読む"}
         </button>
       </div>
     </form>

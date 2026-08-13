@@ -4,10 +4,12 @@ import {
   getGlobalArchiveSummary,
   listPendingArchiveWork,
 } from "@/lib/curator-overview";
+import { getPublicBetaReadiness } from "@/lib/public/readiness";
 
 export default function CuratorHomePage() {
   const summary = getGlobalArchiveSummary();
   const pending = listPendingArchiveWork();
+  const readiness = getPublicBetaReadiness();
 
   return (
     <div className="curator-page">
@@ -138,6 +140,47 @@ export default function CuratorHomePage() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="panel">
+        <p className="eyebrow">PUBLIC BETA READINESS</p>
+        <dl className="stat-grid stat-grid--wide">
+          <div>
+            <dt>ARCHIVE</dt>
+            <dd>{readiness.archive}</dd>
+          </div>
+          <div>
+            <dt>RETRIEVAL</dt>
+            <dd>{readiness.retrieval}</dd>
+          </div>
+          <div>
+            <dt>CLAIMS</dt>
+            <dd>{readiness.claims}</dd>
+          </div>
+          <div>
+            <dt>DISTINCTIVENESS</dt>
+            <dd>{readiness.distinctiveness}</dd>
+          </div>
+          <div>
+            <dt>PROSE</dt>
+            <dd>{readiness.prose}</dd>
+          </div>
+          <div>
+            <dt>INDEPENDENT BLIND CHECK</dt>
+            <dd>{readiness.independentBlindCheck}</dd>
+          </div>
+          <div>
+            <dt>PUBLIC UX</dt>
+            <dd>{readiness.publicUx}</dd>
+          </div>
+          <div>
+            <dt>RELEASE QA</dt>
+            <dd>{readiness.releaseQa}</dd>
+          </div>
+        </dl>
+        <Link className="button-secondary" href="/curator/prose-blind">
+          OPEN INDEPENDENT BLIND CHECK
+        </Link>
       </section>
 
       <section className="panel">

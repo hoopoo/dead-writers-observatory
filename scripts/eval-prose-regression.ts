@@ -15,6 +15,7 @@ import {
 } from "../src/lib/prose/validator";
 import { analyzeCrossWriterProseDistinctiveness } from "../src/lib/prose/distinctiveness";
 import { isStagingProseEnabled, isPublicBetaProseEnabled } from "../src/lib/prose";
+import { getPublicPerspectiveMode } from "../src/lib/public/mode";
 import { createRetriever } from "../src/lib/retrieval-mode";
 import {
   closeReviewDb,
@@ -36,9 +37,12 @@ async function main() {
   // Production defaults
   delete process.env.STAGING_PROSE;
   delete process.env.PUBLIC_BETA_PROSE;
+  delete process.env.PUBLIC_PERSPECTIVE_MODE;
+  delete process.env.STAGING_MODE_OVERRIDE;
   assert(isStagingProseEnabled() === false, "staging prose default false");
   assert(isPublicBetaProseEnabled() === false, "PUBLIC_BETA_PROSE default false");
   assert(isStagingProseEnabled("1") === true, "prose=1 enables staging");
+  assert(getPublicPerspectiveMode() === "skeleton", "public mode default skeleton");
   console.log("1. staging prose flag isolated: PASS");
 
   const mode = createRetriever();
