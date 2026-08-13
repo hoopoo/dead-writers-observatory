@@ -8,7 +8,7 @@ import { people } from "../src/data/people";
 import { FIXTURE_QUESTIONS } from "../src/data/fixtures/questions";
 import { RELEASE_QA_FIXTURES } from "../src/data/fixtures/release-qa";
 import { PRIORITY_CLAIM_FIXTURES } from "../src/lib/claims/approved";
-import { buildExperimentBSkeletons } from "../src/lib/public/observe";
+import { buildExperimentBSkeletons } from "../src/lib/claims/experiment-b-skeletons";
 import {
   hashFreezeCases,
   PUBLIC_BETA_FREEZE_PATH,

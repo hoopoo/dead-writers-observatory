@@ -8,7 +8,7 @@ import {
   blindAssignmentFor,
   latestBlindEvaluation,
 } from "@/lib/prose/blind";
-import { buildExperimentBSkeletons } from "@/lib/public/observe";
+import { buildExperimentBSkeletons } from "@/lib/claims/experiment-b-skeletons";
 import { lookupFrozenCase } from "@/lib/release/freeze";
 import { decideBlindGate } from "@/lib/release/decision";
 import { ProseBlindForm } from "@/components/curator/ProseBlindForm";

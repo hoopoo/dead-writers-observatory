@@ -1,11 +1,5 @@
 import { people } from "@/data/people";
 import { FIXTURE_QUESTIONS } from "@/data/fixtures/questions";
-import { generateClaimsForQuestion } from "@/lib/claims";
-import {
-  buildStagingPerspectiveSkeleton,
-  buildValidatorBoundedSkeleton,
-} from "@/lib/claims/approved";
-import { listProposedClaims } from "@/lib/claims/llm/store";
 import { analyzeQuestion } from "@/lib/question-analysis";
 import { PUBLIC_LENS_JA } from "@/lib/public/labels";
 import {
@@ -39,39 +33,6 @@ export function choosePublicSurface(args: {
 
 export function fixtureIdForQuestion(question: string): string {
   return FIXTURE_QUESTIONS.find((f) => f.question === question)?.id ?? "adhoc";
-}
-
-export async function buildExperimentBSkeletons(
-  question: string,
-): Promise<EvidenceBoundedPerspectiveSkeleton[]> {
-  const fixtureId = fixtureIdForQuestion(question);
-  return Promise.all(
-    people.map(async (person) => {
-      const result = await generateClaimsForQuestion({
-        question,
-        personId: person.id,
-        fixtureId: fixtureId === "adhoc" ? undefined : fixtureId,
-        retrievalMode: "deterministic",
-      });
-      const llm = listProposedClaims(
-        fixtureId === "adhoc"
-          ? { personId: person.id, experimentId: "B" }
-          : {
-              fixtureId,
-              personId: person.id,
-              experimentId: "B",
-              retrievalMode: "deterministic",
-            },
-      ).map((item) => item.claim);
-
-      return buildStagingPerspectiveSkeleton({
-        personId: person.id,
-        question,
-        deterministicClaims: result.claims,
-        llmClaims: llm,
-      });
-    }),
-  );
 }
 
 function paragraphsFromProse(
@@ -163,32 +124,38 @@ function publicObservationShell(question: string): ObservationResult {
   };
 }
 
-async function buildAdhocPublicSkeletons(
+function insufficientSkeletons(
   question: string,
-): Promise<EvidenceBoundedPerspectiveSkeleton[]> {
-  return Promise.all(
-    people.map(async (person) => {
-      const result = await generateClaimsForQuestion({
-        question,
-        personId: person.id,
-        retrievalMode: "deterministic",
-      });
-      return buildValidatorBoundedSkeleton({
-        personId: person.id,
-        question,
-        claims: result.claims,
-      });
-    }),
-  );
+): EvidenceBoundedPerspectiveSkeleton[] {
+  return people.map((person) => ({
+    personId: person.id,
+    personName: person.name,
+    question,
+    availability: "insufficient" as const,
+    sections: {
+      archiveObservation: [],
+      acrossSources: [],
+      connectionToQuestion: [],
+      returnedQuestion: [],
+    },
+    claimIds: [],
+    evidenceIds: [],
+    claims: [],
+    humanReviewed: false,
+  }));
 }
 
+/**
+ * Public Beta observe: freeze JSON only. No Curator review database.
+ * Unknown questions remain silent (insufficient).
+ */
 export async function observePublicBeta(
   question: string,
   mode: PublicPerspectiveMode,
 ): Promise<PublicObservation> {
   const observation = publicObservationShell(question);
   const frozen = lookupFrozenSkeletons(question);
-  const skeletons = frozen ?? (await buildAdhocPublicSkeletons(question));
+  const skeletons = frozen ?? insufficientSkeletons(question);
   const proseByPerson: Record<string, EvidenceBoundedProseOutput | undefined> =
     {};
   let proseErrorFallback = false;

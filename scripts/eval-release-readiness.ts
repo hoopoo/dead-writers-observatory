@@ -54,8 +54,19 @@ async function main() {
   delete process.env.STAGING_MODE_OVERRIDE;
   const observeSrc = readFileSync("src/app/observe/page.tsx", "utf8");
   assert(
-    observeSrc.includes("isStagingModeOverrideEnabled"),
-    "research observe surfaces require staging override",
+    !observeSrc.includes("@/lib/observe"),
+    "public /observe must not import curator research observe",
+  );
+  assert(
+    !observeSrc.includes("better-sqlite3"),
+    "public /observe source must not mention sqlite",
+  );
+  const publicObserveSrc = readFileSync("src/lib/public/observe.ts", "utf8");
+  assert(
+    !/from ["']@\/lib\/(review|claims\/human-eval|claims\/llm\/store|observe|prose)["']/.test(
+      publicObserveSrc,
+    ),
+    "public observe module must not import curator sqlite",
   );
   const productionOk = validateReleaseConfig({
     NODE_ENV: "production",

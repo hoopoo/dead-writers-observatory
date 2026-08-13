@@ -5,7 +5,6 @@ export {
 } from "@/lib/public/mode";
 export {
   observePublicBeta,
-  buildExperimentBSkeletons,
   choosePublicSurface,
 } from "@/lib/public/observe";
 export { buildPublicThreeWriterSummary } from "@/lib/public/summary";

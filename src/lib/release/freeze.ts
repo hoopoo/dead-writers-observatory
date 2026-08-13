@@ -1,6 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFileSync, existsSync } from "node:fs";
-import path from "node:path";
+import freezeArtifact from "@/data/release/approved-public-beta-v0.1.json";
 import type {
   FrozenPublicBetaCase,
   PublicBetaFreezeArtifact,
@@ -8,13 +7,8 @@ import type {
 import type { EvidenceBoundedPerspectiveSkeleton } from "@/types/perspective-claim";
 import type { EvidenceBoundedProseOutput } from "@/types/prose";
 
-export const PUBLIC_BETA_FREEZE_PATH = path.join(
-  process.cwd(),
-  "src",
-  "data",
-  "release",
-  "approved-public-beta-v0.1.json",
-);
+export const PUBLIC_BETA_FREEZE_PATH =
+  "src/data/release/approved-public-beta-v0.1.json";
 
 export const PUBLIC_BETA_VERSION = "0.1.0";
 
@@ -72,22 +66,8 @@ export function validateFreezeArtifact(
   return { ok: issues.length === 0, issues };
 }
 
-let cached: PublicBetaFreezeArtifact | null | undefined;
-
-export function loadPublicBetaFreeze(): PublicBetaFreezeArtifact | null {
-  if (cached !== undefined) return cached;
-  if (!existsSync(PUBLIC_BETA_FREEZE_PATH)) {
-    cached = null;
-    return null;
-  }
-  try {
-    cached = JSON.parse(
-      readFileSync(PUBLIC_BETA_FREEZE_PATH, "utf8"),
-    ) as PublicBetaFreezeArtifact;
-  } catch {
-    cached = null;
-  }
-  return cached;
+export function loadPublicBetaFreeze(): PublicBetaFreezeArtifact {
+  return freezeArtifact as PublicBetaFreezeArtifact;
 }
 
 export function lookupFrozenCase(args: {
@@ -96,7 +76,6 @@ export function lookupFrozenCase(args: {
   fixtureId?: string;
 }): FrozenPublicBetaCase | null {
   const freeze = loadPublicBetaFreeze();
-  if (!freeze) return null;
   const q = normalizeQuestion(args.question);
   return (
     freeze.cases.find((c) => {
@@ -113,7 +92,6 @@ export function lookupFrozenSkeletons(
   question: string,
 ): EvidenceBoundedPerspectiveSkeleton[] | null {
   const freeze = loadPublicBetaFreeze();
-  if (!freeze) return null;
   const q = normalizeQuestion(question);
   const matched = freeze.cases.filter((c) => normalizeQuestion(c.question) === q);
   if (matched.length < 3) return null;
